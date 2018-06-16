@@ -37,6 +37,7 @@ class CheckAuthHandler {
         Thread thread = new Thread(new Runnable(){
             public void run() {
                 try {
+                    checkerforsession = 0;
                     Map<String,String> map=new HashMap<String,String>();
                     map.put("username","admin");
                     map.put("password","angelEAR2");
@@ -53,6 +54,11 @@ class CheckAuthHandler {
         });
 
         thread.start();
+        while(true){
+            if(checkerforsession == 1){
+                break;
+            }
+        }
         Log.w("Checkauthhandler ctor","stopped");
     }
 
@@ -184,7 +190,7 @@ Log.w("rowCount", Integer.toString(cursor.getCount()));
             values.put("IsAdmin", 0);
 
             long newRowId = db.insert(Authtablename, null, values);
-
+            CheckEmailExistsfnflag = 0;
             return false;
         }else{
             while(cursor.moveToNext()) {
