@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Layout;
+import android.util.Log;
 import android.view.View;
 
 
@@ -20,7 +21,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mDbHelper = new DatabaseHelper(this);
         cauth = new CheckAuthHandler(mDbHelper);
 
-
+Log.w("create ","completed");
     }
 
 
@@ -28,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onStart(){
         super.onStart();
-
+Log.w("start","started");
         if(gsin.CheckSignedIn()){
 
             changeContentView(R.layout.loggedin_activity);
@@ -44,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void changeContentView(int layoutname){
+    Log.w("changeContentView","Started");
         cauth.CheckEmailExists(gsin.getEmail());
         if(!cauth.IsFileExists()) {
             setContentView(R.layout.not_authorized);

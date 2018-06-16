@@ -24,7 +24,7 @@ class CheckAuthHandler {
     private static String UserEmailid = null;
     private static int ValidUser=0;
     private static int AdminUser=0;
-    private int CheckEmailExistsfnflag = 0;
+    private int CheckEmailExistsfnflag = 1;
     private final static String Authtablename = "AuthVerification";
 
     CheckAuthHandler(DatabaseHelper mDbHelper){
@@ -53,10 +53,12 @@ class CheckAuthHandler {
         });
 
         thread.start();
+        Log.w("Checkauthhandler ctor","stopped");
     }
 
     public void CheckEmailExists(final String emailid){
-        CheckEmailExistsfnflag = 0;
+        Log.w("CheckEmailExists","Started");
+
         UserEmailid = emailid;
         if(!this.IsFileExists()){
 while(true){
@@ -67,6 +69,8 @@ while(true){
             Thread thread = new Thread(new Runnable(){
                 public void run() {
                     try {
+                        Log.w("CheckEmailExiststhread","Started");
+                        CheckEmailExistsfnflag = 0;
                         cwapi.newConnection("http://www.tutorialspole.com/smartsurvey/authverify.php", "POST");
                         Map<String,String> map=new HashMap<String,String>();
                         map.put("request","getone");
@@ -87,16 +91,17 @@ while(true){
                                     Log.w("getall-response", "as"+jsonArray.getJSONObject(i));
                                     JSONObject jb = new JSONObject(jsonArray.getJSONObject(i).toString());
                                     Log.w("getall-response", "as"+jb.get("IsValid"));
-                                    if(jb.get("IsValid") == "1") {
+                                    if(jb.getInt("IsValid") == 1) {
                                         ValidUser = 1;
                                     }else{
                                         ValidUser = 0;
                                     }
-                                    if(jb.get("IsAdmin") == "1"){
+                                    if(jb.getInt("IsAdmin") == 1){
                                         AdminUser = 1;
                                     }else{
                                         AdminUser = 0;
                                     }
+                                    Log.w("checkemailexists","values"+Integer.toString(ValidUser)+Integer.toString(AdminUser));
                                     updateLocalAuthVerification();
                                     CheckEmailExistsfnflag = 1;
                                 }
@@ -112,13 +117,21 @@ while(true){
 
 
         }
+        while(true){
+            if(CheckEmailExistsfnflag == 1){
+                break;
+            }
+        }
+        Log.w("CheckEmailExists","Completed");
+
     }
 
     private void updateLocalAuthVerification(){
+        Log.w("ulav","started");
         ContentValues values = new ContentValues();
         values.put("IsValid", ValidUser);
         values.put("IsAdmin", AdminUser);
-
+    Log.w("ulav","values"+Integer.toString(ValidUser)+Integer.toString(AdminUser));
         // Which row to update, based on the title
         String selection = "Emailid LIKE ?";
         String[] selectionArgs = { UserEmailid };
@@ -129,10 +142,10 @@ while(true){
                 selection,
                 selectionArgs);
 
-
+Log.w("ulav","completed");
     }
     public boolean IsFileExists(){
-
+    Log.w("IsFileExists","Started");
         while(true){
             if(CheckEmailExistsfnflag == 1){
                 break;
@@ -163,6 +176,7 @@ while(true){
         );
 
 Log.w("rowCount", Integer.toString(cursor.getCount()));
+
         if(cursor.getCount() == 0){
             ContentValues values = new ContentValues();
             values.put("EmailId", UserEmailid);
@@ -171,20 +185,22 @@ Log.w("rowCount", Integer.toString(cursor.getCount()));
 
             long newRowId = db.insert(Authtablename, null, values);
 
-
             return false;
         }else{
-     //       Log.w("rowinvalid" ,Integer.toString(cursor.getInt(cursor.getColumnIndex("IsValid"))));
             while(cursor.moveToNext()) {
-                if(cursor.getString(cursor.getColumnIndexOrThrow("Emailid")) == UserEmailid){
+//                if(cursor.getString(cursor.getColumnIndexOrThrow("Emailid")) == UserEmailid){
                     ValidUser = cursor.getInt(cursor.getColumnIndexOrThrow("IsValid"));
                     AdminUser = cursor.getInt(cursor.getColumnIndexOrThrow("IsAdmin"));
-
-                }
+                    Log.w("rowinvalid" ,Integer.toString(cursor.getInt(cursor.getColumnIndex("IsValid"))));
+  //              }
             }
+            Log.w("IsFileExists","Stoped"+UserEmailid);
             if(ValidUser == 1){
+                Log.w("VAlidUser","true");
                 return true;
             }else{
+                CheckEmailExistsfnflag = 0;
+
                 return false;
             }
 
