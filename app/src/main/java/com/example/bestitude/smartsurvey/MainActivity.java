@@ -32,7 +32,7 @@ Log.w("create ","completed");
 Log.w("start","started");
         if(gsin.CheckSignedIn()){
 
-            changeContentView(R.layout.loggedin_activity);
+            changeContentView();
 
         }else{
             setContentView(R.layout.activity_main);
@@ -44,13 +44,17 @@ Log.w("start","started");
         findViewById(R.id.sign_in_button).setOnClickListener(this);
     }
 
-    public void changeContentView(int layoutname){
+    public void changeContentView(){
     Log.w("changeContentView","Started");
         cauth.CheckEmailExists(gsin.getEmail());
         if(!cauth.IsFileExists()) {
             setContentView(R.layout.not_authorized);
         }else{
-            setContentView(layoutname);
+                 Intent intent = new Intent(this, LoggedinActivity.class);
+                startActivity(intent);
+
+//            setContentView(layoutname);
+
         }
     }
 
@@ -61,7 +65,6 @@ Log.w("start","started");
             case R.id.sign_in_button:
                 startActivityForResult(gsin.googleSignIn(), RC_SIGN_IN);
                 break;
-            // ...
 
         }
     }

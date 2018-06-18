@@ -19,6 +19,9 @@ public class GoogleSignInHandler {
     private static String PersonEmail;
     private static String PersonName;
 
+    GoogleSignInHandler(){
+
+    }
     GoogleSignInHandler(MainActivity ma) {
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()

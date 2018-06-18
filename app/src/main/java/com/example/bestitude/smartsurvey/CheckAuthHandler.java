@@ -27,6 +27,7 @@ class CheckAuthHandler {
     private int CheckEmailExistsfnflag = 1;
     private final static String Authtablename = "AuthVerification";
 
+    CheckAuthHandler(){}
     CheckAuthHandler(DatabaseHelper mDbHelper){
         checkerforsession = 0;
         db = mDbHelper.getWritableDatabase();
