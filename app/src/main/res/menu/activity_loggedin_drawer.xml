@@ -5,10 +5,10 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
+            android:id="@+id/view_surveys"
             android:icon="@drawable/ic_menu_camera"
-            android:title="Import" />
-        <item
+            android:title="View Surveys" />
+        <!--item
             android:id="@+id/nav_gallery"
             android:icon="@drawable/ic_menu_gallery"
             android:title="Gallery" />
@@ -19,19 +19,19 @@
         <item
             android:id="@+id/nav_manage"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:title="Tools" /-->
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="Admin Links">
         <menu>
             <item
-                android:id="@+id/nav_share"
+                android:id="@+id/view_users_menu"
                 android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
+                android:title="View Users" />
             <item
-                android:id="@+id/nav_send"
+                android:id="@+id/view_map_surveys"
                 android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+                android:title="View/Map Surveys" />
         </menu>
     </item>
 

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,13 +14,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ViewFlipper;
 
 public class LoggedinActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
     private GoogleSignInHandler gsin;
     private CheckAuthHandler cauth;
-
+    private ViewFlipper vf;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +50,8 @@ public class LoggedinActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        vf = (ViewFlipper)findViewById(R.id.viewflippers);
     }
 
     @Override
@@ -88,18 +92,27 @@ public class LoggedinActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.view_surveys) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+            setTitle("View Surveys");
+            vf.setDisplayedChild(1);
 
-        } else if (id == R.id.nav_slideshow) {
+//        } else if (id == R.id.nav_gallery) {
 
-        } else if (id == R.id.nav_manage) {
+  //      } else if (id == R.id.nav_slideshow) {
 
-        } else if (id == R.id.nav_share) {
+    //    } else if (id == R.id.nav_manage) {
 
-        } else if (id == R.id.nav_send) {
-
+        } else if (id == R.id.view_users_menu) {
+            if(cauth.getIsAdmin()) {
+                setTitle("View Users");
+                vf.setDisplayedChild(2);
+            }
+        } else if (id == R.id.view_map_surveys) {
+            if(cauth.getIsAdmin()) {
+                setTitle("View/Map Surveys");
+                vf.setDisplayedChild(3);
+            }
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -122,4 +135,14 @@ public class LoggedinActivity extends AppCompatActivity
     }
 
 
+    @Override
+    public void onClick(View v) {
+
+        switch (v.getId()) {
+            case R.id.view_users_menu:
+                Log.w("testing","testing");
+                break;
+
+        }
+    }
 }
