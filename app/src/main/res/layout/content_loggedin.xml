@@ -8,4 +8,5 @@
     tools:context=".LoggedinActivity"
     tools:showIn="@layout/app_bar_loggedin">
 
+
 </android.support.constraint.ConstraintLayout>

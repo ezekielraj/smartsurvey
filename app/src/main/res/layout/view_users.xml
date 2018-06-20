@@ -1,6 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/viewuserslayout"
+        android:layout_width="wrap_content"
+        android:layout_height="325dp"
+        android:visibility="visible"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="104dp">
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="127dp"
+            android:layout_height="82dp"
+            android:layout_marginBottom="176dp"
+            android:text="TextView"
+            android:textColor="#000000"
+            android:textSize="24sp" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="35dp"
+            android:layout_height="367dp"
+            android:layout_marginBottom="62dp"
+            android:layout_marginStart="146dp"
+            android:text="Button" />
+    </LinearLayout>
+
 
 </android.support.constraint.ConstraintLayout>

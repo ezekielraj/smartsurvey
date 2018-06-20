@@ -78,4 +78,11 @@ public class GoogleSignInHandler {
     public String getName(){
         return PersonName;
     }
+
+    public static void googleSignOut(){
+        mGoogleSignInClient.signOut();
+        account = null;
+        PersonEmail = null;
+        PersonName = null;
+    }
 }

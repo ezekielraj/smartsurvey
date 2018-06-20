@@ -22,12 +22,13 @@ public class LoggedinActivity extends AppCompatActivity
     private GoogleSignInHandler gsin;
     private CheckAuthHandler cauth;
     private ViewFlipper vf;
-
+    private ViewUsers vusers;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         gsin = new GoogleSignInHandler();
         cauth = new CheckAuthHandler();
+        vusers = new ViewUsers();
 
         setContentView(R.layout.activity_loggedin);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -95,23 +96,26 @@ public class LoggedinActivity extends AppCompatActivity
         if (id == R.id.view_surveys) {
             // Handle the camera action
             setTitle("View Surveys");
-            vf.setDisplayedChild(1);
+            vf.setDisplayedChild(vf.indexOfChild(findViewById(R.id.cl)));
 
 //        } else if (id == R.id.nav_gallery) {
 
   //      } else if (id == R.id.nav_slideshow) {
 
-    //    } else if (id == R.id.nav_manage) {
-
+        } else if (id == R.id.nav_logout) {
+            gsin.googleSignOut();
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
         } else if (id == R.id.view_users_menu) {
             if(cauth.getIsAdmin()) {
                 setTitle("View Users");
-                vf.setDisplayedChild(2);
+                vf.setDisplayedChild(vf.indexOfChild(findViewById(R.id.vu)));
+                vusers.fetchAllUsers(cauth.getUserEmailid(),cauth.getCookiegotten());
             }
         } else if (id == R.id.view_map_surveys) {
             if(cauth.getIsAdmin()) {
                 setTitle("View/Map Surveys");
-                vf.setDisplayedChild(3);
+                vf.setDisplayedChild(vf.indexOfChild(findViewById(R.id.vms)));
             }
         }
 
@@ -139,7 +143,7 @@ public class LoggedinActivity extends AppCompatActivity
     public void onClick(View v) {
 
         switch (v.getId()) {
-            case R.id.view_users_menu:
+            case R.id.fab:
                 Log.w("testing","testing");
                 break;
 

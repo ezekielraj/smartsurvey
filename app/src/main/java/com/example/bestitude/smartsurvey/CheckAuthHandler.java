@@ -230,6 +230,12 @@ Log.w("rowCount", Integer.toString(cursor.getCount()));
             return false;
         }
     }
+    public String getCookiegotten(){
+        return cookiegotten;
+    }
+    public String getUserEmailid(){
+        return UserEmailid;
+    }
 
 }
 
