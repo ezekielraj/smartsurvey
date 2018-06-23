@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -28,7 +29,7 @@ public class LoggedinActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         gsin = new GoogleSignInHandler();
         cauth = new CheckAuthHandler();
-        vusers = new ViewUsers();
+        vusers = new ViewUsers( this );
 
         setContentView(R.layout.activity_loggedin);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -103,9 +104,13 @@ public class LoggedinActivity extends AppCompatActivity
   //      } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_logout) {
+
             gsin.googleSignOut();
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
+            cauth.Signout();
+            finish();
+   //         Intent intent = new Intent(this, LoggedinActivity.class);
+     //       startActivity(intent);
+            //System.exit(0);
         } else if (id == R.id.view_users_menu) {
             if(cauth.getIsAdmin()) {
                 setTitle("View Users");
@@ -148,5 +153,12 @@ public class LoggedinActivity extends AppCompatActivity
                 break;
 
         }
+        Log.w("onclick listener", Integer.toString(v.getId()));
+    }
+    public LayoutInflater getactivityinflator(){
+        return getLayoutInflater();
+    }
+    public View getactivityview(int id){
+        return findViewById(id);
     }
 }

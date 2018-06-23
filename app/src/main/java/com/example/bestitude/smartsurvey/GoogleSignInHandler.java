@@ -1,6 +1,7 @@
 package com.example.bestitude.smartsurvey;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -8,6 +9,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
 
@@ -18,11 +20,13 @@ public class GoogleSignInHandler {
     private static GoogleSignInAccount account;
     private static String PersonEmail;
     private static String PersonName;
+    private static MainActivity maa;
 
     GoogleSignInHandler(){
 
     }
     GoogleSignInHandler(MainActivity ma) {
+        maa = ma;
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
@@ -80,9 +84,17 @@ public class GoogleSignInHandler {
     }
 
     public static void googleSignOut(){
-        mGoogleSignInClient.signOut();
         account = null;
         PersonEmail = null;
         PersonName = null;
+        mGoogleSignInClient.signOut()
+                .addOnCompleteListener(maa, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        // ...
+                        System.exit(0);
+                    }
+                });
+
     }
 }

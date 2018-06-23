@@ -237,5 +237,11 @@ Log.w("rowCount", Integer.toString(cursor.getCount()));
         return UserEmailid;
     }
 
+    public static void Signout(){
+        cookiegotten = null;
+        UserEmailid = null;
+        ValidUser = 0;
+        AdminUser = 0;
+    }
 }
 

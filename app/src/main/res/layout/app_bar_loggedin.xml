@@ -23,11 +23,22 @@
     <ViewFlipper xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/viewflippers"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        tools:layout_height="wrap_content">
 
-        <include android:id="@+id/cl" layout="@layout/content_loggedin" />
-        <include android:id="@+id/vu" layout="@layout/view_users" />
-        <include android:id="@+id/vms" layout="@layout/viewmapsurveys" />
+        <include
+            android:id="@+id/cl"
+            layout="@layout/content_loggedin" />
+
+
+        <include
+            android:id="@+id/vu"
+            layout="@layout/view_users" />
+
+
+        <include
+            android:id="@+id/vms"
+            layout="@layout/viewmapsurveys" />
 
     </ViewFlipper>
 
