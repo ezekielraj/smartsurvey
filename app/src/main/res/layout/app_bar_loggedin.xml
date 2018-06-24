@@ -19,7 +19,9 @@
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </android.support.design.widget.AppBarLayout>
-
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
     <ViewFlipper xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/viewflippers"
         android:layout_width="fill_parent"
@@ -35,12 +37,18 @@
             android:id="@+id/vu"
             layout="@layout/view_users" />
 
-
+        <include
+            android:id="@+id/vuadd"
+            layout="@layout/view_users_add" />
+        <include
+            android:id="@+id/vuedit"
+            layout="@layout/view_users_edit" />
         <include
             android:id="@+id/vms"
             layout="@layout/viewmapsurveys" />
 
     </ViewFlipper>
+    </ScrollView>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

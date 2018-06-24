@@ -3,6 +3,8 @@ package com.example.bestitude.smartsurvey;
 import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.util.TypedValue;
@@ -21,15 +23,23 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 import android.view.View;
+import android.widget.ViewFlipper;
 
 public class ViewUsers extends AsyncTask<String, String, String> {
 
 
     private static ConnectwithAPI cwapi;
     public static LoggedinActivity liactivity;
+    private static ViewFlipper vf;
+    private static ViewUsersAdd vua;
+    private static ViewUsersEdit vue;
+    private static String cookie = "";
     ViewUsers(){ }
     ViewUsers(LoggedinActivity lia){
         liactivity = lia;
+        vf =  (ViewFlipper) liactivity.getVf();
+        vua = new ViewUsersAdd(liactivity);
+        vue = new ViewUsersEdit(liactivity);
         cwapi = new ConnectwithAPI("http://www.tutorialspole.com/smartsurvey/authverify.php","POST");
     }
 
@@ -79,10 +89,10 @@ public class ViewUsers extends AsyncTask<String, String, String> {
 
 
     public void fetchAllUsers(final String userEmailid, final String cookiegotton){
-
+        cookie = cookiegotton;
         new ViewUsers().execute(userEmailid, cookiegotton);
 
-        doInBackground(userEmailid,cookiegotton);
+//        doInBackground(userEmailid,cookiegotton);
     }
 
     private void updateLayoutContent(String Response){
@@ -112,13 +122,15 @@ public class ViewUsers extends AsyncTask<String, String, String> {
                      //   Log.w("vusers layout id", Integer.toString(dynamicContent.getChildCount()));
                         TextView viewer = (TextView) liactivity.getactivityview(R.id.commontextview);
                         viewer.setId(100+i);
-                        viewer.setText(jb.getString("Email") + "-" +
+                        viewer.setText(Integer.toString(jb.getInt("Slno"))+"-"+
+                                jb.getString("Email") + "-" +
                                 Integer.toString(jb.getInt("IsValid")) + "-" +
                                 Integer.toString(jb.getInt("IsAdmin")));
                         viewer.setOnClickListener(new View.OnClickListener() {
                             public void onClick(View v) {
                                 TextView tv = (TextView) liactivity.getactivityview(v.getId());
-
+                                vf.setDisplayedChild(vf.indexOfChild(liactivity.getactivityview(R.id.vuedit)));
+                                vue.configListener(tv.getText().toString());
                                 Log.w("click for id",tv.getText().toString());
                             }
                         });
@@ -129,6 +141,21 @@ public class ViewUsers extends AsyncTask<String, String, String> {
             e.printStackTrace();
         }
 
+    }
+
+    public void updateFloatingbutton(){
+        vf =  (ViewFlipper) liactivity.getVf();
+        FloatingActionButton fab = (FloatingActionButton) liactivity.getactivityview(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                vf.setDisplayedChild(vf.indexOfChild(liactivity.getactivityview(R.id.vuadd)));
+                vua.configListener();
+            }
+        });
+    }
+    public static String getCookie(){
+        return cookie;
     }
 
 }

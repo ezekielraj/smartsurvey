@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="60dp"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".LoggedinActivity"
+    tools:showIn="@layout/app_bar_loggedin">
+
+    <TableLayout
+        android:id="@+id/view_users_add_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:context=".LoggedinActivity"
+        tools:showIn="@layout/view_users_add">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:id="@+id/emailname"
+                android:layout_width="129dp"
+                android:layout_height="match_parent"
+                android:text="Email ID:" />
+
+            <EditText
+                android:id="@+id/emailaddreditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textEmailAddress"
+                android:text="" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Switch
+                android:id="@+id/isvalid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Is Valid" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <Switch
+                android:id="@+id/isadmin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Is Admin" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <Button
+                android:id="@+id/vuadduser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add User" />
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:id="@+id/status_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Status: " />
+        </TableRow>
+    </TableLayout>
+
+</android.support.constraint.ConstraintLayout>

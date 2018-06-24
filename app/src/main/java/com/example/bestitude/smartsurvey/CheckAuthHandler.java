@@ -238,7 +238,7 @@ Log.w("rowCount", Integer.toString(cursor.getCount()));
     }
 
     public static void Signout(){
-        cookiegotten = null;
+        //cookiegotten = null;
         UserEmailid = null;
         ValidUser = 0;
         AdminUser = 0;

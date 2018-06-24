@@ -1,9 +1,11 @@
 package com.example.bestitude.smartsurvey;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,18 +26,19 @@ public class LoggedinActivity extends AppCompatActivity
     private CheckAuthHandler cauth;
     private ViewFlipper vf;
     private ViewUsers vusers;
+    private ViewMapSurveys vmsurveys;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         gsin = new GoogleSignInHandler();
         cauth = new CheckAuthHandler();
         vusers = new ViewUsers( this );
+        vmsurveys = new ViewMapSurveys(this);
 
         setContentView(R.layout.activity_loggedin);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+/*        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -43,7 +46,7 @@ public class LoggedinActivity extends AppCompatActivity
                         .setAction("Action", null).show();
             }
         });
-
+*/
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -115,12 +118,14 @@ public class LoggedinActivity extends AppCompatActivity
             if(cauth.getIsAdmin()) {
                 setTitle("View Users");
                 vf.setDisplayedChild(vf.indexOfChild(findViewById(R.id.vu)));
+                vusers.updateFloatingbutton();
                 vusers.fetchAllUsers(cauth.getUserEmailid(),cauth.getCookiegotten());
             }
         } else if (id == R.id.view_map_surveys) {
             if(cauth.getIsAdmin()) {
                 setTitle("View/Map Surveys");
                 vf.setDisplayedChild(vf.indexOfChild(findViewById(R.id.vms)));
+                vmsurveys.updateFloatingbutton();
             }
         }
 
@@ -161,4 +166,11 @@ public class LoggedinActivity extends AppCompatActivity
     public View getactivityview(int id){
         return findViewById(id);
     }
+
+
+
+    public ViewFlipper getVf(){
+        return vf;
+    }
+
 }
