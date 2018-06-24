@@ -29,6 +29,9 @@
         tools:layout_height="wrap_content">
 
         <include
+            android:id="@+id/vstake"
+            layout="@layout/surveytake" />
+        <include
             android:id="@+id/cl"
             layout="@layout/content_loggedin" />
 
@@ -46,6 +49,7 @@
         <include
             android:id="@+id/vms"
             layout="@layout/viewmapsurveys" />
+
 
     </ViewFlipper>
     </ScrollView>

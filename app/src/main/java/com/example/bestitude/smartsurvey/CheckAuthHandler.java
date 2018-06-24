@@ -21,6 +21,7 @@ class CheckAuthHandler {
     private int checkerforsession = 0;
     private static String cookiegotten;
     private static SQLiteDatabase db;
+
     private static String UserEmailid = null;
     private static int ValidUser=0;
     private static int AdminUser=0;
@@ -98,6 +99,7 @@ while(true){
                                     Log.w("getall-response", "as"+jsonArray.getJSONObject(i));
                                     JSONObject jb = new JSONObject(jsonArray.getJSONObject(i).toString());
                                     Log.w("getall-response", "as"+jb.get("IsValid"));
+
                                     if(jb.getInt("IsValid") == 1) {
                                         ValidUser = 1;
                                     }else{

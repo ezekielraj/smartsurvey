@@ -26,6 +26,7 @@ public class LoggedinActivity extends AppCompatActivity
     private CheckAuthHandler cauth;
     private ViewFlipper vf;
     private ViewUsers vusers;
+    private ViewSurveys vsurveys;
     private ViewMapSurveys vmsurveys;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +34,7 @@ public class LoggedinActivity extends AppCompatActivity
         gsin = new GoogleSignInHandler();
         cauth = new CheckAuthHandler();
         vusers = new ViewUsers( this );
+        vsurveys = new ViewSurveys(this);
         vmsurveys = new ViewMapSurveys(this);
 
         setContentView(R.layout.activity_loggedin);
@@ -101,7 +103,10 @@ public class LoggedinActivity extends AppCompatActivity
             // Handle the camera action
             setTitle("View Surveys");
             vf.setDisplayedChild(vf.indexOfChild(findViewById(R.id.cl)));
-
+            if(cauth.getIsAdmin()) {
+                vsurveys.updateFloatingbutton();
+            }
+            vsurveys.fetchAllSurveys(cauth.getIsAdmin(), cauth.getUserEmailid() , cauth.getCookiegotten());
 //        } else if (id == R.id.nav_gallery) {
 
   //      } else if (id == R.id.nav_slideshow) {
@@ -143,6 +148,13 @@ public class LoggedinActivity extends AppCompatActivity
             if(!cauth.getIsValid()){
                 Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
+            }else{
+                setTitle("View Surveys");
+                vf.setDisplayedChild(vf.indexOfChild(findViewById(R.id.cl)));
+                if(cauth.getIsAdmin()) {
+                    vsurveys.updateFloatingbutton();
+                }
+                vsurveys.fetchAllSurveys(cauth.getIsAdmin(), cauth.getUserEmailid() , cauth.getCookiegotten());
             }
         }
 
