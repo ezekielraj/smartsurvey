@@ -2,6 +2,8 @@ package com.example.bestitude.smartsurvey;
 
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -10,12 +12,14 @@ public class TakeSurvey extends AsyncTask<String, String, String> {
 
     private static LoggedinActivity liactivity;
     private static CheckAuthHandler cauth;
-    private static TakeSurvey takeSurvey;
+//    private static TakeSurvey takeSurvey;
+    private static UpdateSurvey updateSurvey;
     private static ConnectwithAPI cwapi;
     TakeSurvey(){ }
     TakeSurvey(LoggedinActivity lia){
         liactivity = lia;
-        takeSurvey = new TakeSurvey();
+  //      takeSurvey = new TakeSurvey();
+        updateSurvey = new UpdateSurvey(liactivity);
         cauth =  new CheckAuthHandler();
         cwapi = new ConnectwithAPI("http://www.tutorialspole.com/smartsurvey/takesurvey.php","POST");
     }
@@ -66,5 +70,15 @@ public class TakeSurvey extends AsyncTask<String, String, String> {
     public void CheckDBExists(String s){
         String data[] = s.split("-");
         new TakeSurvey().execute("createtable",cauth.getUserEmailid(), data[0]);
+    }
+    public void configListener(String s){
+        Button btsaverepeat = (Button) liactivity.getactivityview(R.id.saverepeat);
+        btsaverepeat.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v){
+                if(updateSurvey.ValidateData()){
+                    Log.w("takesurvey","success");
+                }
+            }
+        });
     }
 }

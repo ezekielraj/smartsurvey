@@ -128,7 +128,7 @@ public class ViewSurveys extends AsyncTask<String, String, String> {
                                 vf.setDisplayedChild(vf.indexOfChild(liactivity.getactivityview(R.id.vstake)));
                                 liactivity.setTitle("Rural Diabetes - Mass Survey");
                                 takeSurvey.CheckDBExists(tv.getText().toString());
-                                //vue.configListener(tv.getText().toString());
+                                takeSurvey.configListener(tv.getText().toString());
                                 Log.w("click for id",tv.getText().toString());
                             }
                         });
