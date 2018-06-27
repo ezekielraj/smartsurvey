@@ -438,13 +438,9 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/customborder"
                 android:gravity="top|left"
-                android:inputType="textMultiLine"
-                android:lines="6"
                 android:overScrollMode="always"
                 android:scrollHorizontally="false"
-                android:scrollbarStyle="insideInset"
                 android:scrollbars="vertical"
-                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:visibility="invisible"/>
 
         </TableRow>

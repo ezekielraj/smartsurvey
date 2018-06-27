@@ -76,7 +76,9 @@ public class TakeSurvey extends AsyncTask<String, String, String> {
         btsaverepeat.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v){
                 if(updateSurvey.ValidateData()){
-                    Log.w("takesurvey","success");
+                    if(updateSurvey.ValidateTextData()) {
+                        Log.w("takesurvey", "success");
+                    }
                 }
             }
         });
