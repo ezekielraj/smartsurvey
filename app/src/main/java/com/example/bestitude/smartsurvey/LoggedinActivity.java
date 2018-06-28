@@ -17,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ScrollView;
 import android.widget.ViewFlipper;
 
 public class LoggedinActivity extends AppCompatActivity
@@ -28,6 +29,7 @@ public class LoggedinActivity extends AppCompatActivity
     private ViewUsers vusers;
     private ViewSurveys vsurveys;
     private ViewMapSurveys vmsurveys;
+    private static ScrollView mainScrollView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +61,7 @@ public class LoggedinActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         vf = (ViewFlipper)findViewById(R.id.viewflippers);
+        mainScrollView = (ScrollView)findViewById(R.id.groupscrollview);
     }
 
     @Override
@@ -103,6 +106,7 @@ public class LoggedinActivity extends AppCompatActivity
             // Handle the camera action
             setTitle("View Surveys");
             vf.setDisplayedChild(vf.indexOfChild(findViewById(R.id.cl)));
+            keepScrollup();
             if(cauth.getIsAdmin()) {
                 vsurveys.updateFloatingbutton();
             }
@@ -123,6 +127,7 @@ public class LoggedinActivity extends AppCompatActivity
             if(cauth.getIsAdmin()) {
                 setTitle("View Users");
                 vf.setDisplayedChild(vf.indexOfChild(findViewById(R.id.vu)));
+                keepScrollup();
                 vusers.updateFloatingbutton();
                 vusers.fetchAllUsers(cauth.getUserEmailid(),cauth.getCookiegotten());
             }
@@ -130,6 +135,7 @@ public class LoggedinActivity extends AppCompatActivity
             if(cauth.getIsAdmin()) {
                 setTitle("View/Map Surveys");
                 vf.setDisplayedChild(vf.indexOfChild(findViewById(R.id.vms)));
+                keepScrollup();
                 vmsurveys.updateFloatingbutton();
             }
         }
@@ -183,6 +189,11 @@ public class LoggedinActivity extends AppCompatActivity
 
     public ViewFlipper getVf(){
         return vf;
+    }
+
+
+    public void keepScrollup(){
+        mainScrollView.fullScroll(ScrollView.FOCUS_UP);
     }
 
 }

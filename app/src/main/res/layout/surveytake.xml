@@ -313,6 +313,17 @@
                 android:text="Uses domestic insecticides at home" />
 
         </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <CheckBox
+                android:id="@+id/usesreverseosmosiswaterfordrinking"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Uses Reverse Osmosis water for drinking" />
+
+        </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
@@ -418,7 +429,7 @@
                 android:text="Save and Repeat" />
 
         </TableRow>
-        <TableRow
+        <!--TableRow
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <Button
@@ -427,7 +438,7 @@
                 android:layout_height="wrap_content"
                 android:text="Save" />
 
-        </TableRow>
+        </TableRow-->
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="wrap_content">

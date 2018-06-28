@@ -20,6 +20,7 @@
 
     </android.support.design.widget.AppBarLayout>
     <ScrollView
+        android:id="@+id/groupscrollview"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
     <ViewFlipper xmlns:android="http://schemas.android.com/apk/res/android"
@@ -28,9 +29,11 @@
         android:layout_height="wrap_content"
         tools:layout_height="wrap_content">
 
+
         <include
-            android:id="@+id/vstake"
-            layout="@layout/surveytake" />
+            android:id="@+id/vsadd"
+            layout="@layout/surveyadd" />
+
         <include
             android:id="@+id/cl"
             layout="@layout/content_loggedin" />
@@ -50,6 +53,9 @@
             android:id="@+id/vms"
             layout="@layout/viewmapsurveys" />
 
+        <include
+            android:id="@+id/vstake"
+            layout="@layout/surveytake" />
 
     </ViewFlipper>
     </ScrollView>

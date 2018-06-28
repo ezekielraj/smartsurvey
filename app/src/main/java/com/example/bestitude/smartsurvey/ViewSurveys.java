@@ -5,6 +5,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
@@ -21,6 +22,7 @@ public class ViewSurveys extends AsyncTask<String, String, String> {
     public static LoggedinActivity liactivity;
     private static ViewFlipper vf;
     private static TakeSurvey takeSurvey;
+    private static AddSurvey addSurvey;
     //private static ViewUsersEdit vue;
     private static String cookie = "";
 
@@ -30,6 +32,7 @@ public class ViewSurveys extends AsyncTask<String, String, String> {
         vf =  (ViewFlipper) liactivity.getVf();
         takeSurvey = new TakeSurvey(liactivity);
         cwapi = new ConnectwithAPI("http://www.tutorialspole.com/smartsurvey/surveyif.php","POST");
+        addSurvey = new AddSurvey(liactivity);
     }
 
     @Override
@@ -148,8 +151,8 @@ public class ViewSurveys extends AsyncTask<String, String, String> {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-  //              vf.setDisplayedChild(vf.indexOfChild(liactivity.getactivityview(R.id.vuadd)));
-    //            vua.configListener();
+                vf.setDisplayedChild(vf.indexOfChild(liactivity.getactivityview(R.id.vsadd)));
+                addSurvey.configListener();
             }
         });
     }

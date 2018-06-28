@@ -72,13 +72,14 @@ public class TakeSurvey extends AsyncTask<String, String, String> {
         new TakeSurvey().execute("createtable",cauth.getUserEmailid(), data[0]);
     }
     public void configListener(String s){
+        final String value = s;
         Button btsaverepeat = (Button) liactivity.getactivityview(R.id.saverepeat);
         btsaverepeat.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v){
                 if(updateSurvey.ValidateData()){
-                    if(updateSurvey.ValidateTextData()) {
+                        updateSurvey.sendData(value);
                         Log.w("takesurvey", "success");
-                    }
+
                 }
             }
         });
