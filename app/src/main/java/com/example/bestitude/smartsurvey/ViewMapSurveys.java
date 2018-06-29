@@ -22,13 +22,14 @@ public class ViewMapSurveys extends AsyncTask<String, String, String> {
     private static ViewFlipper vf;
     //private static ViewUsersEdit vue;
     private static String cookie = "";
+    private static ViewMapUsersSurvyes vmus;
 
     ViewMapSurveys(){ }
     ViewMapSurveys(LoggedinActivity lia){
         liactivity = lia;
         vf =  (ViewFlipper) liactivity.getVf();
         cwapi = new ConnectwithAPI("http://www.tutorialspole.com/smartsurvey/surveyif.php","POST");
-
+        vmus = new ViewMapUsersSurvyes(liactivity);
     }
 
 
@@ -119,18 +120,18 @@ public class ViewMapSurveys extends AsyncTask<String, String, String> {
                                 jb.getString("locality") + "-" +
                                 jb.getString("state") + "-" +
                                 jb.getString("EndDate"));
-/*                        viewer.setOnClickListener(new View.OnClickListener() {
+                        viewer.setOnClickListener(new View.OnClickListener() {
                             public void onClick(View v) {
                                 TextView tv = (TextView) liactivity.getactivityview(v.getId());
 
-                                vf.setDisplayedChild(vf.indexOfChild(liactivity.getactivityview(R.id.vstake)));
-                                liactivity.setTitle("Rural Diabetes - Mass Survey");
-                                takeSurvey.CheckDBExists(tv.getText().toString());
-                                takeSurvey.configListener(tv.getText().toString());
+                                vf.setDisplayedChild(vf.indexOfChild(liactivity.getactivityview(R.id.mapusers)));
+                                vmus.getUsersDetails(tv.getText().toString());
+                                //takeSurvey.CheckDBExists(tv.getText().toString());
+                                //takeSurvey.configListener(tv.getText().toString());
                                 Log.w("click for id",tv.getText().toString());
                             }
                         });
-  */                  }
+                    }
                 }
             }
         }catch(Exception e){

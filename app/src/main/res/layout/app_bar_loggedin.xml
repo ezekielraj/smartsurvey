@@ -29,6 +29,10 @@
         android:layout_height="wrap_content"
         tools:layout_height="wrap_content">
 
+        <include
+            android:id="@+id/mapusers"
+            layout="@layout/vmumapusers" />
+
 
         <include
             android:id="@+id/vsadd"
