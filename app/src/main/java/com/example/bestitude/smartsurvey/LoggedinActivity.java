@@ -137,6 +137,7 @@ public class LoggedinActivity extends AppCompatActivity
                 vf.setDisplayedChild(vf.indexOfChild(findViewById(R.id.vms)));
                 keepScrollup();
                 vmsurveys.updateFloatingbutton();
+                vmsurveys.fetchAllSurveys(cauth.getIsAdmin(), cauth.getUserEmailid() , cauth.getCookiegotten());
             }
         }
 
