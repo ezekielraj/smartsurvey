@@ -120,18 +120,52 @@ public class ViewUsers extends AsyncTask<String, String, String> {
 // add the inflated View to the layout
                         dynamicContent.addView(wizardView);
                      //   Log.w("vusers layout id", Integer.toString(dynamicContent.getChildCount()));
-                        TextView viewer = (TextView) liactivity.getactivityview(R.id.commontextview);
-                        viewer.setId(100+i);
-                        viewer.setText(Integer.toString(jb.getInt("Slno"))+"-"+
+                        //TextView viewer = (TextView) liactivity.getactivityview(R.id.commontextview);
+
+                        TextView viewer = (TextView) liactivity.getactivityview(R.id.useridtext);
+                        TextView viewer1 = (TextView) liactivity.getactivityview(R.id.emailaddridtext);
+                        TextView viewer2 = (TextView) liactivity.getactivityview(R.id.isvalididtext);
+                        TextView viewer3 = (TextView) liactivity.getactivityview(R.id.isadminidtext);
+                        TextView viewer4 = (TextView) liactivity.getactivityview(R.id.vusubmitbuttonidtext);
+
+                        viewer.setId(View.generateViewId());
+                        viewer1.setId(View.generateViewId());
+                        viewer2.setId(View.generateViewId());
+                        viewer3.setId(View.generateViewId());
+                        viewer4.setId(View.generateViewId());
+
+
+
+//                        viewer.setId(100+i);
+  /*                      viewer.setText(Integer.toString(jb.getInt("Slno"))+"-"+
                                 jb.getString("Email") + "-" +
                                 Integer.toString(jb.getInt("IsValid")) + "-" +
                                 Integer.toString(jb.getInt("IsAdmin")));
-                        viewer.setOnClickListener(new View.OnClickListener() {
+    */
+                        viewer.setText(Integer.toString(jb.getInt("Slno")));
+                        viewer1.setText(jb.getString("Email"));
+                        viewer2.setText(jb.getString("IsValid"));
+                        viewer3.setText(jb.getString("IsAdmin"));
+
+                        viewer4.setOnClickListener(new View.OnClickListener() {
                             public void onClick(View v) {
-                                TextView tv = (TextView) liactivity.getactivityview(v.getId());
+                                String completetext = "";
+
+                                TextView tv = (TextView) liactivity.getactivityview((v.getId() - 4));
+                                TextView tv1 = (TextView) liactivity.getactivityview((v.getId() - 3));
+                                TextView tv2 = (TextView) liactivity.getactivityview((v.getId() - 2));
+                                TextView tv3 = (TextView) liactivity.getactivityview((v.getId() - 1));
+
+                                completetext = tv.getText().toString() + "-" +
+                                        tv1.getText().toString() + "-" +
+                                        tv2.getText().toString() + "-" +
+                                        tv3.getText().toString();
+
+//                                        TextView tv = (TextView) liactivity.getactivityview(v.getId());
                                 vf.setDisplayedChild(vf.indexOfChild(liactivity.getactivityview(R.id.vuedit)));
-                                vue.configListener(tv.getText().toString());
-                                Log.w("click for id",tv.getText().toString());
+                                liactivity.keepScrollup();
+                                vue.configListener(completetext);
+                                Log.w("click for id",completetext);
                             }
                         });
                     }
@@ -150,6 +184,7 @@ public class ViewUsers extends AsyncTask<String, String, String> {
             @Override
             public void onClick(View view) {
                 vf.setDisplayedChild(vf.indexOfChild(liactivity.getactivityview(R.id.vuadd)));
+                liactivity.keepScrollup();
                 vua.configListener();
             }
         });

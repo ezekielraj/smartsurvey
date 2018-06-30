@@ -158,6 +158,7 @@ public class LoggedinActivity extends AppCompatActivity
             }else{
                 setTitle("View Surveys");
                 vf.setDisplayedChild(vf.indexOfChild(findViewById(R.id.cl)));
+                keepScrollup();
                 if(cauth.getIsAdmin()) {
                     vsurveys.updateFloatingbutton();
                 }

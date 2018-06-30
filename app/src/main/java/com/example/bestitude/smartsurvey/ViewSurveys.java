@@ -112,27 +112,60 @@ public class ViewSurveys extends AsyncTask<String, String, String> {
 // assuming your Wizard content is in content_wizard.xml
 
                         View wizardView = liactivity.getactivityinflator()
-                                .inflate(R.layout.viewusers_include, dynamicContent, false);
+                                .inflate(R.layout.viewsurveys_include, dynamicContent, false);
 
 // add the inflated View to the layout
                         dynamicContent.addView(wizardView);
                         //   Log.w("vusers layout id", Integer.toString(dynamicContent.getChildCount()));
-                        TextView viewer = (TextView) liactivity.getactivityview(R.id.commontextview);
-                        viewer.setId(10000+i);
-                        viewer.setText(Integer.toString(jb.getInt("survey_id"))+"-"+
+              //          TextView viewer = (TextView) liactivity.getactivityview(R.id.commontextview);
+                        TextView viewer = (TextView) liactivity.getactivityview(R.id.surveyidtext);
+                        TextView viewer1 = (TextView) liactivity.getactivityview(R.id.districtidtext);
+                        TextView viewer2 = (TextView) liactivity.getactivityview(R.id.localityidtext);
+                        TextView viewer3 = (TextView) liactivity.getactivityview(R.id.stateidtext);
+                        TextView viewer4 = (TextView) liactivity.getactivityview(R.id.enddateidtext);
+                        TextView viewer5 = (TextView) liactivity.getactivityview(R.id.submitbuttonidtext);
+                        //int surveyidvid = ;
+                        viewer.setId(View.generateViewId());
+                        viewer1.setId(View.generateViewId());
+                        viewer2.setId(View.generateViewId());
+                        viewer3.setId(View.generateViewId());
+                        viewer4.setId(View.generateViewId());
+                        viewer5.setId(View.generateViewId());
+/*                        viewer.setText(Integer.toString(jb.getInt("survey_id"))+"-"+
                                 jb.getString("district") + "-" +
                                 jb.getString("locality") + "-" +
                                 jb.getString("state") + "-" +
                                 jb.getString("EndDate"));
-                        viewer.setOnClickListener(new View.OnClickListener() {
+  */
+                        viewer.setText(Integer.toString(jb.getInt("survey_id")));
+                        viewer1.setText(jb.getString("district"));
+                        viewer2.setText(jb.getString("locality"));
+                        viewer3.setText(jb.getString("state"));
+                        viewer4.setText(jb.getString("EndDate"));
+
+
+                        viewer5.setOnClickListener(new View.OnClickListener() {
                             public void onClick(View v) {
-                                TextView tv = (TextView) liactivity.getactivityview(v.getId());
+                               String completetext = "";
+
+                                TextView tv = (TextView) liactivity.getactivityview((v.getId() - 5));
+                                TextView tv1 = (TextView) liactivity.getactivityview((v.getId() - 4));
+                                TextView tv2 = (TextView) liactivity.getactivityview((v.getId() - 3));
+                                TextView tv3 = (TextView) liactivity.getactivityview((v.getId() - 2));
+                                TextView tv4 = (TextView) liactivity.getactivityview((v.getId() - 1));
+
+                                completetext = tv.getText().toString() + "-" +
+                                        tv1.getText().toString() + "-" +
+                                        tv2.getText().toString() + "-" +
+                                        tv3.getText().toString() + "-" +
+                                        tv4.getText().toString();
 
                                 vf.setDisplayedChild(vf.indexOfChild(liactivity.getactivityview(R.id.vstake)));
+                                liactivity.keepScrollup();
                                 liactivity.setTitle("Rural Diabetes - Mass Survey");
-                                takeSurvey.CheckDBExists(tv.getText().toString());
-                                takeSurvey.configListener(tv.getText().toString());
-                                Log.w("click for id",tv.getText().toString());
+                                takeSurvey.CheckDBExists(completetext);
+                                takeSurvey.configListener(completetext);
+                                Log.w("click for id",completetext);
                             }
                         });
                     }
@@ -152,6 +185,7 @@ public class ViewSurveys extends AsyncTask<String, String, String> {
             @Override
             public void onClick(View view) {
                 vf.setDisplayedChild(vf.indexOfChild(liactivity.getactivityview(R.id.vsadd)));
+                liactivity.keepScrollup();
                 addSurvey.configListener();
             }
         });
