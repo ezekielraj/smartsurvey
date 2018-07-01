@@ -1,5 +1,8 @@
 package com.example.bestitude.smartsurvey;
 
+import android.content.ContentValues;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
@@ -23,8 +26,11 @@ public class ViewSurveys extends AsyncTask<String, String, String> {
     private static ViewFlipper vf;
     private static TakeSurvey takeSurvey;
     private static AddSurvey addSurvey;
+    private static LDatabaseHelper mlDbHelper;
     //private static ViewUsersEdit vue;
     private static String cookie = "";
+    private static SQLiteDatabase ldb;
+    private final static String Surveytablename = "Survey";
 
     ViewSurveys(){ }
     ViewSurveys(LoggedinActivity lia){
@@ -33,6 +39,8 @@ public class ViewSurveys extends AsyncTask<String, String, String> {
         takeSurvey = new TakeSurvey(liactivity);
         cwapi = new ConnectwithAPI("http://www.tutorialspole.com/smartsurvey/surveyif.php","POST");
         addSurvey = new AddSurvey(liactivity);
+        mlDbHelper = new LDatabaseHelper(liactivity);
+        ldb = mlDbHelper.getWritableDatabase();
     }
 
     @Override
@@ -81,15 +89,100 @@ public class ViewSurveys extends AsyncTask<String, String, String> {
         //Show the result obtained from doInBackground
         Log.w("vsonpostexecute", s);
         updateLayoutContent(s);
+        updateLocalSurvey(s);
     }
+
+
 
 
     public void fetchAllSurveys(Boolean IsAdmin, String UserEmailId, String cookiestring){
         cookie = cookiestring;
-        new ViewSurveys().execute(Boolean.toString(IsAdmin), UserEmailId, cookie);
-
+        if(liactivity.isOnline()) {
+            new ViewSurveys().execute(Boolean.toString(IsAdmin), UserEmailId, cookie);
+        }else{
+            Log.w("checker testing",UserEmailId + cookiestring);
+        }
     }
 
+    private void updateLocalSurvey(String Response){
+        Log.w("uls","started");
+        try {
+
+            String[] projection = {
+                    "slno",
+                    "District",
+                    "Locality",
+                    "State",
+                    "EndDate"
+            };
+            // Filter results WHERE "title" = 'My Title'
+            String selection = "slno = ?";
+
+
+            JSONArray jsonArray = new JSONArray(Response);
+            if (jsonArray != null && jsonArray.length() > 0) {
+                int N = jsonArray.length(); // total number of textviews to add
+
+                for (int i = 0; i < jsonArray.length(); i++) {
+
+                    Log.w("view surveys -response", "as" + jsonArray.getJSONObject(i));
+                    JSONObject jb = new JSONObject(jsonArray.getJSONObject(i).toString());
+                    String[] selectionArgs = { Integer.toString(jb.getInt("survey_id")) };
+
+                    String sortOrder =
+                            "slno DESC";
+
+                    Cursor cursor = ldb.query(
+                            Surveytablename,   // The table to query
+                            projection,             // The array of columns to return (pass null to get all)
+                            selection,              // The columns for the WHERE clause
+                            selectionArgs,          // The values for the WHERE clause
+                            null,                   // don't group the rows
+                            null,                   // don't filter by row groups
+                            sortOrder               // The sort order
+                    );
+                    Log.w("vs rowCount", Integer.toString(cursor.getCount()));
+
+                    if(cursor.getCount() == 0) {
+                        ContentValues values = new ContentValues();
+                        values.put("slno", Integer.toString(jb.getInt("survey_id")));
+                        values.put("District", jb.getString("district"));
+                        values.put("Locality", jb.getString("locality"));
+                        values.put("State", jb.getString("state"));
+                        values.put("EndDate", jb.getString("EndDate"));
+
+                        long newRowId = ldb.insert(Surveytablename, null, values);
+
+                    }else {
+
+                        ContentValues values = new ContentValues();
+                        values.put("District", jb.getString("district"));
+                        values.put("Locality", jb.getString("locality"));
+                        values.put("State", jb.getString("state"));
+                        values.put("EndDate", jb.getString("EndDate"));
+
+                        int count = ldb.update(
+                                Surveytablename,
+                                values,
+                                selection,
+                                selectionArgs);
+
+                        Log.w("ulav","completed");
+
+
+
+                    }
+                }
+            }
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+
+
+
+    }
 
     private void updateLayoutContent(String Response){
 
