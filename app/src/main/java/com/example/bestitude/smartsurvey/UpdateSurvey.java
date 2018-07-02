@@ -171,6 +171,10 @@ public class UpdateSurvey extends AsyncTask<String, String, String> {
             values.put("other_diseases", od);
             ldber.insert(TableName, null, values);
 
+            ClearData();
+            Toast.makeText(liactivity,
+                    "Data Saved Locally! please Sync online Later", Toast.LENGTH_SHORT).show();
+
             Cursor cursor = ldber.query(
                     TableName,   // The table to query
                     null,             // The array of columns to return (pass null to get all)

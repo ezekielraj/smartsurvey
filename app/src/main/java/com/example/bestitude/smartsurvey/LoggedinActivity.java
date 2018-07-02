@@ -31,6 +31,7 @@ public class LoggedinActivity extends AppCompatActivity
     private ViewSurveys vsurveys;
     private ViewMapSurveys vmsurveys;
     private static ScrollView mainScrollView;
+  //  private static SyncSurvey syncSurvey;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +40,7 @@ public class LoggedinActivity extends AppCompatActivity
         vusers = new ViewUsers( this );
         vsurveys = new ViewSurveys(this);
         vmsurveys = new ViewMapSurveys(this);
+    //    syncSurvey = new SyncSurvey(this);
 
         setContentView(R.layout.activity_loggedin);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -114,8 +116,9 @@ public class LoggedinActivity extends AppCompatActivity
             vsurveys.fetchAllSurveys(cauth.getIsAdmin(), cauth.getUserEmailid() , cauth.getCookiegotten());
 //        } else if (id == R.id.nav_gallery) {
 
-  //      } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_synconline) {
 
+            vsurveys.syncAll();
         } else if (id == R.id.nav_logout) {
 
             gsin.googleSignOut();

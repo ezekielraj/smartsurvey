@@ -82,17 +82,17 @@ public class TakeSurvey extends AsyncTask<String, String, String> {
         setTableName(cauth.getUserEmailid(), data[0]);
         if(liactivity.isOnline()) {
             new TakeSurvey().execute("createtable", cauth.getUserEmailid(), data[0]);
-       // }else{
+        }//else{
             Log.w("Email", cauth.getUserEmailid()+data[0]);
             checkLocalDBExists(cauth.getUserEmailid(), data[0]);
-        }
+        //}
     }
     private void checkLocalDBExists(String Email, String data){
         String emid[] = Email.replaceAll("\\."  ,  "_").split("@");
 
 Log.w("text", emid[0]+emid[1]);
         String sce = "CREATE TABLE IF NOT EXISTS " + emid[0] + "_" + emid[1] + "_" + data + " ( " +
-                "id INTEGER PRIMARY KEY," +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "name VARCHAR(255)," +
                 "sex VARCHAR(255)," +
                 "age VARCHAR(255)," +

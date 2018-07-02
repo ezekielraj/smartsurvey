@@ -31,7 +31,7 @@ public class ViewSurveys extends AsyncTask<String, String, String> {
     private static String cookie = "";
     private static SQLiteDatabase ldb;
     private final static String Surveytablename = "Survey";
-
+    private static SyncSurvey syncSurvey;
     ViewSurveys(){ }
     ViewSurveys(LoggedinActivity lia){
         liactivity = lia;
@@ -43,6 +43,7 @@ public class ViewSurveys extends AsyncTask<String, String, String> {
         mlDbHelper = new LDatabaseHelper(liactivity);
         ldb = mlDbHelper.getWritableDatabase();
         takeSurvey = new TakeSurvey(liactivity, ldb);
+        syncSurvey = new SyncSurvey(liactivity, ldb);
     }
 
     @Override
@@ -342,5 +343,9 @@ public class ViewSurveys extends AsyncTask<String, String, String> {
     }
     public static String getCookie(){
         return cookie;
+    }
+
+    public void syncAll(){
+        syncSurvey.syncAll();
     }
 }
