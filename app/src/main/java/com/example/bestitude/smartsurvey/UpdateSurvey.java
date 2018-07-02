@@ -1,5 +1,8 @@
 package com.example.bestitude.smartsurvey;
 
+import android.content.ContentValues;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
@@ -37,10 +40,12 @@ public class UpdateSurvey extends AsyncTask<String, String, String> {
     private static String ht;
     private static String od;
     private static ConnectwithAPI cwapi;
+    private static SQLiteDatabase ldber;
 
     UpdateSurvey(){ }
-    UpdateSurvey(LoggedinActivity lia){
+    UpdateSurvey(LoggedinActivity lia, SQLiteDatabase ldb){
         liactivity = lia;
+        ldber = ldb;
         cauth =  new CheckAuthHandler();
         cwapi = new ConnectwithAPI("http://www.tutorialspole.com/smartsurvey/takesurvey.php","POST");
     }
@@ -56,7 +61,7 @@ public class UpdateSurvey extends AsyncTask<String, String, String> {
         publishProgress ("Processing");
         String request = arg[0];
         String emailId = arg[1];
-        String edata[] = emailId.split("@");
+        String edata[] = emailId.replaceAll("\\."  ,  "_").split("@");
         String surveyid = arg[2];
 
         try{
@@ -139,10 +144,45 @@ public class UpdateSurvey extends AsyncTask<String, String, String> {
     }
 
 
-    public Boolean sendData(String s){
+    public Boolean sendData(String s, String TableName){
 
         String data[] = s.split("-");
-        new UpdateSurvey().execute("insertdata",cauth.getUserEmailid(), data[0]);
+        if(liactivity.isOnline()) {
+            new UpdateSurvey().execute("insertdata", cauth.getUserEmailid(), data[0]);
+        }else{
+            Log.w("Tablename",TableName);
+            ContentValues values = new ContentValues();
+            values.put("name", Entryname);
+            values.put("sex", Entrysex);
+            values.put("age", Entryage);
+            values.put("agegroup", Entryagegroup);
+            values.put("alcohol", Boolean.toString(Entryhabitalcohol));
+            values.put("smooking", Boolean.toString(Entryhabitsmoking));
+            values.put("tobacco_chewing", Boolean.toString(Entryhabittobacco));
+            values.put("farming", Entryformingchoice);
+            values.put("pesticide_applicator", Boolean.toString(pa));
+            values.put("mixing_and_handlin_of_pesticide", Boolean.toString(mahp));
+            values.put("working_pesticide_sprayed_field", Boolean.toString(wippf));
+            values.put("working_in_pesticide_shop", Boolean.toString(wis));
+            values.put("use_of_insect_repellents_at_home", Boolean.toString(udiah));
+            values.put("use_of_reverse_osmosis_water_for_drinking", Boolean.toString(urowd));
+            values.put("diabetes", dv);
+            values.put("hypertension", ht);
+            values.put("other_diseases", od);
+            ldber.insert(TableName, null, values);
+
+            Cursor cursor = ldber.query(
+                    TableName,   // The table to query
+                    null,             // The array of columns to return (pass null to get all)
+                    null,              // The columns for the WHERE clause
+                    null,          // The values for the WHERE clause
+                    null,                   // don't group the rows
+                    null,                   // don't filter by row groups
+                    null               // The sort order
+            );
+//            cursor.getCount();
+            Log.w("rowCount", Integer.toString(cursor.getCount()));
+        }
         return true;
     }
 

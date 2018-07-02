@@ -35,12 +35,14 @@ public class ViewSurveys extends AsyncTask<String, String, String> {
     ViewSurveys(){ }
     ViewSurveys(LoggedinActivity lia){
         liactivity = lia;
+
         vf =  (ViewFlipper) liactivity.getVf();
-        takeSurvey = new TakeSurvey(liactivity);
+
         cwapi = new ConnectwithAPI("http://www.tutorialspole.com/smartsurvey/surveyif.php","POST");
         addSurvey = new AddSurvey(liactivity);
         mlDbHelper = new LDatabaseHelper(liactivity);
         ldb = mlDbHelper.getWritableDatabase();
+        takeSurvey = new TakeSurvey(liactivity, ldb);
     }
 
     @Override
@@ -101,6 +103,61 @@ public class ViewSurveys extends AsyncTask<String, String, String> {
             new ViewSurveys().execute(Boolean.toString(IsAdmin), UserEmailId, cookie);
         }else{
             Log.w("checker testing",UserEmailId + cookiestring);
+            updateLayoutContentoffline();
+        }
+    }
+
+    private void updateLayoutContentoffline(){
+        Log.w("uLCo","Started");
+        try{
+            String[] projection = {
+                    "slno",
+                    "District",
+                    "Locality",
+                    "State",
+                    "EndDate"
+            };
+
+            String sortOrder =
+                    "slno DESC";
+
+            Cursor cursor = ldb.query(
+                    Surveytablename,   // The table to query
+                    projection,             // The array of columns to return (pass null to get all)
+                    null,              // The columns for the WHERE clause
+                    null,          // The values for the WHERE clause
+                    null,                   // don't group the rows
+                    null,                   // don't filter by row groups
+                    null//sortOrder               // The sort order
+            );
+            Log.w("vs rowCount", Integer.toString(cursor.getCount()));
+
+            if(cursor.getCount() != 0){
+                String Response = "[";
+                while(cursor.moveToNext()) {
+                Response = Response + "{\"survey_id\":\"" +
+                        cursor.getString(cursor.getColumnIndexOrThrow("slno")) +
+                        "\",\"district\":\"" +
+                        cursor.getString(cursor.getColumnIndexOrThrow("District")) +
+                        "\",\"locality\":\"" +
+                        cursor.getString(cursor.getColumnIndexOrThrow("Locality")) +
+                        "\",\"state\":\"" +
+                        cursor.getString(cursor.getColumnIndexOrThrow("State")) +
+                        "\",\"EndDate\":\"" +
+                        cursor.getString(cursor.getColumnIndexOrThrow("EndDate")) +
+                        "\"},";
+                    //ValidUser = cursor.getInt(cursor.getColumnIndexOrThrow("IsValid"));
+                    //AdminUser = cursor.getInt(cursor.getColumnIndexOrThrow("IsAdmin"));
+                    //Log.w("rowinvalid" ,Response);//cursor.getString(cursor.getColumnIndex("District")));
+
+                }
+                Response = Response.substring(0, Response.length() - 1);
+                Response = Response + "]";
+                updateLayoutContent(Response);
+            }
+        }catch(Exception e)
+        {
+            e.printStackTrace();
         }
     }
 
