@@ -13,7 +13,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.Base64;
+import android.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -310,8 +310,8 @@ public class UpdateSurvey extends AsyncTask<String, String, String> {
     //        sformstatus.append("Please update Other Diseases\n");
   //          i++;
         }else{
-            Base64.Encoder encoder = Base64.getEncoder();
-             setOtherDiseases(encoder.encodeToString(odiseases.getBytes()));
+//            Base64.Encoder encoder = Base64.getEncoder();
+             setOtherDiseases(Base64.encodeToString(odiseases.getBytes(),Base64.DEFAULT));//encoder.encodeToString(odiseases.getBytes()));
         }
 
         //   Toast.makeText(liactivity,
