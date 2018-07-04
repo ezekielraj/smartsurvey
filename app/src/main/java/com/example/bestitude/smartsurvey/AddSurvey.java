@@ -51,12 +51,15 @@ public class AddSurvey extends AsyncTask<String, String, String> {
             cwapi.doConnect(map, cauth.getCookiegotten());
             String Response = cwapi.getResponse();
             Log.w("vuadd ", "as"+Response);
+            liactivity.saveString("vuadd: "+Response);
+
             if(Response.equals("true")) {
                 return "true";
             }
 
 
         }catch(Exception e){
+            liactivity.saveException(e);
             e.printStackTrace();
         }
 
@@ -72,6 +75,7 @@ public class AddSurvey extends AsyncTask<String, String, String> {
     protected void onPostExecute(String s) {
         //Show the result obtained from doInBackground
         Log.w("onpostexecute", s);
+        liactivity.saveString("onpostexecute"+ s);
         if(s.equals("true")){
             ClearData();
             Toast.makeText(liactivity,

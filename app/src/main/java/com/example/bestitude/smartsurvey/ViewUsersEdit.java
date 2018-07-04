@@ -76,6 +76,7 @@ if(slno.equals("delete")){
             return "true";
 
         } catch (Exception e) {
+            liactivity.saveException(e);
             e.printStackTrace();
         }
 

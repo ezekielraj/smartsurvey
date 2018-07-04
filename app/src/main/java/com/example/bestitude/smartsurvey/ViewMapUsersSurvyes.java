@@ -59,6 +59,7 @@ public class ViewMapUsersSurvyes extends AsyncTask<String, String, String> {
             Log.w("vmus fetchallsurveys", "as"+Response);
 
         } catch (Exception e) {
+            liactivity.saveException(e);
             e.printStackTrace();
         }
             return "";
@@ -137,6 +138,7 @@ public class ViewMapUsersSurvyes extends AsyncTask<String, String, String> {
                 }
             }
         }catch(Exception e){
+            liactivity.saveException(e);
             e.printStackTrace();
         }
 

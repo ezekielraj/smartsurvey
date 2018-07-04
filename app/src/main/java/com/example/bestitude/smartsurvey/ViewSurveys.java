@@ -76,6 +76,7 @@ public class ViewSurveys extends AsyncTask<String, String, String> {
             return Response;
 
         } catch (Exception e) {
+            liactivity.saveException(e);
             e.printStackTrace();
         }
 
@@ -103,6 +104,7 @@ public class ViewSurveys extends AsyncTask<String, String, String> {
         if(liactivity.isOnline()) {
             new ViewSurveys().execute(Boolean.toString(IsAdmin), UserEmailId, cookie);
         }else{
+            liactivity.saveString("checker testing"+UserEmailId + cookiestring);
             Log.w("checker testing",UserEmailId + cookiestring);
             updateLayoutContentoffline();
         }
@@ -158,6 +160,7 @@ public class ViewSurveys extends AsyncTask<String, String, String> {
             }
         }catch(Exception e)
         {
+            liactivity.saveException(e);
             e.printStackTrace();
         }
     }
@@ -165,6 +168,7 @@ public class ViewSurveys extends AsyncTask<String, String, String> {
     private void updateLocalSurvey(String Response){
         Log.w("uls","started");
         try {
+            ldb.execSQL("delete from "+ Surveytablename);
 
             String[] projection = {
                     "slno",
@@ -234,6 +238,7 @@ public class ViewSurveys extends AsyncTask<String, String, String> {
             }
 
         }catch(Exception e){
+            liactivity.saveException(e);
             e.printStackTrace();
         }
 
@@ -323,6 +328,7 @@ public class ViewSurveys extends AsyncTask<String, String, String> {
                 }
             }
         }catch(Exception e){
+            liactivity.saveException(e);
             e.printStackTrace();
         }
 

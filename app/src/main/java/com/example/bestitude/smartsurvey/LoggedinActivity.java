@@ -19,6 +19,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ScrollView;
+import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 public class LoggedinActivity extends AppCompatActivity
@@ -31,6 +33,7 @@ public class LoggedinActivity extends AppCompatActivity
     private ViewSurveys vsurveys;
     private ViewMapSurveys vmsurveys;
     private static ScrollView mainScrollView;
+    private static LoggingSupport ls;
   //  private static SyncSurvey syncSurvey;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +44,7 @@ public class LoggedinActivity extends AppCompatActivity
         vsurveys = new ViewSurveys(this);
         vmsurveys = new ViewMapSurveys(this);
     //    syncSurvey = new SyncSurvey(this);
-
+        ls = new LoggingSupport(this);
         setContentView(R.layout.activity_loggedin);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -111,19 +114,28 @@ public class LoggedinActivity extends AppCompatActivity
             vf.setDisplayedChild(vf.indexOfChild(findViewById(R.id.cl)));
             keepScrollup();
             if(cauth.getIsAdmin()) {
+                findViewById(R.id.fab).setVisibility(View.VISIBLE);
                 vsurveys.updateFloatingbutton();
             }
             vsurveys.fetchAllSurveys(cauth.getIsAdmin(), cauth.getUserEmailid() , cauth.getCookiegotten());
 //        } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_synconline) {
+            if(isOnline()) {
+                vsurveys.syncAll();
+            }else{
+                Toast.makeText(this,
+                        "Phone is offline!!! Not Synced", Toast.LENGTH_SHORT).show();
 
-            vsurveys.syncAll();
+            }
         } else if (id == R.id.nav_logout) {
 
             gsin.googleSignOut();
             cauth.Signout();
             finish();
+            this.finishActivity(0);
+            
+            //finishAndRemoveTask();
    //         Intent intent = new Intent(this, LoggedinActivity.class);
      //       startActivity(intent);
             //System.exit(0);
@@ -132,6 +144,7 @@ public class LoggedinActivity extends AppCompatActivity
                 setTitle("View Users");
                 vf.setDisplayedChild(vf.indexOfChild(findViewById(R.id.vu)));
                 keepScrollup();
+                findViewById(R.id.fab).setVisibility(View.VISIBLE);
                 vusers.updateFloatingbutton();
                 vusers.fetchAllUsers(cauth.getUserEmailid(),cauth.getCookiegotten());
             }
@@ -140,6 +153,7 @@ public class LoggedinActivity extends AppCompatActivity
                 setTitle("View/Map Surveys");
                 vf.setDisplayedChild(vf.indexOfChild(findViewById(R.id.vms)));
                 keepScrollup();
+                findViewById(R.id.fab).setVisibility(View.VISIBLE);
                 vmsurveys.updateFloatingbutton();
                 vmsurveys.fetchAllSurveys(cauth.getIsAdmin(), cauth.getUserEmailid() , cauth.getCookiegotten());
             }
@@ -160,13 +174,20 @@ public class LoggedinActivity extends AppCompatActivity
                 Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
             }else{
-                setTitle("View Surveys");
-                vf.setDisplayedChild(vf.indexOfChild(findViewById(R.id.cl)));
-                keepScrollup();
-                if(cauth.getIsAdmin()) {
-                    vsurveys.updateFloatingbutton();
+                setTitle("Smart Survey");
+                vf.setDisplayedChild(vf.indexOfChild(findViewById(R.id.sshome)));
+                TextView tv = (TextView) findViewById(R.id.sshomeonlinestatus);
+                if(isOnline()) {
+                    tv.setText("Mode: Online");
+                }else{
+                    tv.setText("Mode Offline");
                 }
-                vsurveys.fetchAllSurveys(cauth.getIsAdmin(), cauth.getUserEmailid() , cauth.getCookiegotten());
+                keepScrollup();
+                findViewById(R.id.fab).setVisibility(View.INVISIBLE);
+//                if(cauth.getIsAdmin()) {
+  //                  vsurveys.updateFloatingbutton();
+    //            }
+      //          vsurveys.fetchAllSurveys(cauth.getIsAdmin(), cauth.getUserEmailid() , cauth.getCookiegotten());
             }
         }
 
@@ -183,6 +204,7 @@ public class LoggedinActivity extends AppCompatActivity
 
         }
         Log.w("onclick listener", Integer.toString(v.getId()));
+        this.saveString("onclick listener"+Integer.toString(v.getId()));
     }
     public LayoutInflater getactivityinflator(){
         return getLayoutInflater();
@@ -214,4 +236,9 @@ public class LoggedinActivity extends AppCompatActivity
             return false;
         }
     }
+
+    public void saveException(Exception e){
+        ls.WriteExcepData(e);
+    }
+    public void saveString(String s){ ls.writeStringData(s); }
 }

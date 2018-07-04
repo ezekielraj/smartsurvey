@@ -92,6 +92,7 @@ public class UpdateSurvey extends AsyncTask<String, String, String> {
 
             return "Updated";
         }catch(Exception e){
+            liactivity.saveException(e);
             e.printStackTrace();
         }
 
@@ -149,8 +150,8 @@ public class UpdateSurvey extends AsyncTask<String, String, String> {
         String data[] = s.split("-");
         if(liactivity.isOnline()) {
             new UpdateSurvey().execute("insertdata", cauth.getUserEmailid(), data[0]);
-        }else{
-            Log.w("Tablename",TableName);
+        }else {
+            Log.w("Tablename", TableName);
             ContentValues values = new ContentValues();
             values.put("name", Entryname);
             values.put("sex", Entrysex);
@@ -169,23 +170,30 @@ public class UpdateSurvey extends AsyncTask<String, String, String> {
             values.put("diabetes", dv);
             values.put("hypertension", ht);
             values.put("other_diseases", od);
-            ldber.insert(TableName, null, values);
+            if (ldber != null) {
+                ldber.insert(TableName, null, values);
 
-            ClearData();
-            Toast.makeText(liactivity,
-                    "Data Saved Locally! please Sync online Later", Toast.LENGTH_SHORT).show();
+                ClearData();
+                Toast.makeText(liactivity,
+                        "Data Saved Locally! please Sync online Later", Toast.LENGTH_SHORT).show();
 
-            Cursor cursor = ldber.query(
-                    TableName,   // The table to query
-                    null,             // The array of columns to return (pass null to get all)
-                    null,              // The columns for the WHERE clause
-                    null,          // The values for the WHERE clause
-                    null,                   // don't group the rows
-                    null,                   // don't filter by row groups
-                    null               // The sort order
-            );
+                Cursor cursor = ldber.query(
+                        TableName,   // The table to query
+                        null,             // The array of columns to return (pass null to get all)
+                        null,              // The columns for the WHERE clause
+                        null,          // The values for the WHERE clause
+                        null,                   // don't group the rows
+                        null,                   // don't filter by row groups
+                        null               // The sort order
+                );
 //            cursor.getCount();
-            Log.w("rowCount", Integer.toString(cursor.getCount()));
+                Log.w("rowCount", Integer.toString(cursor.getCount()));
+
+            }else{
+                Toast.makeText(liactivity,
+                        "Some Issue with DB!! Please Logout and login with online mode", Toast.LENGTH_SHORT).show();
+
+            }
         }
         return true;
     }

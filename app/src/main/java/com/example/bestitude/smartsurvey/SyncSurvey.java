@@ -86,6 +86,7 @@ public class SyncSurvey extends AsyncTask<String, String, String> {
             return "true";
 
         }catch(Exception e){
+            liactivity.saveException(e);
             e.printStackTrace();
         }
 

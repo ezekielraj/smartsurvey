@@ -68,6 +68,7 @@ public class ViewUsers extends AsyncTask<String, String, String> {
             return Response;
 
         } catch (Exception e) {
+            liactivity.saveException(e);
             e.printStackTrace();
         }
 
@@ -172,6 +173,7 @@ public class ViewUsers extends AsyncTask<String, String, String> {
                 }
             }
         }catch(Exception e){
+            liactivity.saveException(e);
             e.printStackTrace();
         }
 

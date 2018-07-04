@@ -74,6 +74,7 @@ public class vmusMapSubmit extends AsyncTask<String, String, String> {
 Log.w("test result", Response);
 
         } catch (Exception e) {
+            liactivity.saveException(e);
            e.printStackTrace();
         }
             return "";
