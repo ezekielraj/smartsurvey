@@ -2,6 +2,7 @@ package com.example.bestitude.smartsurvey;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -183,8 +184,10 @@ public class LoggedinActivity extends AppCompatActivity
                 TextView tv = (TextView) findViewById(R.id.sshomeonlinestatus);
                 if(isOnline()) {
                     tv.setText("Mode: Online");
+                    tv.setTextColor(Color.parseColor("#29DE04"));
                 }else{
                     tv.setText("Mode Offline");
+                    tv.setTextColor(Color.parseColor("#85A181"));
                 }
                 keepScrollup();
                 findViewById(R.id.fab).setVisibility(View.INVISIBLE);

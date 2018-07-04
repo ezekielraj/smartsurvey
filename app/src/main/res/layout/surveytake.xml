@@ -426,7 +426,9 @@
                 android:id="@+id/saverepeat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Save and Repeat" />
+                android:text="Save and Repeat"
+                android:textColor="#FFFFFF"
+                android:background="@drawable/buttonshape" />
 
         </TableRow>
         <!--TableRow
