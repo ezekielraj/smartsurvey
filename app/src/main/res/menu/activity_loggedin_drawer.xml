@@ -23,7 +23,8 @@
 
     </group>
 
-    <item android:title="Admin Links">
+    <item android:title="Admin Links"
+        android:id="@+id/admin_links_hiding">
         <menu>
             <item
                 android:id="@+id/view_users_menu"

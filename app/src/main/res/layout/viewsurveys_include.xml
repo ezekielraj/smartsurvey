@@ -13,7 +13,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Survey ID:"
-            android:textSize="24sp">
+            android:textSize="20sp">
 
         </TextView>
 
@@ -21,7 +21,7 @@
             android:id="@+id/surveyidtext"
             android:layout_width="match_parent"
             android:text=""
-            android:textSize="24sp">
+            android:textSize="20sp">
 
         </TextView>
 
@@ -34,7 +34,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="District:"
-            android:textSize="24sp">
+            android:textSize="20sp">
 
         </TextView>
 
@@ -42,7 +42,7 @@
             android:id="@+id/districtidtext"
             android:layout_width="match_parent"
             android:text=""
-            android:textSize="24sp">
+            android:textSize="20sp">
 
         </TextView>
 
@@ -55,7 +55,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Locality:"
-            android:textSize="24sp">
+            android:textSize="20sp">
 
         </TextView>
 
@@ -63,7 +63,7 @@
             android:id="@+id/localityidtext"
             android:layout_width="match_parent"
             android:text=""
-            android:textSize="24sp">
+            android:textSize="20sp">
 
         </TextView>
 
@@ -76,7 +76,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="State:"
-            android:textSize="24sp">
+            android:textSize="20sp">
 
         </TextView>
 
@@ -84,7 +84,7 @@
             android:id="@+id/stateidtext"
             android:layout_width="match_parent"
             android:text=""
-            android:textSize="24sp">
+            android:textSize="20sp">
 
         </TextView>
 
@@ -97,7 +97,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="End Date:"
-            android:textSize="24sp">
+            android:textSize="20sp">
 
         </TextView>
 
@@ -105,7 +105,7 @@
             android:id="@+id/enddateidtext"
             android:layout_width="match_parent"
             android:text=""
-            android:textSize="24sp">
+            android:textSize="20sp">
 
         </TextView>
 
@@ -118,7 +118,7 @@
             android:id="@+id/submitbuttonidtext"
             android:layout_height="wrap_content"
             android:text="Take Survey"
-            android:textSize="24sp"/>
+            android:textSize="20sp"/>
     </TableRow>
 </TableLayout>
 
@@ -128,4 +128,4 @@
     android:layout_width="277dp"
     android:layout_height="wrap_content"
     android:text="TextView1"
-    android:textSize="24sp" /-->
+    android:textSize="20sp" /-->

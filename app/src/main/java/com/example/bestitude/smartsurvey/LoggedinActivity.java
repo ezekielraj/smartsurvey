@@ -9,6 +9,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -34,6 +35,7 @@ public class LoggedinActivity extends AppCompatActivity
     private ViewMapSurveys vmsurveys;
     private static ScrollView mainScrollView;
     private static LoggingSupport ls;
+    private MenuItem menuItem;
   //  private static SyncSurvey syncSurvey;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +86,8 @@ public class LoggedinActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.loggedin, menu);
+
+
         return true;
     }
 
@@ -134,7 +138,7 @@ public class LoggedinActivity extends AppCompatActivity
             cauth.Signout();
             finish();
             this.finishActivity(0);
-            
+
             //finishAndRemoveTask();
    //         Intent intent = new Intent(this, LoggedinActivity.class);
      //       startActivity(intent);
@@ -184,6 +188,12 @@ public class LoggedinActivity extends AppCompatActivity
                 }
                 keepScrollup();
                 findViewById(R.id.fab).setVisibility(View.INVISIBLE);
+                if(!cauth.getIsAdmin()){
+                    NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+                    Menu nav_Menu = navigationView.getMenu();
+                    nav_Menu.findItem(R.id.admin_links_hiding).setVisible(false);
+                }
+
 //                if(cauth.getIsAdmin()) {
   //                  vsurveys.updateFloatingbutton();
     //            }
