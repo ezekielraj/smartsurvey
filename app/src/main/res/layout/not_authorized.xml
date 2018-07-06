@@ -5,6 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <RelativeLayout
+        android:id="@+id/loginLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="0dp">
+
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
@@ -17,16 +24,19 @@
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="81dp" />
 
-    <Button
-        android:id="@+id/na_lo_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"
-        android:text="Logout"
-        android:textSize="20sp"
-        tools:layout_editor_absoluteX="141dp"
-        tools:layout_editor_absoluteY="255dp" />
+        <Button
+            android:id="@+id/na_lo_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="181dp"
+            android:gravity="center"
+            android:text="Logout"
+            android:textSize="20sp"
+            tools:layout_editor_absoluteX="141dp"
+            tools:layout_editor_absoluteY="255dp" />
 
+    </RelativeLayout>
+    
 </android.support.constraint.ConstraintLayout>
