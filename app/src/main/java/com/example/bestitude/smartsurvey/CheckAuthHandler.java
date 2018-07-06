@@ -1,8 +1,10 @@
 package com.example.bestitude.smartsurvey;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.ConnectivityManager;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -27,12 +29,13 @@ class CheckAuthHandler {
     private static int AdminUser=0;
     private int CheckEmailExistsfnflag = 1;
     private final static String Authtablename = "AuthVerification";
+    private GoogleSignInHandler gsin;
 
     CheckAuthHandler(){}
     CheckAuthHandler(DatabaseHelper mDbHelper){
         checkerforsession = 0;
         db = mDbHelper.getWritableDatabase();
-
+        gsin = new GoogleSignInHandler();
 
         cwapi = new ConnectwithAPI("http://www.tutorialspole.com/smartsurvey/login.php","POST");
 
@@ -68,7 +71,7 @@ class CheckAuthHandler {
         Log.w("CheckEmailExists","Started");
 
         UserEmailid = emailid;
-        if(!this.IsFileExists()){
+        if(gsin.isOnline()){
 while(true){
     if(checkerforsession == 1){
         break;
@@ -111,6 +114,7 @@ while(true){
                                         AdminUser = 0;
                                     }
                                     Log.w("checkemailexists","values"+Integer.toString(ValidUser)+Integer.toString(AdminUser));
+                                   // IsFileExists();
                                     updateLocalAuthVerification();
                                     CheckEmailExistsfnflag = 1;
                                 }
@@ -136,14 +140,48 @@ while(true){
     }
 
     private void updateLocalAuthVerification(){
+
+        String[] projection = {
+                "id",
+                "Emailid",
+                "IsValid",
+                "IsAdmin"
+        };
+
+        // Filter results WHERE "title" = 'My Title'
+        String selection = "Emailid = ?";
+        String[] selectionArgs = { UserEmailid };
+
+        String sortOrder =
+                "Emailid DESC";
+
+        Cursor cursor = db.query(
+                Authtablename,   // The table to query
+                projection,             // The array of columns to return (pass null to get all)
+                selection,              // The columns for the WHERE clause
+                selectionArgs,          // The values for the WHERE clause
+                null,                   // don't group the rows
+                null,                   // don't filter by row groups
+                sortOrder               // The sort order
+        );
+
+        if(cursor.getCount() == 0) {
+            ContentValues values1 = new ContentValues();
+            values1.put("EmailId", UserEmailid);
+            values1.put("IsValid", 0);
+            values1.put("IsAdmin", 0);
+
+            long newRowId = db.insert(Authtablename, null, values1);
+        }
+
         Log.w("ulav","started");
         ContentValues values = new ContentValues();
         values.put("IsValid", ValidUser);
         values.put("IsAdmin", AdminUser);
     Log.w("ulav","values"+Integer.toString(ValidUser)+Integer.toString(AdminUser));
         // Which row to update, based on the title
-        String selection = "Emailid LIKE ?";
-        String[] selectionArgs = { UserEmailid };
+       // String selection = "Emailid LIKE ?";
+       // String[] selectionArgs = { UserEmailid };
 
         int count = db.update(
                 Authtablename,
@@ -245,5 +283,7 @@ Log.w("rowCount", Integer.toString(cursor.getCount()));
         ValidUser = 0;
         AdminUser = 0;
     }
+
+
 }
 

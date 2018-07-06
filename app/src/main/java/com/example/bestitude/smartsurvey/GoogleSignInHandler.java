@@ -1,6 +1,8 @@
 package com.example.bestitude.smartsurvey;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
@@ -92,9 +94,24 @@ public class GoogleSignInHandler {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         // ...
-                        System.exit(0);
+                    //    System.exit(0);
                     }
                 });
 
     }
+
+
+    public boolean isOnline()
+    {
+        try
+        {
+            ConnectivityManager cm = (ConnectivityManager) maa.getSystemService(Context.CONNECTIVITY_SERVICE);
+            return cm.getActiveNetworkInfo().isConnectedOrConnecting();
+        }
+        catch (Exception e)
+        {
+            return false;
+        }
+    }
+
 }

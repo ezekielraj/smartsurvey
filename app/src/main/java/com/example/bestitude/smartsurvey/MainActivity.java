@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.text.Layout;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -49,6 +51,17 @@ Log.w("start","started");
         cauth.CheckEmailExists(gsin.getEmail());
         if(!cauth.IsFileExists()) {
             setContentView(R.layout.not_authorized);
+            Button bt = (Button) findViewById(R.id.na_lo_button);
+            bt.setOnClickListener(new View.OnClickListener(){
+                public void onClick(View v){
+                    gsin.googleSignOut();
+                    setContentView(R.layout.activity_main);
+                    configureClickListener();
+                }
+            });
+            //setContentView(R.layout.activity_main);
+            //TextView tv = (TextView) findViewById(R.id.authmessage);
+            //tv.setText("Your Are Not Authorized");
         }else{
                  Intent intent = new Intent(this, LoggedinActivity.class);
                 startActivity(intent);
@@ -66,6 +79,9 @@ Log.w("start","started");
                 startActivityForResult(gsin.googleSignIn(), RC_SIGN_IN);
                 break;
 
+            case R.id.na_lo_button:
+                setContentView(R.layout.activity_main);
+                break;
         }
     }
 
