@@ -69,6 +69,11 @@ public class LoggedinActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        View headerView = navigationView.getHeaderView(0);
+        TextView navUsername = (TextView) headerView.findViewById(R.id.textViewemailaddr);
+        navUsername.setText(cauth.getUserEmailid());
+
+
         vf = (ViewFlipper)findViewById(R.id.viewflippers);
         mainScrollView = (ScrollView)findViewById(R.id.groupscrollview);
     }
@@ -179,7 +184,7 @@ public class LoggedinActivity extends AppCompatActivity
                 Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
             }else{
-                setTitle("Smart Survey");
+                setTitle("Rural Diabetes Survey");
                 vf.setDisplayedChild(vf.indexOfChild(findViewById(R.id.sshome)));
                 TextView tv = (TextView) findViewById(R.id.sshomeonlinestatus);
                 if(isOnline()) {
@@ -195,6 +200,7 @@ public class LoggedinActivity extends AppCompatActivity
                     NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
                     Menu nav_Menu = navigationView.getMenu();
                     nav_Menu.findItem(R.id.admin_links_hiding).setVisible(false);
+
                 }
 
 //                if(cauth.getIsAdmin()) {
