@@ -78,8 +78,11 @@ public class ViewMapSurveys extends AsyncTask<String, String, String> {
     @Override
     protected void onPostExecute(String s) {
         //Show the result obtained from doInBackground
-        Log.w("vsonpostexecute", s);
-        updateLayoutContent(s);
+if(!s.equals(null)) {
+    Log.w("vsonpostexecute", s);
+
+    updateLayoutContent(s);
+}
     }
 
     public void fetchAllSurveys(Boolean IsAdmin, String UserEmailId, String cookiestring){

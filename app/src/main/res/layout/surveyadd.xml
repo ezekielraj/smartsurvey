@@ -31,6 +31,57 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="Village*" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/village"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="50"
+                android:hint="Village"
+                android:inputType="textPersonName"
+                android:text="" />
+
+
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Sub-district*" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/subdistrict"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="50"
+                android:hint="Sub-district"
+                android:inputType="textPersonName"
+                android:text="" />
+
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:text="District" />
         </TableRow>
 
@@ -57,7 +108,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Locality" />
+                android:text="Zone*" />
         </TableRow>
 
         <TableRow
@@ -65,11 +116,11 @@
             android:layout_height="wrap_content">
 
             <EditText
-                android:id="@+id/localityname"
+                android:id="@+id/zone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="50"
-                android:hint="Locality"
+                android:hint="Zone"
                 android:inputType="textPersonName"
                 android:text="" />
 
@@ -83,7 +134,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="State" />
+                android:text="Pincode*" />
         </TableRow>
 
         <TableRow
@@ -91,16 +142,463 @@
             android:layout_height="wrap_content">
 
             <EditText
-                android:id="@+id/statename"
+                android:id="@+id/pincode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="50"
-                android:hint="State"
+                android:hint="Pincode"
                 android:inputType="textPersonName"
                 android:text="" />
 
 
         </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Population*" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/population"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="50"
+                android:hint="Population"
+                android:inputType="textPersonName"
+                android:text="" />
+
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Crops being cultivated*" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/cropsbeingcultivated"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/customborder"
+                android:gravity="top|left"
+                android:inputType="textMultiLine"
+                android:lines="3"
+                android:overScrollMode="always"
+                android:scrollHorizontally="false"
+                android:scrollbarStyle="insideInset"
+                android:scrollbars="vertical"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Fertilizers being used*" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/fertilizersbeingused"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/customborder"
+                android:gravity="top|left"
+                android:inputType="textMultiLine"
+                android:lines="3"
+                android:overScrollMode="always"
+                android:scrollHorizontally="false"
+                android:scrollbarStyle="insideInset"
+                android:scrollbars="vertical"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Pesticides being used*" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/pesticidesbeingused"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/customborder"
+                android:gravity="top|left"
+                android:inputType="textMultiLine"
+                android:lines="3"
+                android:overScrollMode="always"
+                android:scrollHorizontally="false"
+                android:scrollbarStyle="insideInset"
+                android:scrollbars="vertical"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Practice of organic farming*" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RadioGroup
+                android:id="@+id/practiceoforganicfarming"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <RadioButton
+                    android:id="@+id/pofyes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Yes" />
+
+                <RadioButton
+                    android:id="@+id/pofno"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="No" />
+            </RadioGroup>
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/poferromsg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#ff0000"
+                android:text="" />
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Percentage of land under organic farming*" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/percentageoflandunderorganicfarming"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="50"
+                android:inputType="textPersonName"
+                android:text="" />
+
+
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Other major occupations*" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/othermajoroccupations"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/customborder"
+                android:gravity="top|left"
+                android:inputType="textMultiLine"
+                android:lines="3"
+                android:overScrollMode="always"
+                android:scrollHorizontally="false"
+                android:scrollbarStyle="insideInset"
+                android:scrollbars="vertical"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Mode of irrigation*" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <CheckBox
+                android:id="@+id/moiriver"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="River" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <CheckBox
+                android:id="@+id/moilake"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Lake" />
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <CheckBox
+                android:id="@+id/moiopenwell"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Open well" />
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <CheckBox
+                android:id="@+id/moiborewell"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Bore well" />
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <CheckBox
+                android:id="@+id/moidrippingmode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Dripping mode" />
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/moierrormsg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#ff0000"
+                android:text="" />
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Major source of drinking water*" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <CheckBox
+                android:id="@+id/msdwriver"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="River" />
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <CheckBox
+                android:id="@+id/msdwlake"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Lake" />
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <CheckBox
+                android:id="@+id/msdwopenwell"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Open well" />
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <CheckBox
+                android:id="@+id/msdwborewell"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Bore well" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/msdwerrormsg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#ff0000"
+                android:text="" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Any medical camp conducted in last 5 years*" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RadioGroup
+                android:id="@+id/anymedicalcampconductedinlastfiveyears"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <RadioButton
+                    android:id="@+id/mccyes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Yes" />
+
+                <RadioButton
+                    android:id="@+id/mccno"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="No" />
+            </RadioGroup>
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/mccerrormsg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#ff0000"
+                android:text="" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Industries of other environmental issues nearby*" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/industriesofotherenvironmentalissuesnearby"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/customborder"
+                android:gravity="top|left"
+                android:inputType="textMultiLine"
+                android:lines="3"
+                android:overScrollMode="always"
+                android:scrollHorizontally="false"
+                android:scrollbarStyle="insideInset"
+                android:scrollbars="vertical"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Any other relevant information" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/anyotherrelevantinformation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/customborder"
+                android:gravity="top|left"
+                android:inputType="textMultiLine"
+                android:lines="3"
+                android:overScrollMode="always"
+                android:scrollHorizontally="false"
+                android:scrollbarStyle="insideInset"
+                android:scrollbars="vertical"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+        </TableRow>
+
+
+
 
         <TableRow
             android:layout_width="match_parent"
