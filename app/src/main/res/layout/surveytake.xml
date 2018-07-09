@@ -89,7 +89,17 @@
                     android:text="Transgender" />
             </RadioGroup>
         </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
+            <TextView
+                android:id="@+id/sexgrouperrmsg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#ff0000"
+                android:text="" />
+        </TableRow>
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -110,7 +120,7 @@
                 android:layout_height="wrap_content"
                 android:ems="50"
                 android:hint="Age"
-                android:inputType="text"
+                android:inputType="number"
                 android:text="" />
 
         </TableRow>
@@ -122,7 +132,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Age Group*" />
+                android:text="Body physique*" />
         </TableRow>
 
         <TableRow
@@ -130,30 +140,40 @@
             android:layout_height="wrap_content">
 
             <RadioGroup
-                android:id="@+id/agegroup"
+                android:id="@+id/bodyphysique"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
                 <RadioButton
-                    android:id="@+id/e18to40"
+                    android:id="@+id/bpunderweight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="18-40" />
+                    android:text="Underweight" />
 
                 <RadioButton
-                    android:id="@+id/e41to60"
+                    android:id="@+id/bpnormal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="41-60" />
+                    android:text="Normal" />
 
                 <RadioButton
-                    android:id="@+id/eabove60"
+                    android:id="@+id/bpobese"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="above60" />
+                    android:text="Obese" />
             </RadioGroup>
         </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
+            <TextView
+                android:id="@+id/bperrmsg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#ff0000"
+                android:text="" />
+        </TableRow>
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -161,52 +181,52 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Other habits*" />
+                android:text="Alcohol*" />
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <CheckBox
+            <RadioGroup
                 android:id="@+id/habitalcohol"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Alcohol" />
-        </TableRow>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
+                <RadioButton
+                    android:id="@+id/hadailyweekly"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Daily/ weekly" />
+
+                <RadioButton
+                    android:id="@+id/hamonthlyrarely"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Monthly/ rarely" />
+
+                <RadioButton
+                    android:id="@+id/haformerly"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Formerly" />
+                <RadioButton
+                    android:id="@+id/hanever"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Never" />
+            </RadioGroup>
+        </TableRow>
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <CheckBox
-                android:id="@+id/habitsmoking"
+            <TextView
+                android:id="@+id/haerrmsg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Smoking" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <CheckBox
-                android:id="@+id/habittobacco"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Tobacco" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <CheckBox
-                android:id="@+id/habitnil"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Nil" />
-
+                android:textColor="#ff0000"
+                android:text="" />
         </TableRow>
 
         <TableRow
@@ -216,7 +236,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Farming*" />
+                android:text="Smoking*" />
         </TableRow>
 
         <TableRow
@@ -224,27 +244,76 @@
             android:layout_height="wrap_content">
 
             <RadioGroup
-                android:id="@+id/farmingchoice"
+                android:id="@+id/habitsmoking"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
                 <RadioButton
-                    android:id="@+id/chemical"
+                    android:id="@+id/hsdaily"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Chemical" />
+                    android:text="Daily" />
 
                 <RadioButton
-                    android:id="@+id/organic"
+                    android:id="@+id/hsformerly"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Organic" />
+                    android:text="Formerly" />
+                <RadioButton
+                    android:id="@+id/hsnever"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Never" />
+            </RadioGroup>
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/hserrmsg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#ff0000"
+                android:text="" />
+        </TableRow>
+
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tobacco chewing*" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RadioGroup
+                android:id="@+id/habittobacco"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
                 <RadioButton
-                    android:id="@+id/farmingnil"
+                    android:id="@+id/htdaily"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Nil" />
+                    android:text="Daily" />
+
+                <RadioButton
+                    android:id="@+id/htformerly"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Formerly" />
+                <RadioButton
+                    android:id="@+id/htnever"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Never" />
             </RadioGroup>
         </TableRow>
 
@@ -253,9 +322,81 @@
             android:layout_height="wrap_content">
 
             <TextView
+                android:id="@+id/hterrmsg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Association with Pesticides*" />
+                android:textColor="#ff0000"
+                android:text="" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Occupation*" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RadioGroup
+                android:id="@+id/occupation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <RadioButton
+                    android:id="@+id/nonfarming"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Non-farming" />
+
+                <RadioButton
+                    android:id="@+id/hundredf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="100%  Chemical farming" />
+                <RadioButton
+                    android:id="@+id/seventyfivef"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="75:25 Chemical-Organic farming" />
+                <RadioButton
+                    android:id="@+id/fiftyf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="50:50 Chemical-Organic farming" />
+                <RadioButton
+                    android:id="@+id/twentyfivef"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="25:75 Chemical-Organic farming" />
+            </RadioGroup>
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/occerrmsg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#ff0000"
+            android:text="" />
+    </TableRow>
+
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Exposure to Pesticides*" />
         </TableRow>
 
         <TableRow
@@ -318,12 +459,68 @@
             android:layout_height="wrap_content">
 
             <CheckBox
-                android:id="@+id/usesreverseosmosiswaterfordrinking"
+                android:id="@+id/nodirectexposure"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Uses Reverse Osmosis water for drinking" />
+                android:text="No direct exposure" />
 
         </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/eperrmsg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#ff0000"
+                android:text="" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Use of reverse osmosis/ processed water for drinking*" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RadioGroup
+                android:id="@+id/usesreverseosmosiswaterfordrinking"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <RadioButton
+                    android:id="@+id/yesurowd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Yes" />
+
+                <RadioButton
+                    android:id="@+id/nourowd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="No" />
+            </RadioGroup>
+        </TableRow>
+
+    <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/urowderrmsg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#ff0000"
+            android:text="" />
+    </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
@@ -357,6 +554,17 @@
                     android:text="No" />
             </RadioGroup>
         </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/diaerrmsg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#ff0000"
+                android:text="" />
+        </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
@@ -389,6 +597,17 @@
                     android:layout_height="wrap_content"
                     android:text="No" />
             </RadioGroup>
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/htenerrmsg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#ff0000"
+                android:text="" />
         </TableRow>
 
         <TableRow
@@ -440,7 +659,7 @@
                 android:layout_height="wrap_content"
                 android:text="Save" />
 
-        </TableRow-->
+        </TableRow>
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -456,7 +675,7 @@
                 android:scrollbars="vertical"
                 android:visibility="invisible"/>
 
-        </TableRow>
+        </TableRow-->
     </LinearLayout>
 
 

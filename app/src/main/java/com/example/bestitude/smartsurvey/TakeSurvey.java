@@ -97,16 +97,17 @@ Log.w("text", emid[0]+emid[1]);
                 "name VARCHAR(255)," +
                 "sex VARCHAR(255)," +
                 "age VARCHAR(255)," +
-                "agegroup VARCHAR(255)," +
+                "bodyphysique varchar(255)," +
                 "alcohol VARCHAR(255)," +
                 "smooking VARCHAR(255)," +
                 "tobacco_chewing VARCHAR(255)," +
-                "farming VARCHAR(255)," +
+                "occupation varchar(255)," +
                 "pesticide_applicator VARCHAR(255)," +
                 "mixing_and_handlin_of_pesticide VARCHAR(255)," +
                 "working_pesticide_sprayed_field VARCHAR(255)," +
                 "working_in_pesticide_shop VARCHAR(255)," +
                 "use_of_insect_repellents_at_home VARCHAR(255)," +
+                "no_direct_exposure varchar(255)," +
                 "use_of_reverse_osmosis_water_for_drinking VARCHAR(255)," +
                 "diabetes VARCHAR(255)," +
                 "hypertension VARCHAR(255)," +

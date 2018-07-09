@@ -21,7 +21,8 @@ public class UpdateSurvey extends AsyncTask<String, String, String> {
 
     private static LoggedinActivity liactivity;
     private static CheckAuthHandler cauth;
-    private static String Entryname;
+
+    /*private static String Entryname;
     private static String Entrysex;
     private static String Entryage;
     private static String Entryagegroup;
@@ -38,7 +39,28 @@ public class UpdateSurvey extends AsyncTask<String, String, String> {
     private static Boolean urowd = false;
     private static String dv;
     private static String ht;
-    private static String od;
+    private static String od;*/
+
+    private static String entrynamevalue;
+    private static String sexgroupvalue;
+    private static String entryagevalue;
+    private static String bodyphysiquevalue;
+    private static String habitalcoholvalue;
+    private static String habitsmokingvalue;
+    private static String habittobaccovalue;
+    private static String occupationvalue;
+    private static String pesticideapplicatorvalue;
+    private static String mixesandhandlespesticidesvalue;
+    private static String worksinpesticidesprayedfiledvalue;
+    private static String worksinpesticideshopvalue;
+    private static String usesdomesticinsecticidesathomevalue;
+    private static String nodirectexposurevalue;
+    private static String usesreverseosmosiswaterfordrinkingvalue;
+    private static String diabeteschoicevalue;
+    private static String hypertensionchoicevalue;
+    private static String otherdiseasesvalue;
+
+
     private static ConnectwithAPI cwapi;
     private static SQLiteDatabase ldber;
 
@@ -69,23 +91,24 @@ public class UpdateSurvey extends AsyncTask<String, String, String> {
             map.put("request", request);
             map.put("emailid", edata[0] + "_" + edata[1]);
             map.put("surveyid", surveyid);
-            map.put("name", Entryname);
-                    map.put("sex", Entrysex);
-                    map.put("age", Entryage);
-                    map.put("agegroup", Entryagegroup);
-                    map.put("alcohol", Boolean.toString(Entryhabitalcohol));
-                    map.put("smooking", Boolean.toString(Entryhabitsmoking));
-                    map.put("tobaccochewing", Boolean.toString(Entryhabittobacco));
-                    map.put("farming", Entryformingchoice);
-                    map.put("pesticideapplicator", Boolean.toString(pa));
-                    map.put("mixingandhandlinofpesticide", Boolean.toString(mahp));
-                    map.put("workingpesticidesprayedfield", Boolean.toString(wippf));
-                    map.put("workinginpesticideshop", Boolean.toString(wis));
-                    map.put("useofinsectrepellentsathome", Boolean.toString(udiah));
-                    map.put("useofreverseosmosiswaterfordrinking", Boolean.toString(urowd));
-                    map.put("diabetes", dv);
-                    map.put("hypertension", ht);
-                    map.put("otherdiseases", od);
+                    map.put("name", entrynamevalue);
+                    map.put("sex", sexgroupvalue);
+                    map.put("age", entryagevalue);
+                    map.put("bodyphysique",bodyphysiquevalue);
+                    map.put("alcohol", habitalcoholvalue);
+                    map.put("smooking", habitsmokingvalue);
+                    map.put("tobaccochewing", habittobaccovalue);
+                    map.put("occupation", occupationvalue);
+                    map.put("pesticideapplicator", pesticideapplicatorvalue);
+                    map.put("mixingandhandlinofpesticide", mixesandhandlespesticidesvalue);
+                    map.put("workingpesticidesprayedfield", worksinpesticidesprayedfiledvalue);
+                    map.put("workinginpesticideshop", worksinpesticideshopvalue);
+                    map.put("useofinsectrepellentsathome", usesdomesticinsecticidesathomevalue);
+                    map.put("nodirectexposure", nodirectexposurevalue);
+                    map.put("useofreverseosmosiswaterfordrinking", usesreverseosmosiswaterfordrinkingvalue);
+                    map.put("diabetes", diabeteschoicevalue);
+                    map.put("hypertension", hypertensionchoicevalue);
+                    map.put("otherdiseases", otherdiseasesvalue);
             cwapi.doConnect(map, cauth.getCookiegotten());
             String Response = cwapi.getResponse();
             Log.w("vs fas ts updatesurvey", "as"+Response);
@@ -116,32 +139,29 @@ public class UpdateSurvey extends AsyncTask<String, String, String> {
     }
 
     public void ClearData(){
-        EditText entryname = (EditText) liactivity.getactivityview(R.id.entryname);
-        entryname.setText("");
-        RadioGroup sexgroup = (RadioGroup) liactivity.getactivityview(R.id.sexgroup);
-        sexgroup.clearCheck();
-        EditText entryage = (EditText) liactivity.getactivityview(R.id.entryage);
-        entryage.setText("");
-        RadioGroup agegroup = (RadioGroup) liactivity.getactivityview(R.id.agegroup);
-        agegroup.clearCheck();
-        ((CheckBox) liactivity.getactivityview(R.id.habitalcohol)).setChecked(false);
-        ((CheckBox) liactivity.getactivityview(R.id.habitsmoking)).setChecked(false);
-        ((CheckBox) liactivity.getactivityview(R.id.habittobacco)).setChecked(false);
-        ((CheckBox) liactivity.getactivityview(R.id.habitnil)).setChecked(false);
-        RadioGroup formingchoice = (RadioGroup) liactivity.getactivityview(R.id.farmingchoice);
-        formingchoice.clearCheck();
+        ((EditText) liactivity.getactivityview(R.id.entryname)).setText("");
+        ((RadioGroup) liactivity.getactivityview(R.id.sexgroup)).clearCheck();
+        ((EditText) liactivity.getactivityview(R.id.entryage)).setText("");
+        ((RadioGroup) liactivity.getactivityview(R.id.bodyphysique)).clearCheck();
+
+        ((RadioGroup) liactivity.getactivityview(R.id.habitalcohol)).clearCheck();
+        ((RadioGroup) liactivity.getactivityview(R.id.habitsmoking)).clearCheck();
+        ((RadioGroup) liactivity.getactivityview(R.id.habittobacco)).clearCheck();
+        ((RadioGroup) liactivity.getactivityview(R.id.occupation)).clearCheck();
+        ((RadioGroup) liactivity.getactivityview(R.id.occupation)).clearCheck();
+
         ((CheckBox) liactivity.getactivityview(R.id.pesticideapplicator)).setChecked(false);
         ((CheckBox) liactivity.getactivityview(R.id.mixesandhandlespesticides)).setChecked(false);
         ((CheckBox) liactivity.getactivityview(R.id.worksinpesticidesprayedfiled)).setChecked(false);
         ((CheckBox) liactivity.getactivityview(R.id.worksinpesticideshop)).setChecked(false);
         ((CheckBox) liactivity.getactivityview(R.id.usesdomesticinsecticidesathome)).setChecked(false);
-        ((CheckBox) liactivity.getactivityview(R.id.usesreverseosmosiswaterfordrinking)).setChecked(false);
-        RadioGroup diabeteschoice = (RadioGroup) liactivity.getactivityview(R.id.diabeteschoice);
-        diabeteschoice.clearCheck();
-        RadioGroup hypertensionchoice = (RadioGroup) liactivity.getactivityview(R.id.hypertensionchoice);
-        hypertensionchoice.clearCheck();
-        EditText otherdiseases = (EditText) liactivity.getactivityview(R.id.otherdiseases);
-        otherdiseases.setText("");
+
+        ((RadioGroup) liactivity.getactivityview(R.id.usesreverseosmosiswaterfordrinking)).clearCheck();
+        ((RadioGroup) liactivity.getactivityview(R.id.diabeteschoice)).clearCheck();
+        ((RadioGroup) liactivity.getactivityview(R.id.hypertensionchoice)).clearCheck();
+
+        ((EditText) liactivity.getactivityview(R.id.otherdiseases)).setText("");
+
     }
 
 
@@ -153,23 +173,24 @@ public class UpdateSurvey extends AsyncTask<String, String, String> {
         }else {
             Log.w("Tablename", TableName);
             ContentValues values = new ContentValues();
-            values.put("name", Entryname);
-            values.put("sex", Entrysex);
-            values.put("age", Entryage);
-            values.put("agegroup", Entryagegroup);
-            values.put("alcohol", Boolean.toString(Entryhabitalcohol));
-            values.put("smooking", Boolean.toString(Entryhabitsmoking));
-            values.put("tobacco_chewing", Boolean.toString(Entryhabittobacco));
-            values.put("farming", Entryformingchoice);
-            values.put("pesticide_applicator", Boolean.toString(pa));
-            values.put("mixing_and_handlin_of_pesticide", Boolean.toString(mahp));
-            values.put("working_pesticide_sprayed_field", Boolean.toString(wippf));
-            values.put("working_in_pesticide_shop", Boolean.toString(wis));
-            values.put("use_of_insect_repellents_at_home", Boolean.toString(udiah));
-            values.put("use_of_reverse_osmosis_water_for_drinking", Boolean.toString(urowd));
-            values.put("diabetes", dv);
-            values.put("hypertension", ht);
-            values.put("other_diseases", od);
+            values.put("name", entrynamevalue);
+            values.put("sex", sexgroupvalue);
+            values.put("age", entryagevalue);
+            values.put("bodyphysique", bodyphysiquevalue);
+            values.put("alcohol", habitalcoholvalue);
+            values.put("smooking", habitsmokingvalue);
+            values.put("tobacco_chewing", habittobaccovalue);
+            values.put("occupation", occupationvalue);
+            values.put("pesticide_applicator", pesticideapplicatorvalue);
+            values.put("mixing_and_handlin_of_pesticide", mixesandhandlespesticidesvalue);
+            values.put("working_pesticide_sprayed_field", worksinpesticidesprayedfiledvalue);
+            values.put("working_in_pesticide_shop", worksinpesticideshopvalue);
+            values.put("use_of_insect_repellents_at_home", usesdomesticinsecticidesathomevalue);
+            values.put("no_direct_exposure", nodirectexposurevalue);
+            values.put("use_of_reverse_osmosis_water_for_drinking", usesreverseosmosiswaterfordrinkingvalue);
+            values.put("diabetes", diabeteschoicevalue);
+            values.put("hypertension", hypertensionchoicevalue);
+            values.put("other_diseases", otherdiseasesvalue);
             if (ldber != null) {
                 ldber.insert(TableName, null, values);
 
@@ -202,17 +223,14 @@ public class UpdateSurvey extends AsyncTask<String, String, String> {
         int i = 1;
         EditText entryname = (EditText) liactivity.getactivityview(R.id.entryname);
         String ename = entryname.getText().toString();
-        TextView sformstatus = (TextView) liactivity.getactivityview(R.id.sformstatus);
-        sformstatus.setVisibility(View.VISIBLE);
-        sformstatus.setText("Status:");
         if(ename.equals("")){
-            sformstatus.append("Name Should not be empty\n");
+            entryname.setError("Name Should not be empty");
             i++;
         }else {
             if (ename.matches("[A-Za-z][^.]*")) {
-                setName(ename);
+                entrynamevalue = ename;
             }else{
-                sformstatus.append("Name can only contain a-z A-Z and space ");
+                entryname.setError("Name can only contain a-z A-Z and space ");
                 i++;
             }
         }
@@ -223,85 +241,141 @@ public class UpdateSurvey extends AsyncTask<String, String, String> {
         RadioGroup sexgroup = (RadioGroup) liactivity.getactivityview(R.id.sexgroup);
         int selectedId = sexgroup.getCheckedRadioButtonId();
         RadioButton radioSexButton = (RadioButton) liactivity.getactivityview(selectedId);
+        TextView sgem = (TextView) liactivity.getactivityview(R.id.sexgrouperrmsg);
+
         if(radioSexButton == null){
-            sformstatus.append("Please choose sex\n");
+            sgem.setText("Please choose sex");
             i++;
         }else{
-            String sexbutton = radioSexButton.getText().toString();
-            setSexValue(sexbutton);
+            sexgroupvalue = radioSexButton.getText().toString();
+
         }
 
         EditText entryage = (EditText) liactivity.getactivityview(R.id.entryage);
         String eage = entryage.getText().toString();
         if(eage.equals("")){
-            sformstatus.append("Please update age\n");
+            entryage.setError("Please update age");
             i++;
         }else{
             if (eage.matches("[0-9]+")) {
-                setAge(eage);
+                entryagevalue = eage;
             }else{
-                sformstatus.append("Age should only contain numbers");
+                entryage.setError("Age should only contain numbers");
                 i++;
             }
         }
 
 
-        RadioGroup agegroup = (RadioGroup) liactivity.getactivityview(R.id.agegroup);
-        int selectedId1 = agegroup.getCheckedRadioButtonId();
-        RadioButton radioAgeButton = (RadioButton) liactivity.getactivityview(selectedId1);
-        if(radioAgeButton == null){
-            sformstatus.append("Please choose age\n");
+        RadioGroup bpgroup = (RadioGroup) liactivity.getactivityview(R.id.bodyphysique);
+        int selectedId1 = bpgroup.getCheckedRadioButtonId();
+        RadioButton radiobpButton = (RadioButton) liactivity.getactivityview(selectedId1);
+        TextView bpem = (TextView) liactivity.getactivityview(R.id.bperrmsg);
+        if(radiobpButton == null){
+            bpem.setText("Please choose age");
             i++;
         }else{
-            String agebutton = radioAgeButton.getText().toString();
-            setAgeValue(agebutton);
+            bodyphysiquevalue = radiobpButton.getText().toString();
+
         }
 
-        setHabitAlcohol(((CheckBox) liactivity.getactivityview(R.id.habitalcohol)).isChecked());
-        setHabitSmoking(((CheckBox) liactivity.getactivityview(R.id.habitsmoking)).isChecked());
-        setHabitTobacco(((CheckBox) liactivity.getactivityview(R.id.habittobacco)).isChecked());
-        setHabitNil(((CheckBox) liactivity.getactivityview(R.id.habitnil)).isChecked());
-
-
-        RadioGroup formingchoice = (RadioGroup) liactivity.getactivityview(R.id.farmingchoice);
-        int selectedId2 = formingchoice.getCheckedRadioButtonId();
-        RadioButton radioFormingChoice = (RadioButton) liactivity.getactivityview(selectedId2);
-
-        if(radioFormingChoice == null ){
-            sformstatus.append("Please choose Forming choice\n");
+        RadioGroup hagroup = (RadioGroup) liactivity.getactivityview(R.id.habitalcohol);
+        selectedId1 = hagroup.getCheckedRadioButtonId();
+        RadioButton radiohaButton = (RadioButton) liactivity.getactivityview(selectedId1);
+        TextView haem = (TextView) liactivity.getactivityview(R.id.haerrmsg);
+        if(radiohaButton == null){
+            haem.setText("Please select above habit");
             i++;
         }else{
-            String formingchoicevalue = radioFormingChoice.getText().toString();
-            setFormingValue(formingchoicevalue);
+            habitalcoholvalue = radiobpButton.getText().toString();
+        }
+        RadioGroup hsgroup = (RadioGroup) liactivity.getactivityview(R.id.habitsmoking);
+        selectedId1 = hsgroup.getCheckedRadioButtonId();
+        RadioButton radiohsButton = (RadioButton) liactivity.getactivityview(selectedId1);
+        TextView hsem = (TextView) liactivity.getactivityview(R.id.hserrmsg);
+        if(radiohsButton == null){
+            hsem.setText("Please select above habit");
+            i++;
+        }else{
+            habitsmokingvalue = radiobpButton.getText().toString();
         }
 
-        setPA(((CheckBox) liactivity.getactivityview(R.id.pesticideapplicator)).isChecked());
-        setMAHP(((CheckBox) liactivity.getactivityview(R.id.mixesandhandlespesticides)).isChecked());
-        setWIPPF(((CheckBox) liactivity.getactivityview(R.id.worksinpesticidesprayedfiled)).isChecked());
-        setWIS(((CheckBox) liactivity.getactivityview(R.id.worksinpesticideshop)).isChecked());
-        setUDIAH(((CheckBox) liactivity.getactivityview(R.id.usesdomesticinsecticidesathome)).isChecked());
-        setUROWD(((CheckBox) liactivity.getactivityview(R.id.usesreverseosmosiswaterfordrinking)).isChecked());
+        RadioGroup htgroup = (RadioGroup) liactivity.getactivityview(R.id.habittobacco);
+        selectedId1 = htgroup.getCheckedRadioButtonId();
+        RadioButton radiohtButton = (RadioButton) liactivity.getactivityview(selectedId1);
+        TextView htem = (TextView) liactivity.getactivityview(R.id.hterrmsg);
+        if(radiohtButton == null){
+            htem.setText("Please select above habit");
+            i++;
+        }else{
+            habittobaccovalue = radiobpButton.getText().toString();
+        }
+
+        RadioGroup occgroup = (RadioGroup) liactivity.getactivityview(R.id.occupation);
+        selectedId1 = occgroup.getCheckedRadioButtonId();
+        RadioButton radiooccButton = (RadioButton) liactivity.getactivityview(selectedId1);
+        TextView occem = (TextView) liactivity.getactivityview(R.id.occerrmsg);
+        if(radiooccButton == null){
+            occem.setText("Please select above habit");
+            i++;
+        }else{
+            occupationvalue = radiobpButton.getText().toString();
+        }
+
+        int j = 0;
+        pesticideapplicatorvalue = Boolean.toString(((CheckBox) liactivity.getactivityview(R.id.pesticideapplicator)).isChecked());
+        if(pesticideapplicatorvalue.equals("true")){ j++; }
+        mixesandhandlespesticidesvalue = Boolean.toString(((CheckBox) liactivity.getactivityview(R.id.mixesandhandlespesticides)).isChecked());
+        if(mixesandhandlespesticidesvalue.equals("true")){ j++; }
+        worksinpesticidesprayedfiledvalue = Boolean.toString(((CheckBox) liactivity.getactivityview(R.id.worksinpesticidesprayedfiled)).isChecked());
+        if(worksinpesticidesprayedfiledvalue.equals("true")){ j++; }
+        worksinpesticideshopvalue = Boolean.toString(((CheckBox) liactivity.getactivityview(R.id.worksinpesticideshop)).isChecked());
+        if(worksinpesticideshopvalue.equals("true")){ j++; }
+        usesdomesticinsecticidesathomevalue = Boolean.toString(((CheckBox) liactivity.getactivityview(R.id.usesdomesticinsecticidesathome)).isChecked());
+        if(usesdomesticinsecticidesathomevalue.equals("true")){ j++; }
+        nodirectexposurevalue = Boolean.toString(((CheckBox) liactivity.getactivityview(R.id.nodirectexposure)).isChecked());
+        if(nodirectexposurevalue.equals("true")){ j++; }
+        //setUROWD(((CheckBox) liactivity.getactivityview(R.id.usesreverseosmosiswaterfordrinking)).isChecked());
+
+        if(j==0){
+            i++;
+            TextView mpem = (TextView) liactivity.getactivityview(R.id.eperrmsg);
+            mpem.setText("select atleast one option above");
+        }
+
+        RadioGroup urowdgrp = (RadioGroup) liactivity.getactivityview(R.id.usesreverseosmosiswaterfordrinking);
+        selectedId1 = urowdgrp.getCheckedRadioButtonId();
+        RadioButton radiourowdButton = (RadioButton) liactivity.getactivityview(selectedId1);
+        TextView urowdem = (TextView) liactivity.getactivityview(R.id.urowderrmsg);
+        if(radiourowdButton == null){
+            urowdem.setText("Please select above");
+            i++;
+        }else{
+            usesreverseosmosiswaterfordrinkingvalue = radiobpButton.getText().toString();
+        }
+
 
         RadioGroup diabeteschoice = (RadioGroup) liactivity.getactivityview(R.id.diabeteschoice);
         int selectedId3 = diabeteschoice.getCheckedRadioButtonId();
         RadioButton radioDiabetesChoice = (RadioButton) liactivity.getactivityview(selectedId3);
-
+        TextView diaerr = (TextView) liactivity.getactivityview(R.id.diaerrmsg);
         if(radioDiabetesChoice == null){
-            sformstatus.append("Please choose Diabetes\n");
+            diaerr.append("Please choose Diabetes");
             i++;
         }else{
-            String diabeteschoicevalue = radioDiabetesChoice.getText().toString();
-            setDiabetesValue(diabeteschoicevalue);
+            diabeteschoicevalue = radioDiabetesChoice.getText().toString();
+
         }
 
         RadioGroup hypertensionchoice = (RadioGroup) liactivity.getactivityview(R.id.hypertensionchoice);
         int selectedId4 = hypertensionchoice.getCheckedRadioButtonId();
         RadioButton radioHTChoice = (RadioButton) liactivity.getactivityview(selectedId4);
+        TextView htenerr = (TextView) liactivity.getactivityview(R.id.htenerrmsg);
         if(radioHTChoice == null){
-  //          sformstatus.append("Please choose HyperTension\n");
+            htenerr.append("Please choose Hyper Tension");
+            i++;
         }else{
-            String htchoicevalue = radioHTChoice.getText().toString();
-            setHyperTension(htchoicevalue);
+            hypertensionchoicevalue = radioHTChoice.getText().toString();
+
         }
 
         EditText otherdiseases = (EditText) liactivity.getactivityview(R.id.otherdiseases);
@@ -311,7 +385,7 @@ public class UpdateSurvey extends AsyncTask<String, String, String> {
   //          i++;
         }else{
 //            Base64.Encoder encoder = Base64.getEncoder();
-             setOtherDiseases(Base64.encodeToString(odiseases.getBytes(),Base64.DEFAULT));//encoder.encodeToString(odiseases.getBytes()));
+             otherdiseasesvalue = Base64.encodeToString(odiseases.getBytes(),Base64.DEFAULT);//encoder.encodeToString(odiseases.getBytes()));
         }
 
         //   Toast.makeText(liactivity,
@@ -319,12 +393,11 @@ public class UpdateSurvey extends AsyncTask<String, String, String> {
 
 
         if(i==1){
-            sformstatus.setVisibility(View.INVISIBLE);
             return true;
         }
         return false;
     }
-    private static void setName(String s){ Entryname = s; }
+/*    private static void setName(String s){ Entryname = s; }
     private static void setSexValue(String s){ Entrysex = s; }
     private static void setAge(String s){ Entryage = s; }
     private static void setAgeValue(String s){ Entryagegroup = s; }
@@ -342,4 +415,5 @@ public class UpdateSurvey extends AsyncTask<String, String, String> {
     private static void setDiabetesValue(String s){ dv = s; }
     private static void setHyperTension(String s){ ht = s; }
     private static void setOtherDiseases(String s){ od = s; }
+*/
 }
