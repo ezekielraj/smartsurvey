@@ -36,8 +36,8 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="fontFamily" value="Purisa" />
-                                                <entry key="text" value="SS" />
+                                                <entry key="fontFamily" value="Padauk Book" />
+                                                <entry key="text" value="RDS" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -52,7 +52,7 @@
                                       <entry key="backgroundLayerName" value="ic_launcher_background" />
                                       <entry key="foregroundAssetType" value="TEXT" />
                                       <entry key="foregroundLayerName" value="ic_launcher_foreground" />
-                                      <entry key="outputName" value="ic_launcher_new1" />
+                                      <entry key="outputName" value="ic_launcher_new2" />
                                     </map>
                                   </option>
                                 </PersistentState>
