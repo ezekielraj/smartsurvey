@@ -141,8 +141,8 @@ if(!s.equals(null)) {
    */
                         viewer.setText(Integer.toString(jb.getInt("survey_id")));
                         viewer1.setText(jb.getString("district"));
-                        viewer2.setText(jb.getString("locality"));
-                        viewer3.setText(jb.getString("state"));
+                        viewer2.setText(jb.getString("village"));
+                        viewer3.setText(jb.getString("subdistrict"));
                         viewer4.setText(jb.getString("EndDate"));
 
                         viewer5.setOnClickListener(new View.OnClickListener() {

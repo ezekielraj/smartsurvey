@@ -76,7 +76,7 @@ public class SyncSurvey extends AsyncTask<String, String, String> {
                         Log.w("vs fas ts updatesurvey", "as"+Response);
                         if(Response.equals("true")){
                             Log.w("delete id", Integer.toString(cursor.getInt(cursor.getColumnIndex("id"))));
-                            //ldber.delete(arg[0] + "_" + arg[1], "id=" + Integer.toString(cursor.getInt(cursor.getColumnIndex("id"))), null);
+                            ldber.delete(arg[0] + "_" + arg[1], "id=" + Integer.toString(cursor.getInt(cursor.getColumnIndex("id"))), null);
                         }
                         cursor.moveToNext();
                     }

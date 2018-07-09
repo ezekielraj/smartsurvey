@@ -55,7 +55,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Locality:"
+            android:text="Village:"
             android:textSize="15sp">
 
         </TextView>
@@ -76,7 +76,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="State:"
+            android:text="Sub-District:"
             android:textSize="15sp">
 
         </TextView>

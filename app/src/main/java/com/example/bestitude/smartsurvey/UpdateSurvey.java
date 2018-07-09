@@ -155,6 +155,7 @@ public class UpdateSurvey extends AsyncTask<String, String, String> {
         ((CheckBox) liactivity.getactivityview(R.id.worksinpesticidesprayedfiled)).setChecked(false);
         ((CheckBox) liactivity.getactivityview(R.id.worksinpesticideshop)).setChecked(false);
         ((CheckBox) liactivity.getactivityview(R.id.usesdomesticinsecticidesathome)).setChecked(false);
+        ((CheckBox) liactivity.getactivityview(R.id.nodirectexposure)).setChecked(false);
 
         ((RadioGroup) liactivity.getactivityview(R.id.usesreverseosmosiswaterfordrinking)).clearCheck();
         ((RadioGroup) liactivity.getactivityview(R.id.diabeteschoice)).clearCheck();

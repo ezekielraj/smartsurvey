@@ -142,9 +142,9 @@ public class ViewSurveys extends AsyncTask<String, String, String> {
                         cursor.getString(cursor.getColumnIndexOrThrow("slno")) +
                         "\",\"district\":\"" +
                         cursor.getString(cursor.getColumnIndexOrThrow("District")) +
-                        "\",\"locality\":\"" +
+                        "\",\"village\":\"" +
                         cursor.getString(cursor.getColumnIndexOrThrow("Locality")) +
-                        "\",\"state\":\"" +
+                        "\",\"subdistrict\":\"" +
                         cursor.getString(cursor.getColumnIndexOrThrow("State")) +
                         "\",\"EndDate\":\"" +
                         cursor.getString(cursor.getColumnIndexOrThrow("EndDate")) +
@@ -209,8 +209,8 @@ public class ViewSurveys extends AsyncTask<String, String, String> {
                         ContentValues values = new ContentValues();
                         values.put("slno", Integer.toString(jb.getInt("survey_id")));
                         values.put("District", jb.getString("district"));
-                        values.put("Locality", jb.getString("locality"));
-                        values.put("State", jb.getString("state"));
+                        values.put("Locality", jb.getString("village"));
+                        values.put("State", jb.getString("subdistrict"));
                         values.put("EndDate", jb.getString("EndDate"));
 
                         long newRowId = ldb.insert(Surveytablename, null, values);
@@ -219,8 +219,8 @@ public class ViewSurveys extends AsyncTask<String, String, String> {
 
                         ContentValues values = new ContentValues();
                         values.put("District", jb.getString("district"));
-                        values.put("Locality", jb.getString("locality"));
-                        values.put("State", jb.getString("state"));
+                        values.put("Locality", jb.getString("village"));
+                        values.put("State", jb.getString("subdistrict"));
                         values.put("EndDate", jb.getString("EndDate"));
 
                         int count = ldb.update(
@@ -295,8 +295,8 @@ public class ViewSurveys extends AsyncTask<String, String, String> {
   */
                         viewer.setText(Integer.toString(jb.getInt("survey_id")));
                         viewer1.setText(jb.getString("district"));
-                        viewer2.setText(jb.getString("locality"));
-                        viewer3.setText(jb.getString("state"));
+                        viewer2.setText(jb.getString("village"));
+                        viewer3.setText(jb.getString("subdistrict"));
                         viewer4.setText(jb.getString("EndDate"));
 
 
