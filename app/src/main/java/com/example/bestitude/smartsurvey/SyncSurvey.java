@@ -56,16 +56,17 @@ public class SyncSurvey extends AsyncTask<String, String, String> {
                         map1.put("name", cursor.getString(cursor.getColumnIndex("name")));
                         map1.put("sex", cursor.getString(cursor.getColumnIndex("sex")));
                         map1.put("age", cursor.getString(cursor.getColumnIndex("age")));
-                        map1.put("agegroup", cursor.getString(cursor.getColumnIndex("agegroup")));
+                        map1.put("bodyphysique", cursor.getString(cursor.getColumnIndex("bodyphysique")));
                         map1.put("alcohol", cursor.getString(cursor.getColumnIndex("alcohol")));
                         map1.put("smooking", cursor.getString(cursor.getColumnIndex("smooking")));
                         map1.put("tobaccochewing", cursor.getString(cursor.getColumnIndex("tobacco_chewing")));
-                        map1.put("farming", cursor.getString(cursor.getColumnIndex("farming")));
+                        map1.put("occupation", cursor.getString(cursor.getColumnIndex("occupation")));
                         map1.put("pesticideapplicator", cursor.getString(cursor.getColumnIndex("pesticide_applicator")));
                         map1.put("mixingandhandlinofpesticide", cursor.getString(cursor.getColumnIndex("mixing_and_handlin_of_pesticide")));
                         map1.put("workingpesticidesprayedfield", cursor.getString(cursor.getColumnIndex("working_pesticide_sprayed_field")));
                         map1.put("workinginpesticideshop", cursor.getString(cursor.getColumnIndex("working_in_pesticide_shop")));
                         map1.put("useofinsectrepellentsathome", cursor.getString(cursor.getColumnIndex("use_of_insect_repellents_at_home")));
+                        map1.put("nodirectexposure", cursor.getString(cursor.getColumnIndex("no_direct_exposure")));
                         map1.put("useofreverseosmosiswaterfordrinking", cursor.getString(cursor.getColumnIndex("use_of_reverse_osmosis_water_for_drinking")));
                         map1.put("diabetes", cursor.getString(cursor.getColumnIndex("diabetes")));
                         map1.put("hypertension", cursor.getString(cursor.getColumnIndex("hypertension")));
@@ -75,7 +76,7 @@ public class SyncSurvey extends AsyncTask<String, String, String> {
                         Log.w("vs fas ts updatesurvey", "as"+Response);
                         if(Response.equals("true")){
                             Log.w("delete id", Integer.toString(cursor.getInt(cursor.getColumnIndex("id"))));
-                            ldber.delete(arg[0] + "_" + arg[1], "id=" + Integer.toString(cursor.getInt(cursor.getColumnIndex("id"))), null);
+                            //ldber.delete(arg[0] + "_" + arg[1], "id=" + Integer.toString(cursor.getInt(cursor.getColumnIndex("id"))), null);
                         }
                         cursor.moveToNext();
                     }
@@ -118,7 +119,7 @@ public class SyncSurvey extends AsyncTask<String, String, String> {
                     for (int i=0;i < (Email.length-1); i++){
                         Emailid = Emailid + Email[i] + "_";
                     }
-                    //Log.w("texttosend",Emailid.substring(0, Emailid.length()-1)+Email[Email.length - 1]);
+                    Log.w("texttosend",Emailid.substring(0, Emailid.length()-1)+Email[Email.length - 1]);
 
                     new SyncSurvey().execute(Emailid.substring(0, Emailid.length()-1), Email[Email.length - 1]);
                 }

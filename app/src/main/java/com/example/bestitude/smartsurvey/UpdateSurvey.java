@@ -229,6 +229,7 @@ public class UpdateSurvey extends AsyncTask<String, String, String> {
         }else {
             if (ename.matches("[A-Za-z][^.]*")) {
                 entrynamevalue = ename;
+                entryname.setError(null);
             }else{
                 entryname.setError("Name can only contain a-z A-Z and space ");
                 i++;
@@ -248,7 +249,7 @@ public class UpdateSurvey extends AsyncTask<String, String, String> {
             i++;
         }else{
             sexgroupvalue = radioSexButton.getText().toString();
-
+            sgem.setText("");
         }
 
         EditText entryage = (EditText) liactivity.getactivityview(R.id.entryage);
@@ -259,6 +260,7 @@ public class UpdateSurvey extends AsyncTask<String, String, String> {
         }else{
             if (eage.matches("[0-9]+")) {
                 entryagevalue = eage;
+                entryage.setError(null);
             }else{
                 entryage.setError("Age should only contain numbers");
                 i++;
@@ -271,32 +273,35 @@ public class UpdateSurvey extends AsyncTask<String, String, String> {
         RadioButton radiobpButton = (RadioButton) liactivity.getactivityview(selectedId1);
         TextView bpem = (TextView) liactivity.getactivityview(R.id.bperrmsg);
         if(radiobpButton == null){
-            bpem.setText("Please choose age");
+            bpem.setText("Please choose body physique");
+
             i++;
         }else{
             bodyphysiquevalue = radiobpButton.getText().toString();
-
+            bpem.setText("");
         }
 
         RadioGroup hagroup = (RadioGroup) liactivity.getactivityview(R.id.habitalcohol);
-        selectedId1 = hagroup.getCheckedRadioButtonId();
-        RadioButton radiohaButton = (RadioButton) liactivity.getactivityview(selectedId1);
+        int selectedId2 = hagroup.getCheckedRadioButtonId();
+        RadioButton radiohaButton = (RadioButton) liactivity.getactivityview(selectedId2);
         TextView haem = (TextView) liactivity.getactivityview(R.id.haerrmsg);
         if(radiohaButton == null){
             haem.setText("Please select above habit");
             i++;
         }else{
-            habitalcoholvalue = radiobpButton.getText().toString();
+            habitalcoholvalue = radiohaButton.getText().toString();
+            haem.setText("");
         }
         RadioGroup hsgroup = (RadioGroup) liactivity.getactivityview(R.id.habitsmoking);
-        selectedId1 = hsgroup.getCheckedRadioButtonId();
-        RadioButton radiohsButton = (RadioButton) liactivity.getactivityview(selectedId1);
+        int selectedId3 = hsgroup.getCheckedRadioButtonId();
+        RadioButton radiohsButton = (RadioButton) liactivity.getactivityview(selectedId3);
         TextView hsem = (TextView) liactivity.getactivityview(R.id.hserrmsg);
         if(radiohsButton == null){
             hsem.setText("Please select above habit");
             i++;
         }else{
-            habitsmokingvalue = radiobpButton.getText().toString();
+            habitsmokingvalue = radiohsButton.getText().toString();
+            hsem.setText("");
         }
 
         RadioGroup htgroup = (RadioGroup) liactivity.getactivityview(R.id.habittobacco);
@@ -307,7 +312,8 @@ public class UpdateSurvey extends AsyncTask<String, String, String> {
             htem.setText("Please select above habit");
             i++;
         }else{
-            habittobaccovalue = radiobpButton.getText().toString();
+            habittobaccovalue = radiohtButton.getText().toString();
+            htem.setText("");
         }
 
         RadioGroup occgroup = (RadioGroup) liactivity.getactivityview(R.id.occupation);
@@ -318,7 +324,8 @@ public class UpdateSurvey extends AsyncTask<String, String, String> {
             occem.setText("Please select above habit");
             i++;
         }else{
-            occupationvalue = radiobpButton.getText().toString();
+            occupationvalue = radiooccButton.getText().toString();
+            occem.setText("");
         }
 
         int j = 0;
@@ -335,11 +342,13 @@ public class UpdateSurvey extends AsyncTask<String, String, String> {
         nodirectexposurevalue = Boolean.toString(((CheckBox) liactivity.getactivityview(R.id.nodirectexposure)).isChecked());
         if(nodirectexposurevalue.equals("true")){ j++; }
         //setUROWD(((CheckBox) liactivity.getactivityview(R.id.usesreverseosmosiswaterfordrinking)).isChecked());
-
+        TextView mpem = (TextView) liactivity.getactivityview(R.id.eperrmsg);
         if(j==0){
             i++;
-            TextView mpem = (TextView) liactivity.getactivityview(R.id.eperrmsg);
+
             mpem.setText("select atleast one option above");
+        }else{
+            mpem.setText("");
         }
 
         RadioGroup urowdgrp = (RadioGroup) liactivity.getactivityview(R.id.usesreverseosmosiswaterfordrinking);
@@ -350,20 +359,21 @@ public class UpdateSurvey extends AsyncTask<String, String, String> {
             urowdem.setText("Please select above");
             i++;
         }else{
-            usesreverseosmosiswaterfordrinkingvalue = radiobpButton.getText().toString();
+            usesreverseosmosiswaterfordrinkingvalue = radiourowdButton.getText().toString();
+            urowdem.setText("");
         }
 
 
         RadioGroup diabeteschoice = (RadioGroup) liactivity.getactivityview(R.id.diabeteschoice);
-        int selectedId3 = diabeteschoice.getCheckedRadioButtonId();
-        RadioButton radioDiabetesChoice = (RadioButton) liactivity.getactivityview(selectedId3);
+        int selectedId5 = diabeteschoice.getCheckedRadioButtonId();
+        RadioButton radioDiabetesChoice = (RadioButton) liactivity.getactivityview(selectedId5);
         TextView diaerr = (TextView) liactivity.getactivityview(R.id.diaerrmsg);
         if(radioDiabetesChoice == null){
-            diaerr.append("Please choose Diabetes");
+            diaerr.setText("Please choose Diabetes");
             i++;
         }else{
             diabeteschoicevalue = radioDiabetesChoice.getText().toString();
-
+            diaerr.setText("");
         }
 
         RadioGroup hypertensionchoice = (RadioGroup) liactivity.getactivityview(R.id.hypertensionchoice);
@@ -371,11 +381,11 @@ public class UpdateSurvey extends AsyncTask<String, String, String> {
         RadioButton radioHTChoice = (RadioButton) liactivity.getactivityview(selectedId4);
         TextView htenerr = (TextView) liactivity.getactivityview(R.id.htenerrmsg);
         if(radioHTChoice == null){
-            htenerr.append("Please choose Hyper Tension");
+            htenerr.setText("Please choose Hyper Tension");
             i++;
         }else{
             hypertensionchoicevalue = radioHTChoice.getText().toString();
-
+            htenerr.setText("");
         }
 
         EditText otherdiseases = (EditText) liactivity.getactivityview(R.id.otherdiseases);
