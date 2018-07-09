@@ -546,7 +546,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Industries of other environmental issues nearby*" />
+                android:text="Industries or other environmental issues nearby*" />
         </TableRow>
 
         <TableRow

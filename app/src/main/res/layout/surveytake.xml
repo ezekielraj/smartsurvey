@@ -358,7 +358,7 @@
                     android:id="@+id/hundredf"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="100%  Chemical farming" />
+                    android:text="100% Chemical farming" />
                 <RadioButton
                     android:id="@+id/seventyfivef"
                     android:layout_width="wrap_content"
@@ -374,6 +374,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="25:75 Chemical-Organic farming" />
+                <RadioButton
+                    android:id="@+id/hundredof"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="100% Organic farming" />
             </RadioGroup>
         </TableRow>
         <TableRow
@@ -573,7 +578,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Hypertension" />
+                android:text="Hypertension*" />
         </TableRow>
 
         <TableRow
