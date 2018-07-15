@@ -1,4 +1,4 @@
-package com.example.bestitude.smartsurvey;
+package com.marveric.bestitude.smartsurvey;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;

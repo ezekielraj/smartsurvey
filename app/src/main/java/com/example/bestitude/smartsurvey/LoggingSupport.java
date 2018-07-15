@@ -1,4 +1,4 @@
-package com.example.bestitude.smartsurvey;
+package com.marveric.bestitude.smartsurvey;
 
 import android.content.Context;
 import android.os.Environment;

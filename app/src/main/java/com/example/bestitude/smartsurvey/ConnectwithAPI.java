@@ -1,4 +1,4 @@
-package com.example.bestitude.smartsurvey;
+package com.marveric.bestitude.smartsurvey;
 
 import android.util.Log;
 
