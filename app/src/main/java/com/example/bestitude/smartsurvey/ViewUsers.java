@@ -84,8 +84,10 @@ public class ViewUsers extends AsyncTask<String, String, String> {
     @Override
     protected void onPostExecute(String s) {
         //Show the result obtained from doInBackground
+    if(s != null) {
         Log.w("onpostexecute", s);
         updateLayoutContent(s);
+    }
     }
 
 
