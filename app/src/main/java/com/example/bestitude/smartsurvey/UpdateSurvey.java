@@ -109,6 +109,9 @@ public class UpdateSurvey extends AsyncTask<String, String, String> {
                     map.put("diabetes", diabeteschoicevalue);
                     map.put("hypertension", hypertensionchoicevalue);
                     map.put("otherdiseases", otherdiseasesvalue);
+		map.put("username","admin");
+                map.put("password","angelEAR2");
+
             cwapi.doConnect(map, cauth.getCookiegotten());
             String Response = cwapi.getResponse();
             Log.w("vs fas ts updatesurvey", "as"+Response);

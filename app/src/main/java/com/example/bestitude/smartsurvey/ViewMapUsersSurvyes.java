@@ -50,7 +50,8 @@ public class ViewMapUsersSurvyes extends AsyncTask<String, String, String> {
             Map<String,String> map=new HashMap<String,String>();
             map.put("request","getvalidsurveyusers");
             map.put("surveyid", surveyid);
-
+		map.put("username","admin");
+                map.put("password","angelEAR2");
             cwapi.doConnect(map, cauth.getCookiegotten());
             String Response = cwapi.getResponse();
             if(Response != "false"){

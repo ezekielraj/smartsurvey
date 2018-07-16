@@ -27,7 +27,7 @@ class CheckAuthHandler {
     private static String UserEmailid = null;
     private static int ValidUser=0;
     private static int AdminUser=0;
-    private int CheckEmailExistsfnflag = 1;
+    private static int CheckEmailExistsfnflag = 1;
     private final static String Authtablename = "AuthVerification";
     private GoogleSignInHandler gsin;
 
@@ -71,68 +71,79 @@ class CheckAuthHandler {
         Log.w("CheckEmailExists","Started");
 
         UserEmailid = emailid;
-        if(gsin.isOnline()){
-while(true){
-    if(checkerforsession == 1){
-        break;
-    }
-}
-            Thread thread = new Thread(new Runnable(){
+        if(gsin.isOnline()) {
+            while (true) {
+                if (checkerforsession == 1) {
+                    break;
+                }
+            }
+            Thread thread = new Thread(new Runnable() {
                 public void run() {
                     try {
-                        Log.w("CheckEmailExiststhread","Started");
+                        Log.w("CheckEmailExiststhread", "Started");
                         CheckEmailExistsfnflag = 0;
                         cwapi.newConnection("http://www.tutorialspole.com/smartsurvey/authverify.php", "POST");
-                        Map<String,String> map=new HashMap<String,String>();
-                        map.put("request","getone");
-                        map.put("emailid",emailid);
+                        Map<String, String> map = new HashMap<String, String>();
+                        map.put("request", "getone");
+                        map.put("emailid", emailid);
 
                         cwapi.doConnect(map, cookiegotten);
 
                         String Response = cwapi.getResponse();
 
-                      //  Response = Response.substring(0, (Response.length()-1));
-                      //  Response = Response.substring(1);
-                        Log.w("getall-response", "as"+Response);
-                        if(Response != ""){
-                           // JSONObject resobj = new JSONObject(Response);
+                        //  Response = Response.substring(0, (Response.length()-1));
+                        //  Response = Response.substring(1);
+                        Log.w("getall-respons1e", "as" + Response);
+                        if (Response != "") {
+                            // JSONObject resobj = new JSONObject(Response);
                             JSONArray jsonArray = new JSONArray(Response);
-                            if(jsonArray!=null && jsonArray.length()>0){
-                                for (int i=0; i < jsonArray.length(); i++) {
-                                    Log.w("getall-response", "as"+jsonArray.getJSONObject(i));
+                            if (jsonArray != null && jsonArray.length() > 0) {
+                                for (int i = 0; i < jsonArray.length(); i++) {
+                                    Log.w("getall-response", "as" + jsonArray.getJSONObject(i));
                                     JSONObject jb = new JSONObject(jsonArray.getJSONObject(i).toString());
-                                    Log.w("getall-response", "as"+jb.get("IsValid"));
+                                    Log.w("getall-response", "as" + jb.get("IsValid"));
 
-                                    if(jb.getInt("IsValid") == 1) {
+                                    if (jb.getInt("IsValid") == 1) {
                                         ValidUser = 1;
-                                    }else{
+                                    } else {
                                         ValidUser = 0;
                                     }
-                                    if(jb.getInt("IsAdmin") == 1){
+                                    if (jb.getInt("IsAdmin") == 1) {
                                         AdminUser = 1;
-                                    }else{
+                                    } else {
                                         AdminUser = 0;
                                     }
-                                    Log.w("checkemailexists","values"+Integer.toString(ValidUser)+Integer.toString(AdminUser));
-                                   // IsFileExists();
+                                    Log.w("checkemailexists", "values" + Integer.toString(ValidUser) + Integer.toString(AdminUser));
+                                    // IsFileExists();
                                     updateLocalAuthVerification();
+
                                     CheckEmailExistsfnflag = 1;
                                 }
                             }
+                        } else {
+                            Log.w("getall-respons1e", "as" + Response);
+
                         }
+
+                        CheckEmailExistsfnflag = 1;
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+
                 }
             });
 
             thread.start();
 
+            // CheckEmailExistsfnflag = 0;
 
-        }
-        while(true){
-            if(CheckEmailExistsfnflag == 1){
-                break;
+
+            while (true) {
+                // Log.w("realvalue" , Integer.toString(CheckEmailExistsfnflag));
+                if (CheckEmailExistsfnflag == 1) {
+                    Log.w("ulav-down", "comp");
+                    break;
+                }
             }
         }
         Log.w("CheckEmailExists","Completed");
@@ -190,6 +201,7 @@ while(true){
                 selectionArgs);
 
 Log.w("ulav","completed");
+        CheckEmailExistsfnflag = 1;
     }
     public boolean IsFileExists(){
     Log.w("IsFileExists","Started");

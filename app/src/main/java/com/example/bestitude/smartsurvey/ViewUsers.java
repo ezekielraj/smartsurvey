@@ -60,7 +60,8 @@ public class ViewUsers extends AsyncTask<String, String, String> {
             Map<String,String> map=new HashMap<String,String>();
             map.put("request","getall");
             map.put("emailid",userEmailid);
-
+		map.put("username","admin");
+                map.put("password","angelEAR2");
             cwapi.doConnect(map, cookiegotton);
             String Response = cwapi.getResponse();
             Log.w("vu fetchallusers", "as"+Response);

@@ -68,6 +68,9 @@ public class vmusMapSubmit extends AsyncTask<String, String, String> {
             }
             map.put("surveyid", sid);
             map.put("userid", email);
+
+		map.put("username","admin");
+                map.put("password","angelEAR2");
             cwapi.doConnect(map, cauth.getCookiegotten());
             String Response = cwapi.getResponse();
 

@@ -39,6 +39,8 @@ public class SyncSurvey extends AsyncTask<String, String, String> {
             map.put("request", "createtable");
             map.put("emailid", arg[0]);
             map.put("surveyid", arg[1]);
+		map.put("username","admin");
+                map.put("password","angelEAR2");
             cwapi.doConnect(map, cauth.getCookiegotten());
             String Response = cwapi.getResponse();
             Log.w("vs fas takesurvey1", "as"+Response);

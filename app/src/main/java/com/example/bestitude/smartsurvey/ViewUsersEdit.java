@@ -48,6 +48,9 @@ if(slno.equals("update")) {
         mapua.put("request", "disableadmin");
     }
     mapua.put("emailid", userEmailid);
+
+		mapua.put("username","admin");
+                mapua.put("password","angelEAR2");
     cwapi.doConnect(mapua, vu.getCookie());
     String Response = cwapi.getResponse();
     Log.w("vuadd isadmin update", "as" + Response);
@@ -59,6 +62,8 @@ if(slno.equals("update")) {
         mapuv.put("request", "enablevalid");
     }
     mapuv.put("emailid", userEmailid);
+		mapuv.put("username","admin");
+                mapuv.put("password","angelEAR2");
     cwapi.doConnect(mapuv, vu.getCookie());
     Response = cwapi.getResponse();
     Log.w("vuadd isvalid update", "as" + Response);

@@ -69,6 +69,8 @@ public class ViewSurveys extends AsyncTask<String, String, String> {
 
             }
             Log.w("viewsurvyes", UserId+IsAdmin);
+		map.put("username","admin");
+                map.put("password","angelEAR2");
             cwapi.doConnect(map, cookiegotton);
             String Response = cwapi.getResponse();
             Log.w("vs fetchallsurveys", "as"+Response);

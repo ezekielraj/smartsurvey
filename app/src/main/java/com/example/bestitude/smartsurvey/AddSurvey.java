@@ -96,7 +96,8 @@ public class AddSurvey extends AsyncTask<String, String, String> {
             map.put("ioeivalue", ioeivalue);
             map.put("anyorivalue", anyorivalue);
             map.put("surveyenddatevalue", surveyenddatevalue);
-
+		map.put("username","admin");
+		map.put("password","angelEAR2");
             cwapi.doConnect(map, cauth.getCookiegotten());
             String Response = cwapi.getResponse();
             Log.w("vuadd ", "as"+Response);

@@ -1,6 +1,7 @@
 package com.marveric.bestitude.smartsurvey;
 
 import android.content.Intent;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Layout;
@@ -8,6 +9,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.os.CountDownTimer;
+import android.widget.Toast;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -16,9 +19,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private CheckAuthHandler cauth;
     private int RC_SIGN_IN;
     private static DatabaseHelper mDbHelper;
+    private static CountDownTimer cdt = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.loading);
         gsin = new GoogleSignInHandler(this);
         mDbHelper = new DatabaseHelper(this);
         cauth = new CheckAuthHandler(mDbHelper);
@@ -31,6 +36,7 @@ Log.w("create ","completed");
     @Override
     protected void onStart(){
         super.onStart();
+
 Log.w("start","started");
         if(gsin.CheckSignedIn()){
 
@@ -63,6 +69,10 @@ Log.w("start","started");
             //TextView tv = (TextView) findViewById(R.id.authmessage);
             //tv.setText("Your Are Not Authorized");
         }else{
+            if(cdt != null){
+                cdt.cancel();
+            }
+            Log.w("timer stop","stop");
                  Intent intent = new Intent(this, LoggedinActivity.class);
                 startActivity(intent);
 
@@ -76,6 +86,19 @@ Log.w("start","started");
 
         switch (v.getId()) {
             case R.id.sign_in_button:
+                cdt = new CountDownTimer(10000, 1000) {
+
+                    public void onTick(long millisUntilFinished) {
+                       // mTextField.setText("seconds remaining: " + millisUntilFinished / 1000);
+                    }
+
+                    public void onFinish() {
+                        //mTextField.setText("done!");
+                 //       Toast.makeText(getApplicationContext() , "Slow network!!! please use offline mode", Toast.LENGTH_SHORT).show();
+                    }
+                }.start();
+
+                Log.w("timer start","start");
                 startActivityForResult(gsin.googleSignIn(), RC_SIGN_IN);
                 break;
 

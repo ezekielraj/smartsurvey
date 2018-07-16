@@ -41,6 +41,7 @@ public class LoggedinActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        setContentView(R.layout.loading);
         gsin = new GoogleSignInHandler();
         cauth = new CheckAuthHandler();
         vusers = new ViewUsers( this );

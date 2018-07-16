@@ -46,7 +46,8 @@ public class ViewUsersAdd extends AsyncTask<String, String, String> {
             Map<String,String> map=new HashMap<String,String>();
             map.put("request","add");
             map.put("emailid",userEmailid);
-
+		map.put("username","admin");
+                map.put("password","angelEAR2");
             cwapi.doConnect(map, vu.getCookie());
             String Response = cwapi.getResponse();
             Log.w("vuadd ", "as"+Response);
@@ -56,6 +57,8 @@ public class ViewUsersAdd extends AsyncTask<String, String, String> {
                     Map<String,String> mapua=new HashMap<String,String>();
                     mapua.put("request","enableadmin");
                     mapua.put("emailid",userEmailid);
+		mapua.put("username","admin");
+                mapua.put("password","angelEAR2");
                     cwapi.doConnect(mapua, vu.getCookie());
                     Response = cwapi.getResponse();
                     Log.w("vuadd isadmin update", "as"+Response);
@@ -65,6 +68,8 @@ public class ViewUsersAdd extends AsyncTask<String, String, String> {
                     Map<String,String> mapuv=new HashMap<String,String>();
                     mapuv.put("request","disablevalid");
                     mapuv.put("emailid",userEmailid);
+		mapuv.put("username","admin");
+                mapuv.put("password","angelEAR2");
                     cwapi.doConnect(mapuv, vu.getCookie());
                     Response = cwapi.getResponse();
                     Log.w("vuadd isvalid update", "as"+Response);
