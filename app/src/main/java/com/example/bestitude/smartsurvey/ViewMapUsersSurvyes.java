@@ -14,6 +14,7 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Vector;
 
 public class ViewMapUsersSurvyes extends AsyncTask<String, String, String> {
 
@@ -23,6 +24,7 @@ public class ViewMapUsersSurvyes extends AsyncTask<String, String, String> {
     private static ViewFlipper vf;
     private static vmusMapSubmit vmusms;
     private static String sid;
+    private static Vector<View> suid=new Vector<View>();
     ViewMapUsersSurvyes(){ }
     ViewMapUsersSurvyes(LoggedinActivity lia){
         liactivity = lia;
@@ -80,6 +82,7 @@ public class ViewMapUsersSurvyes extends AsyncTask<String, String, String> {
 
     private void updateDataCheckbox(String Response){
         try {
+            suid.clear();
             if (Response != null) {
                 vf =  (ViewFlipper) liactivity.getVf();
 
@@ -111,6 +114,12 @@ public class ViewMapUsersSurvyes extends AsyncTask<String, String, String> {
                             viewer.setChecked(true);
                         }
 
+                        viewer.setOnClickListener(new View.OnClickListener() {
+                            public void onClick(View v){
+                                suid.add(liactivity.getactivityview(v.getId()));
+                            }
+                        });
+
                   /*      viewer.setOnClickListener(new View.OnClickListener() {
                             public void onClick(View v) {
                          //       CheckBox tv = (CheckBox) liactivity.getactivityview(v.getId());
@@ -132,7 +141,8 @@ public class ViewMapUsersSurvyes extends AsyncTask<String, String, String> {
                     viewbut.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            vmusms.submitUserstoSurvey(sid);
+                            vmusms.submitUserstoSurvey(sid, suid);
+                            suid.clear();
                         }
                     });
 

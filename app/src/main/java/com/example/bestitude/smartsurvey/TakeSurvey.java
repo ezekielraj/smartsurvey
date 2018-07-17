@@ -22,7 +22,9 @@ public class TakeSurvey extends AsyncTask<String, String, String> {
     private static String currTableName;
     TakeSurvey(){ }
     TakeSurvey(LoggedinActivity lia, SQLiteDatabase ldb){
+
         liactivity = lia;
+
         ldber = ldb;
   //      takeSurvey = new TakeSurvey();
         updateSurvey = new UpdateSurvey(liactivity, ldber);

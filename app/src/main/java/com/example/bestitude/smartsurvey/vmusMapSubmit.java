@@ -7,8 +7,10 @@ import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Vector;
 
 public class vmusMapSubmit extends AsyncTask<String, String, String> {
 
@@ -17,6 +19,8 @@ public class vmusMapSubmit extends AsyncTask<String, String, String> {
     private static ConnectwithAPI cwapi;
 
     private static int ocount;
+
+
 
     vmusMapSubmit() {
     }
@@ -28,8 +32,8 @@ public class vmusMapSubmit extends AsyncTask<String, String, String> {
 
     }
 
-    public void submitUserstoSurvey(String surveyid) {
-        LinearLayout dynamicContent = (LinearLayout) liactivity.getactivityview(R.id.viewmap_users_surveys_layout);
+    public void submitUserstoSurvey(String surveyid, Vector<View> suid) {
+/*        LinearLayout dynamicContent = (LinearLayout) liactivity.getactivityview(R.id.viewmap_users_surveys_layout);
         int count = dynamicContent.getChildCount();
         Log.w("surveyid",surveyid);
         for (int i = 0; i < count; i++) {
@@ -44,7 +48,22 @@ public class vmusMapSubmit extends AsyncTask<String, String, String> {
                 //            totalValues = ((CheckBox) v).getText().toString();
             }
         }
+*/
 
+        Enumeration e=suid.elements();
+        while(e.hasMoreElements()){
+//            System.out.println(e.nextElement());
+            View v = (View) e.nextElement();
+            if (v instanceof CheckBox) {
+
+                if (((CheckBox) v).isChecked()) {
+                    new vmusMapSubmit().execute(((CheckBox) v).getText().toString(), surveyid, "true");
+                } else {
+                    new vmusMapSubmit().execute(((CheckBox) v).getText().toString(), surveyid, "false");
+                }
+                //            totalValues = ((CheckBox) v).getText().toString();
+            }
+        }
     }
 
     @Override

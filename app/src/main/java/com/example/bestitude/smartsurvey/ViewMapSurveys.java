@@ -15,6 +15,8 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import static java.lang.Math.ceil;
+
 public class ViewMapSurveys extends AsyncTask<String, String, String> {
 
     private static ConnectwithAPI cwapi;
@@ -23,6 +25,10 @@ public class ViewMapSurveys extends AsyncTask<String, String, String> {
     //private static ViewUsersEdit vue;
     private static String cookie = "";
     private static ViewMapUsersSurvyes vmus;
+
+    private static Boolean adminstatus;
+    private static String emailstatus;
+
 
     ViewMapSurveys(){ }
     ViewMapSurveys(LoggedinActivity lia){
@@ -41,30 +47,48 @@ public class ViewMapSurveys extends AsyncTask<String, String, String> {
     @Override
     protected String doInBackground(String...arg) {
         //Do some task
-        publishProgress ("Processing");
         String IsAdmin = arg[0];
         String UserId = arg[1];
         String cookiegotton = arg[2];
         try {
+            if(arg[3].equals("initial")) {
+                Map<String, String> mapc = new HashMap<String, String>();
+                if (IsAdmin.equals("true")) {
+                    mapc.put("request", "getalladmincount");
+                } else {
+                    mapc.put("request", "getallusercount");
+                    mapc.put("userid", UserId);
 
-            Map<String,String> map=new HashMap<String,String>();
-            if(IsAdmin.equals("true")) {
-                map.put("request", "getalladmin");
-            }else{
-                map.put("request", "getalluser");
-                map.put("userid", UserId);
+                }
+                mapc.put("username", "admin");
+                mapc.put("password", "angelEAR2");
+                cwapi.doConnect(mapc, cookiegotton);
+                String Responsec = cwapi.getResponse();
+                Log.w("vs fetchallsurveys count", "as" + Responsec);
+                return "initial,-_" + Responsec;
+            }else {
 
+                Map<String, String> map = new HashMap<String, String>();
+                if (IsAdmin.equals("true")) {
+                    map.put("request", "getalladmin");
+                } else {
+                    map.put("request", "getalluser");
+                    map.put("userid", UserId);
+
+                }
+                Log.w("viewsurvyes", UserId + IsAdmin);
+                map.put("limit1",arg[4]);
+                map.put("limit2", arg[5]);
+                map.put("username", "admin");
+                map.put("password", "angelEAR2");
+                publishProgress("Request Sent! Waiting for Response");
+                cwapi.doConnect(map, cookiegotton);
+                String Response = cwapi.getResponse();
+                publishProgress("Got Response");
+                Log.w("vs fetchallsurveys", "as" + Response);
+                //publishProgress ("Completed");
+                return "result,-_"+ Response;
             }
-            Log.w("viewsurvyes", UserId+IsAdmin);
-
-		map.put("username","admin");
-                map.put("password","angelEAR2");
-            cwapi.doConnect(map, cookiegotton);
-            String Response = cwapi.getResponse();
-            Log.w("vs fetchallsurveys", "as"+Response);
-
-            return Response;
-
         } catch (Exception e) {
             liactivity.saveException(e);
             e.printStackTrace();
@@ -75,6 +99,9 @@ public class ViewMapSurveys extends AsyncTask<String, String, String> {
 
     @Override
     protected void onProgressUpdate(String...values) {
+        Snackbar.make(liactivity.getactivityview(R.id.viewflippers), values[0], Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
+
         //Update the progress of current task
     }
 
@@ -82,15 +109,63 @@ public class ViewMapSurveys extends AsyncTask<String, String, String> {
     protected void onPostExecute(String s) {
         //Show the result obtained from doInBackground
 if(!s.equals(null)) {
-    Log.w("vsonpostexecute", s);
 
-    updateLayoutContent(s);
-}
+    String output[] = s.split(",-_");
+
+    if(output[0].equals("initial")){
+
+        try{
+
+
+            int cvalue = 0;
+            JSONArray jsonArray = new JSONArray(output[1]);
+            if (jsonArray != null && jsonArray.length() > 0) {
+                int N = jsonArray.length(); // total number of textviews to add
+
+                for (int i = 0; i < jsonArray.length(); i++) {
+
+                    JSONObject jb = new JSONObject(jsonArray.getJSONObject(i).toString());
+                    cvalue = jb.getInt("count");
+                }
+            }
+            if(cvalue < 10) {
+                new ViewMapSurveys().execute(Boolean.toString(adminstatus), emailstatus, cookie, "noninitial",
+                        Integer.toString(0) , Integer.toString(10));
+            }else{
+                int j = 0;
+                for(int i=0;i<ceil(cvalue/10);i++){
+                    new ViewMapSurveys().execute(Boolean.toString(adminstatus), emailstatus, cookie, "noninitial",
+                            Integer.toString(j) , Integer.toString(10));
+                    j = j+10;
+                }
+                new ViewMapSurveys().execute(Boolean.toString(adminstatus), emailstatus, cookie, "noninitial",
+                        Integer.toString(j) , Integer.toString(10));
+
+            }
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+    }else {
+
+        Log.w("vsonpostexecute", output[1]);
+
+        updateLayoutContent(output[1]);
+    }
+    }
     }
 
     public void fetchAllSurveys(Boolean IsAdmin, String UserEmailId, String cookiestring){
         cookie = cookiestring;
-        new ViewMapSurveys().execute(Boolean.toString(IsAdmin), UserEmailId, cookie);
+        adminstatus = IsAdmin;
+        emailstatus = UserEmailId;
+        LinearLayout dynamicContent = (LinearLayout) liactivity.getactivityview(R.id.view_surveys_layout);
+        dynamicContent.removeAllViews();
+
+//        new com.marveric.bestitude.smartsurvey.ViewSurveys().execute(Boolean.toString(IsAdmin), UserEmailId, cookie, "initial");
+
+        new ViewMapSurveys().execute(Boolean.toString(IsAdmin), UserEmailId, cookie, "initial");
 
     }
 
@@ -101,7 +176,7 @@ if(!s.equals(null)) {
                 vf =  (ViewFlipper) liactivity.getVf();
 
                 LinearLayout dynamicContent = (LinearLayout) liactivity.getactivityview(R.id.viewmap_surveys_layout);
-                dynamicContent.removeAllViews();
+               // dynamicContent.removeAllViews();
                 JSONArray jsonArray = new JSONArray(Response);
                 if (jsonArray != null && jsonArray.length() > 0) {
                     int N = jsonArray.length(); // total number of textviews to add

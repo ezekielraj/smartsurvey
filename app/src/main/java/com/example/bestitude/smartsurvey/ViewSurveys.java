@@ -5,11 +5,13 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import org.json.JSONArray;
@@ -17,6 +19,8 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import static java.lang.Math.ceil;
 
 public class ViewSurveys extends AsyncTask<String, String, String> {
 
@@ -32,6 +36,12 @@ public class ViewSurveys extends AsyncTask<String, String, String> {
     private static SQLiteDatabase ldb;
     private final static String Surveytablename = "Survey";
     private static SyncSurvey syncSurvey;
+
+    //(Boolean.toString(IsAdmin), UserEmailId, cookie, "initial");
+    private static Boolean adminstatus;
+    private static String emailstatus;
+
+
     ViewSurveys(){ }
     ViewSurveys(LoggedinActivity lia){
         liactivity = lia;
@@ -54,29 +64,50 @@ public class ViewSurveys extends AsyncTask<String, String, String> {
     @Override
     protected String doInBackground(String...arg) {
         //Do some task
-        publishProgress ("Processing");
+       publishProgress ("Getting Count");
         String IsAdmin = arg[0];
         String UserId = arg[1];
         String cookiegotton = arg[2];
         try {
+        if(arg[3].equals("initial")) {
+            Map<String, String> mapc = new HashMap<String, String>();
+            if (IsAdmin.equals("true")) {
+                mapc.put("request", "getalladmincount");
+            } else {
+                mapc.put("request", "getallusercount");
+                mapc.put("userid", UserId);
 
-            Map<String,String> map=new HashMap<String,String>();
-            if(IsAdmin.equals("true")) {
+            }
+            mapc.put("username", "admin");
+            mapc.put("password", "angelEAR2");
+            cwapi.doConnect(mapc, cookiegotton);
+            String Responsec = cwapi.getResponse();
+            Log.w("vs fetchallsurveys count", "as" + Responsec);
+            publishProgress ("Got Total Survey Count");
+            return "initial,-_" + Responsec;
+        }else {
+
+            Map<String, String> map = new HashMap<String, String>();
+            if (IsAdmin.equals("true")) {
                 map.put("request", "getalladmin");
-            }else{
+            } else {
                 map.put("request", "getalluser");
                 map.put("userid", UserId);
 
             }
-            Log.w("viewsurvyes", UserId+IsAdmin);
-		map.put("username","admin");
-                map.put("password","angelEAR2");
+            Log.w("viewsurvyes", UserId + IsAdmin);
+            map.put("limit1",arg[4]);
+            map.put("limit2", arg[5]);
+            map.put("username", "admin");
+            map.put("password", "angelEAR2");
+            publishProgress("Request Sent! From "+arg[4]+" to "+arg[5]);
             cwapi.doConnect(map, cookiegotton);
             String Response = cwapi.getResponse();
-            Log.w("vs fetchallsurveys", "as"+Response);
-
-            return Response;
-
+            publishProgress("Got Response");
+            Log.w("vs fetchallsurveys", "as" + Response);
+            //publishProgress ("Completed");
+            return "result,-_"+ Response;
+        }
         } catch (Exception e) {
             liactivity.saveException(e);
             e.printStackTrace();
@@ -88,23 +119,73 @@ public class ViewSurveys extends AsyncTask<String, String, String> {
     @Override
     protected void onProgressUpdate(String...values) {
         //Update the progress of current task
+
+        Snackbar.make(liactivity.getactivityview(R.id.viewflippers), values[0], Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
+
     }
 
     @Override
     protected void onPostExecute(String s) {
         //Show the result obtained from doInBackground
-        Log.w("vsonpostexecute", s);
-        updateLayoutContent(s);
-        updateLocalSurvey(s);
+        String output[] = s.split(",-_");
+
+        if(output[0].equals("initial")){
+
+            try{
+
+
+            int cvalue = 0;
+            JSONArray jsonArray = new JSONArray(output[1]);
+            if (jsonArray != null && jsonArray.length() > 0) {
+                int N = jsonArray.length(); // total number of textviews to add
+
+                for (int i = 0; i < jsonArray.length(); i++) {
+
+                    JSONObject jb = new JSONObject(jsonArray.getJSONObject(i).toString());
+                    cvalue = jb.getInt("count");
+                }
+            }
+            if(cvalue < 10) {
+                new ViewSurveys().execute(Boolean.toString(adminstatus), emailstatus, cookie, "noninitial",
+                        Integer.toString(0) , Integer.toString(10));
+            }else{
+                int j = 0;
+                for(int i=0;i<ceil(cvalue/10);i++){
+                    new ViewSurveys().execute(Boolean.toString(adminstatus), emailstatus, cookie, "noninitial",
+                            Integer.toString(j) , Integer.toString(10));
+                    j = j+10;
+                }
+                new ViewSurveys().execute(Boolean.toString(adminstatus), emailstatus, cookie, "noninitial",
+                        Integer.toString(j) , Integer.toString(10));
+
+            }
+
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+
+        }else {
+            Log.w("vsonpostexecute", output[1]);
+            updateLayoutContent(output[1]);
+            updateLocalSurvey(output[1]);
+        }
     }
 
 
 
 
     public void fetchAllSurveys(Boolean IsAdmin, String UserEmailId, String cookiestring){
+
         cookie = cookiestring;
         if(liactivity.isOnline()) {
-            new ViewSurveys().execute(Boolean.toString(IsAdmin), UserEmailId, cookie);
+            adminstatus = IsAdmin;
+            emailstatus = UserEmailId;
+            LinearLayout dynamicContent = (LinearLayout) liactivity.getactivityview(R.id.view_surveys_layout);
+            dynamicContent.removeAllViews();
+
+            new ViewSurveys().execute(Boolean.toString(IsAdmin), UserEmailId, cookie, "initial");
+
         }else{
             liactivity.saveString("checker testing"+UserEmailId + cookiestring);
             Log.w("checker testing",UserEmailId + cookiestring);
@@ -256,7 +337,7 @@ public class ViewSurveys extends AsyncTask<String, String, String> {
                 vf =  (ViewFlipper) liactivity.getVf();
 
                 LinearLayout dynamicContent = (LinearLayout) liactivity.getactivityview(R.id.view_surveys_layout);
-                dynamicContent.removeAllViews();
+                //dynamicContent.removeAllViews();
                 JSONArray jsonArray = new JSONArray(Response);
                 if (jsonArray != null && jsonArray.length() > 0) {
                     int N = jsonArray.length(); // total number of textviews to add

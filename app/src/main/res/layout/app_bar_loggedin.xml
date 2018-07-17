@@ -19,10 +19,6 @@
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </android.support.design.widget.AppBarLayout>
-    <ScrollView
-        android:id="@+id/groupscrollview"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
     <ViewFlipper xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/viewflippers"
         android:layout_width="fill_parent"
@@ -66,7 +62,6 @@
             layout="@layout/surveytake" />
 
     </ViewFlipper>
-    </ScrollView>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

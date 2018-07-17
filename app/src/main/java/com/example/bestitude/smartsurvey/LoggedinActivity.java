@@ -85,7 +85,9 @@ public class LoggedinActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+          //  super.onBackPressed();
+            Snackbar.make(findViewById(R.id.viewflippers), "Back button is diabled use menu", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
         }
     }
 

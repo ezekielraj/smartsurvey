@@ -8,6 +8,11 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".LoggedinActivity"
     tools:showIn="@layout/app_bar_loggedin">
+    <ScrollView
+        android:id="@+id/groupscrollview"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
     <LinearLayout
         android:id="@+id/view_surveys_layout"
         android:layout_width="match_parent"
@@ -21,5 +26,5 @@
             layout="@layout/viewusers_include" /-->
 
     </LinearLayout>
-
+    </ScrollView>
 </android.support.constraint.ConstraintLayout>
