@@ -64,12 +64,13 @@ public class ViewSurveys extends AsyncTask<String, String, String> {
     @Override
     protected String doInBackground(String...arg) {
         //Do some task
-       publishProgress ("Getting Count");
+
         String IsAdmin = arg[0];
         String UserId = arg[1];
         String cookiegotton = arg[2];
         try {
         if(arg[3].equals("initial")) {
+            publishProgress ("Getting Count");
             Map<String, String> mapc = new HashMap<String, String>();
             if (IsAdmin.equals("true")) {
                 mapc.put("request", "getalladmincount");
@@ -119,10 +120,12 @@ public class ViewSurveys extends AsyncTask<String, String, String> {
     @Override
     protected void onProgressUpdate(String...values) {
         //Update the progress of current task
-
+TextView tv = (TextView) liactivity.getactivityview(R.id.viewsurveystatus);
+tv.append("\n"+values[0]);
+        /*
         Snackbar.make(liactivity.getactivityview(R.id.viewflippers), values[0], Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show();
-
+*/
     }
 
     @Override
@@ -133,7 +136,7 @@ public class ViewSurveys extends AsyncTask<String, String, String> {
         if(output[0].equals("initial")){
 
             try{
-
+                ldb.execSQL("delete from "+ Surveytablename);
 
             int cvalue = 0;
             JSONArray jsonArray = new JSONArray(output[1]);
@@ -176,13 +179,16 @@ public class ViewSurveys extends AsyncTask<String, String, String> {
 
 
     public void fetchAllSurveys(Boolean IsAdmin, String UserEmailId, String cookiestring){
+        LinearLayout dynamicContent = (LinearLayout) liactivity.getactivityview(R.id.view_surveys_layout);
+        dynamicContent.removeAllViews();
+        View wizardView = liactivity.getactivityinflator()
+                .inflate(R.layout.viewsurveystatus_include, dynamicContent, false);
+        dynamicContent.addView(wizardView);
 
         cookie = cookiestring;
         if(liactivity.isOnline()) {
             adminstatus = IsAdmin;
             emailstatus = UserEmailId;
-            LinearLayout dynamicContent = (LinearLayout) liactivity.getactivityview(R.id.view_surveys_layout);
-            dynamicContent.removeAllViews();
 
             new ViewSurveys().execute(Boolean.toString(IsAdmin), UserEmailId, cookie, "initial");
 
@@ -251,7 +257,7 @@ public class ViewSurveys extends AsyncTask<String, String, String> {
     private void updateLocalSurvey(String Response){
         Log.w("uls","started");
         try {
-            ldb.execSQL("delete from "+ Surveytablename);
+           // ldb.execSQL("delete from "+ Surveytablename);
 
             String[] projection = {
                     "slno",
@@ -400,6 +406,7 @@ public class ViewSurveys extends AsyncTask<String, String, String> {
                                         tv4.getText().toString();
 
                                 vf.setDisplayedChild(vf.indexOfChild(liactivity.getactivityview(R.id.vstake)));
+                                ((ScrollView) liactivity.getactivityview(R.id.viewsurveyscrollview)).fullScroll(ScrollView.FOCUS_UP);
                                 liactivity.keepScrollup();
                                 liactivity.setTitle("Rural Diabetes - Mass Survey");
                                 takeSurvey.CheckDBExists(completetext);

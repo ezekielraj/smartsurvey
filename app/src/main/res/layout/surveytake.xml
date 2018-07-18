@@ -10,6 +10,7 @@
     tools:context=".LoggedinActivity"
     tools:showIn="@layout/app_bar_loggedin">
     <ScrollView
+        android:id="@+id/viewsurveyscrollview"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
 
