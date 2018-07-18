@@ -8,6 +8,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -406,12 +407,14 @@ tv.append("\n"+values[0]);
                                         tv4.getText().toString();
 
                                 vf.setDisplayedChild(vf.indexOfChild(liactivity.getactivityview(R.id.vstake)));
-                                ((ScrollView) liactivity.getactivityview(R.id.viewsurveyscrollview)).fullScroll(ScrollView.FOCUS_UP);
-                                liactivity.keepScrollup();
+
+                            //    liactivity.keepScrollup();
                                 liactivity.setTitle("Rural Diabetes - Mass Survey");
                                 takeSurvey.CheckDBExists(completetext);
                                 takeSurvey.configListener(completetext);
                                 Log.w("click for id",completetext);
+                                ((EditText) liactivity.getactivityview(R.id.entryname)).requestFocus();//clearFocus();//setFocusedByDefault(true);//.scrollTo(0, 0);//.fullScroll(ScrollView.FOCUS_UP);
+                                ((ScrollView) liactivity.getactivityview(R.id.viewsurveyscrollview)).fullScroll(ScrollView.FOCUS_UP);
                             }
                         });
                     }
