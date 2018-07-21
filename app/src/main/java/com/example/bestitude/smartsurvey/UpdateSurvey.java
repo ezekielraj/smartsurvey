@@ -263,7 +263,7 @@ public class UpdateSurvey extends AsyncTask<String, String, String> {
             i++;
         }else{
             if (eage.matches("[0-9]+")) {
-                if((Integer.parseInt(eage) > 18) && (Integer.parseInt(eage) < 120)) {
+                if((Integer.parseInt(eage) >= 18) && (Integer.parseInt(eage) =< 120)) {
                     entryagevalue = eage;
                     entryage.setError(null);
                 }else{
