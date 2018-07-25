@@ -85,7 +85,7 @@ public class ViewSurveys extends AsyncTask<String, String, String> {
             cwapi.doConnect(mapc, cookiegotton);
             String Responsec = cwapi.getResponse();
             Log.w("vs fetchallsurveys count", "as" + Responsec);
-            publishProgress ("Got Total Survey Count");
+            publishProgress ("Getting Count!!!.Got Total Survey Count");
             return "initial,-_" + Responsec;
         }else {
 
@@ -105,7 +105,7 @@ public class ViewSurveys extends AsyncTask<String, String, String> {
             publishProgress("Request Sent! From "+arg[4]+" to "+arg[5]);
             cwapi.doConnect(map, cookiegotton);
             String Response = cwapi.getResponse();
-            publishProgress("Got Response");
+            publishProgress("Request Sent! From "+arg[4]+" to "+arg[5] + "... Got Response");
             Log.w("vs fetchallsurveys", "as" + Response);
             //publishProgress ("Completed");
             return "result,-_"+ Response;
@@ -122,7 +122,7 @@ public class ViewSurveys extends AsyncTask<String, String, String> {
     protected void onProgressUpdate(String...values) {
         //Update the progress of current task
 TextView tv = (TextView) liactivity.getactivityview(R.id.viewsurveystatus);
-tv.append("\n"+values[0]);
+tv.setText(values[0]);
         /*
         Snackbar.make(liactivity.getactivityview(R.id.viewflippers), values[0], Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show();
