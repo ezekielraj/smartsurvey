@@ -15,8 +15,8 @@ android {
         applicationId "com.marveric.bestitude.smartsurvey"
         minSdkVersion 15
         targetSdkVersion 23
-        versionCode 4
-        versionName "3.1"
+        versionCode 6
+        versionName "3.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
