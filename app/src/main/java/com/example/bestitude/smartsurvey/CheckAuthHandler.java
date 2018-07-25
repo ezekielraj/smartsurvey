@@ -30,13 +30,15 @@ class CheckAuthHandler {
     private static int CheckEmailExistsfnflag = 1;
     private final static String Authtablename = "AuthVerification";
     private GoogleSignInHandler gsin;
+    private static int firsttimecheck;
+    private static MainActivity maa;
 
     CheckAuthHandler(){}
-    CheckAuthHandler(DatabaseHelper mDbHelper){
+    CheckAuthHandler(DatabaseHelper mDbHelper, MainActivity ma){
         checkerforsession = 0;
         db = mDbHelper.getWritableDatabase();
         gsin = new GoogleSignInHandler();
-
+        maa = ma;
         cwapi = new ConnectwithAPI("http://www.tutorialspole.com/smartsurvey/login.php","POST");
 
         Thread thread = new Thread(new Runnable(){
@@ -118,6 +120,9 @@ class CheckAuthHandler {
                                     updateLocalAuthVerification();
 
                                     CheckEmailExistsfnflag = 1;
+                                    if(firsttimecheck == 2){
+                                        maa.ChangeIntent();
+                                    }
                                 }
                             }
                         } else {
@@ -203,7 +208,7 @@ class CheckAuthHandler {
 Log.w("ulav","completed");
         CheckEmailExistsfnflag = 1;
     }
-    public boolean IsFileExists(){
+    public int IsFileExists(){
     Log.w("IsFileExists","Started");
         while(true){
             if(CheckEmailExistsfnflag == 1){
@@ -244,7 +249,8 @@ Log.w("rowCount", Integer.toString(cursor.getCount()));
 
             long newRowId = db.insert(Authtablename, null, values);
             CheckEmailExistsfnflag = 0;
-            return false;
+            firsttimecheck = 2;
+            return 2;
         }else{
             while(cursor.moveToNext()) {
 //                if(cursor.getString(cursor.getColumnIndexOrThrow("Emailid")) == UserEmailid){
@@ -256,11 +262,11 @@ Log.w("rowCount", Integer.toString(cursor.getCount()));
             Log.w("IsFileExists","Stoped"+UserEmailid);
             if(ValidUser == 1){
                 Log.w("VAlidUser","true");
-                return true;
+                return 1;
             }else{
                 CheckEmailExistsfnflag = 0;
 
-                return false;
+                return 0;
             }
 
         }

@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.loading);
         gsin = new GoogleSignInHandler(this);
         mDbHelper = new DatabaseHelper(this);
-        cauth = new CheckAuthHandler(mDbHelper);
+        cauth = new CheckAuthHandler(mDbHelper, this);
 
 Log.w("create ","completed");
     }
@@ -55,7 +55,8 @@ Log.w("start","started");
     public void changeContentView(){
     Log.w("changeContentView","Started");
         cauth.CheckEmailExists(gsin.getEmail());
-        if(!cauth.IsFileExists()) {
+        int isfileexists = cauth.IsFileExists();
+        if(isfileexists == 0) {
             setContentView(R.layout.not_authorized);
             Button bt = (Button) findViewById(R.id.na_lo_button);
             bt.setOnClickListener(new View.OnClickListener(){
@@ -68,7 +69,7 @@ Log.w("start","started");
             //setContentView(R.layout.activity_main);
             //TextView tv = (TextView) findViewById(R.id.authmessage);
             //tv.setText("Your Are Not Authorized");
-        }else{
+        }else if(isfileexists == 1){
             if(cdt != null){
                 cdt.cancel();
             }
@@ -78,6 +79,8 @@ Log.w("start","started");
 
 //            setContentView(layoutname);
 
+        }else if(isfileexists == 2){
+            setContentView(R.layout.loading);
         }
     }
 
@@ -118,6 +121,12 @@ Log.w("start","started");
             gsin.fetchSignedInData(data);
             this.onStart();
         }
+    }
+
+    public void ChangeIntent(){
+        Intent intent = new Intent(this, LoggedinActivity.class);
+        startActivity(intent);
+
     }
 
 
