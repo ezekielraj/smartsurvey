@@ -121,7 +121,7 @@ class CheckAuthHandler {
 
                                     CheckEmailExistsfnflag = 1;
                                     if(firsttimecheck == 2){
-                                        maa.ChangeIntent();
+                                        maa.ChangeIntent(ValidUser);
                                     }
                                 }
                             }
