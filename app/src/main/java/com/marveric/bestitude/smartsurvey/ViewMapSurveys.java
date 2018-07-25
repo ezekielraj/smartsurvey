@@ -149,9 +149,11 @@ if(!s.equals(null)) {
 
     }else {
 
+    if(output.length > 1) {
         Log.w("vsonpostexecute", output[1]);
 
         updateLayoutContent(output[1]);
+    }
     }
     }
     }
