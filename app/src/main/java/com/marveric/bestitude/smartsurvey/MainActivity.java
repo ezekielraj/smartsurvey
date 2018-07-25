@@ -123,10 +123,21 @@ Log.w("start","started");
         }
     }
 
-    public void ChangeIntent(){
-        Intent intent = new Intent(this, LoggedinActivity.class);
-        startActivity(intent);
-
+    public void ChangeIntent(int vu){
+        if(vu == 1) {
+            Intent intent = new Intent(this, LoggedinActivity.class);
+            startActivity(intent);
+        }else{
+            setContentView(R.layout.not_authorized);
+            Button bt = (Button) findViewById(R.id.na_lo_button);
+            bt.setOnClickListener(new View.OnClickListener(){
+                public void onClick(View v){
+                    gsin.googleSignOut();
+                    setContentView(R.layout.activity_main);
+                    configureClickListener();
+                }
+            });
+        }
     }
 
 
