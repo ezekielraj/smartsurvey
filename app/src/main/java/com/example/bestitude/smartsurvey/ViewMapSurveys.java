@@ -160,7 +160,7 @@ if(!s.equals(null)) {
         cookie = cookiestring;
         adminstatus = IsAdmin;
         emailstatus = UserEmailId;
-        LinearLayout dynamicContent = (LinearLayout) liactivity.getactivityview(R.id.view_surveys_layout);
+        LinearLayout dynamicContent = (LinearLayout) liactivity.getactivityview(R.id.viewmap_surveys_layout);
         dynamicContent.removeAllViews();
 
 //        new com.marveric.bestitude.smartsurvey.ViewSurveys().execute(Boolean.toString(IsAdmin), UserEmailId, cookie, "initial");
