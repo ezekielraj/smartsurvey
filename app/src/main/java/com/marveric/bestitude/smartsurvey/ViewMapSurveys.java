@@ -64,7 +64,7 @@ public class ViewMapSurveys extends AsyncTask<String, String, String> {
                 mapc.put("password", "angelEAR2");
                 cwapi.doConnect(mapc, cookiegotton);
                 String Responsec = cwapi.getResponse();
-                Log.w("vs fetchallsurveys count", "as" + Responsec);
+                if(BuildConfig.DEBUG) Log.i("vs fetchallsurveys count", "as" + Responsec);
                 return "initial,-_" + Responsec;
             }else {
 
@@ -76,7 +76,7 @@ public class ViewMapSurveys extends AsyncTask<String, String, String> {
                     map.put("userid", UserId);
 
                 }
-                Log.w("viewsurvyes", UserId + IsAdmin);
+                if(BuildConfig.DEBUG) Log.i("viewsurvyes", UserId + IsAdmin);
                 map.put("limit1",arg[4]);
                 map.put("limit2", arg[5]);
                 map.put("username", "admin");
@@ -85,7 +85,7 @@ public class ViewMapSurveys extends AsyncTask<String, String, String> {
                 cwapi.doConnect(map, cookiegotton);
                 String Response = cwapi.getResponse();
                 publishProgress("Got Response");
-                Log.w("vs fetchallsurveys", "as" + Response);
+                if(BuildConfig.DEBUG) Log.i("vs fetchallsurveys", "as" + Response);
                 //publishProgress ("Completed");
                 return "result,-_"+ Response;
             }
@@ -150,7 +150,7 @@ if(!s.equals(null)) {
     }else {
 
     if(output.length > 1) {
-        Log.w("vsonpostexecute", output[1]);
+        if(BuildConfig.DEBUG) Log.i("vsonpostexecute", output[1]);
 
         updateLayoutContent(output[1]);
     }
@@ -185,7 +185,7 @@ if(!s.equals(null)) {
 
                     for (int i = 0; i < jsonArray.length(); i++) {
 
-                        Log.w("view surveys -response", "as" + jsonArray.getJSONObject(i));
+                        if(BuildConfig.DEBUG) Log.i("view surveys -response", "as" + jsonArray.getJSONObject(i));
                         JSONObject jb = new JSONObject(jsonArray.getJSONObject(i).toString());
 
 
@@ -196,7 +196,7 @@ if(!s.equals(null)) {
 
 // add the inflated View to the layout
                         dynamicContent.addView(wizardView);
-                        //   Log.w("vusers layout id", Integer.toString(dynamicContent.getChildCount()));
+                        //   if(BuildConfig.DEBUG) Log.i("vusers layout id", Integer.toString(dynamicContent.getChildCount()));
                  //       TextView viewer = (TextView) liactivity.getactivityview(R.id.commontextview1);
                         TextView viewer = (TextView) liactivity.getactivityview(R.id.surveyidtext);
                         TextView viewer1 = (TextView) liactivity.getactivityview(R.id.districtidtext);
@@ -248,7 +248,7 @@ if(!s.equals(null)) {
                                 vmus.getUsersDetails(completetext);
                                 //takeSurvey.CheckDBExists(tv.getText().toString());
                                 //takeSurvey.configListener(tv.getText().toString());
-                                Log.w("click for id",completetext);
+                                if(BuildConfig.DEBUG) Log.i("click for id",completetext);
                             }
                         });
                     }

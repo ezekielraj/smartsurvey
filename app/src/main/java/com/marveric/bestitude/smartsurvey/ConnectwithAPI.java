@@ -103,7 +103,7 @@ public class ConnectwithAPI {
         }else{
             this.cookie = cookie;
         }
-        Log.w("insidecookie", "ins"+this.cookie);
+        if(BuildConfig.DEBUG) Log.i("insidecookie", "ins"+this.cookie);
         this.responseCode = con.getResponseCode();
         BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream(), "UTF-8"));
         String result = "";

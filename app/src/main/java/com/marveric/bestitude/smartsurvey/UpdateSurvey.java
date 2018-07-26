@@ -114,7 +114,7 @@ public class UpdateSurvey extends AsyncTask<String, String, String> {
 
             cwapi.doConnect(map, cauth.getCookiegotten());
             String Response = cwapi.getResponse();
-            Log.w("vs fas ts updatesurvey", "as"+Response);
+            if(BuildConfig.DEBUG) Log.i("vs fas ts updatesurvey", "as"+Response);
 
             return "Updated";
         }catch(Exception e){
@@ -133,7 +133,7 @@ public class UpdateSurvey extends AsyncTask<String, String, String> {
     @Override
     protected void onPostExecute(String s) {
         //Show the result obtained from doInBackground
-        Log.w("vsonpostexecute", s);
+        if(BuildConfig.DEBUG) Log.i("vsonpostexecute", s);
         if(s == "Updated") {
             ClearData();
             Toast.makeText(liactivity,
@@ -175,7 +175,7 @@ public class UpdateSurvey extends AsyncTask<String, String, String> {
         if(liactivity.isOnline()) {
             new UpdateSurvey().execute("insertdata", cauth.getUserEmailid(), data[0]);
         }else {
-            Log.w("Tablename", TableName);
+            if(BuildConfig.DEBUG) Log.i("Tablename", TableName);
             ContentValues values = new ContentValues();
             values.put("name", entrynamevalue);
             values.put("sex", sexgroupvalue);
@@ -212,7 +212,7 @@ public class UpdateSurvey extends AsyncTask<String, String, String> {
                         null               // The sort order
                 );
 //            cursor.getCount();
-                Log.w("rowCount", Integer.toString(cursor.getCount()));
+                if(BuildConfig.DEBUG) Log.i("rowCount", Integer.toString(cursor.getCount()));
 
             }else{
                 Toast.makeText(liactivity,

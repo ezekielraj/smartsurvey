@@ -50,8 +50,8 @@ class CheckAuthHandler {
                     map.put("password","angelEAR2");
                     cwapi.doConnect(map, null);
                     cookiegotten = cwapi.getCookie();
-                    Log.w("login-response", "as"+cwapi.getCookie());
-                    Log.w("login-response", "as"+cwapi.getResponseCode());
+                    if(BuildConfig.DEBUG) Log.i("login-response", "as"+cwapi.getCookie());
+                    if(BuildConfig.DEBUG) Log.i("login-response", "as"+cwapi.getResponseCode());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }finally {
@@ -66,11 +66,11 @@ class CheckAuthHandler {
                 break;
             }
         }
-        Log.w("Checkauthhandler ctor","stopped");
+        if(BuildConfig.DEBUG) Log.i("Checkauthhandler ctor","stopped");
     }
 
     public void CheckEmailExists(final String emailid){
-        Log.w("CheckEmailExists","Started");
+        if(BuildConfig.DEBUG) Log.i("CheckEmailExists","Started");
 
         UserEmailid = emailid;
         if(gsin.isOnline()) {
@@ -82,7 +82,7 @@ class CheckAuthHandler {
             Thread thread = new Thread(new Runnable() {
                 public void run() {
                     try {
-                        Log.w("CheckEmailExiststhread", "Started");
+                        if(BuildConfig.DEBUG) Log.i("CheckEmailExiststhread", "Started");
                         CheckEmailExistsfnflag = 0;
                         cwapi.newConnection("http://www.tutorialspole.com/smartsurvey/authverify.php", "POST");
                         Map<String, String> map = new HashMap<String, String>();
@@ -95,15 +95,15 @@ class CheckAuthHandler {
 
                         //  Response = Response.substring(0, (Response.length()-1));
                         //  Response = Response.substring(1);
-                        Log.w("getall-respons1e", "as" + Response);
+                        if(BuildConfig.DEBUG) Log.i("getall-respons1e", "as" + Response);
                         if (Response != "") {
                             // JSONObject resobj = new JSONObject(Response);
                             JSONArray jsonArray = new JSONArray(Response);
                             if (jsonArray != null && jsonArray.length() > 0) {
                                 for (int i = 0; i < jsonArray.length(); i++) {
-                                    Log.w("getall-response", "as" + jsonArray.getJSONObject(i));
+                                    if(BuildConfig.DEBUG) Log.i("getall-response", "as" + jsonArray.getJSONObject(i));
                                     JSONObject jb = new JSONObject(jsonArray.getJSONObject(i).toString());
-                                    Log.w("getall-response", "as" + jb.get("IsValid"));
+                                    if(BuildConfig.DEBUG) Log.i("getall-response", "as" + jb.get("IsValid"));
 
                                     if (jb.getInt("IsValid") == 1) {
                                         ValidUser = 1;
@@ -115,7 +115,7 @@ class CheckAuthHandler {
                                     } else {
                                         AdminUser = 0;
                                     }
-                                    Log.w("checkemailexists", "values" + Integer.toString(ValidUser) + Integer.toString(AdminUser));
+                                    if(BuildConfig.DEBUG) Log.i("checkemailexists", "values" + Integer.toString(ValidUser) + Integer.toString(AdminUser));
                                     // IsFileExists();
                                     updateLocalAuthVerification();
 
@@ -126,7 +126,7 @@ class CheckAuthHandler {
                                 }
                             }
                         } else {
-                            Log.w("getall-respons1e", "as" + Response);
+                            if(BuildConfig.DEBUG) Log.i("getall-respons1e", "as" + Response);
 
                         }
 
@@ -144,14 +144,14 @@ class CheckAuthHandler {
 
 
             while (true) {
-                // Log.w("realvalue" , Integer.toString(CheckEmailExistsfnflag));
+                // if(BuildConfig.DEBUG) Log.i("realvalue" , Integer.toString(CheckEmailExistsfnflag));
                 if (CheckEmailExistsfnflag == 1) {
-                    Log.w("ulav-down", "comp");
+                    if(BuildConfig.DEBUG) Log.i("ulav-down", "comp");
                     break;
                 }
             }
         }
-        Log.w("CheckEmailExists","Completed");
+        if(BuildConfig.DEBUG) Log.i("CheckEmailExists","Completed");
 
     }
 
@@ -190,11 +190,11 @@ class CheckAuthHandler {
             long newRowId = db.insert(Authtablename, null, values1);
         }
 
-        Log.w("ulav","started");
+        if(BuildConfig.DEBUG) Log.i("ulav","started");
         ContentValues values = new ContentValues();
         values.put("IsValid", ValidUser);
         values.put("IsAdmin", AdminUser);
-    Log.w("ulav","values"+Integer.toString(ValidUser)+Integer.toString(AdminUser));
+    if(BuildConfig.DEBUG) Log.i("ulav","values"+Integer.toString(ValidUser)+Integer.toString(AdminUser));
         // Which row to update, based on the title
        // String selection = "Emailid LIKE ?";
        // String[] selectionArgs = { UserEmailid };
@@ -205,11 +205,11 @@ class CheckAuthHandler {
                 selection,
                 selectionArgs);
 
-Log.w("ulav","completed");
+if(BuildConfig.DEBUG) Log.i("ulav","completed");
         CheckEmailExistsfnflag = 1;
     }
     public int IsFileExists(){
-    Log.w("IsFileExists","Started");
+    if(BuildConfig.DEBUG) Log.i("IsFileExists","Started");
         while(true){
             if(CheckEmailExistsfnflag == 1){
                 break;
@@ -239,7 +239,7 @@ Log.w("ulav","completed");
                 sortOrder               // The sort order
         );
 
-Log.w("rowCount", Integer.toString(cursor.getCount()));
+if(BuildConfig.DEBUG) Log.i("rowCount", Integer.toString(cursor.getCount()));
 
         if(cursor.getCount() == 0){
             ContentValues values = new ContentValues();
@@ -256,12 +256,12 @@ Log.w("rowCount", Integer.toString(cursor.getCount()));
 //                if(cursor.getString(cursor.getColumnIndexOrThrow("Emailid")) == UserEmailid){
                     ValidUser = cursor.getInt(cursor.getColumnIndexOrThrow("IsValid"));
                     AdminUser = cursor.getInt(cursor.getColumnIndexOrThrow("IsAdmin"));
-                    Log.w("rowinvalid" ,Integer.toString(cursor.getInt(cursor.getColumnIndex("IsValid"))));
+                    if(BuildConfig.DEBUG) Log.i("rowinvalid" ,Integer.toString(cursor.getInt(cursor.getColumnIndex("IsValid"))));
   //              }
             }
-            Log.w("IsFileExists","Stoped"+UserEmailid);
+            if(BuildConfig.DEBUG) Log.i("IsFileExists","Stoped"+UserEmailid);
             if(ValidUser == 1){
-                Log.w("VAlidUser","true");
+                if(BuildConfig.DEBUG) Log.i("VAlidUser","true");
                 return 1;
             }else{
                 CheckEmailExistsfnflag = 0;
