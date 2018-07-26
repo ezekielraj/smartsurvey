@@ -55,7 +55,7 @@ public class TakeSurvey extends AsyncTask<String, String, String> {
                 map.put("password","angelEAR2");
             cwapi.doConnect(map, cauth.getCookiegotten());
             String Response = cwapi.getResponse();
-            Log.w("vs fas takesurvey", "as"+Response);
+            if(BuildConfig.DEBUG) Log.i("vs fas takesurvey", "as"+Response);
 
             return Response;
 
@@ -74,7 +74,7 @@ public class TakeSurvey extends AsyncTask<String, String, String> {
     @Override
     protected void onPostExecute(String s) {
         //Show the result obtained from doInBackground
-        Log.w("vsonpostexecute", s);
+        if(BuildConfig.DEBUG) Log.i("vsonpostexecute", s);
     }
 
     private void setTableName(String Email, String data){
@@ -88,14 +88,14 @@ public class TakeSurvey extends AsyncTask<String, String, String> {
         if(liactivity.isOnline()) {
             new TakeSurvey().execute("createtable", cauth.getUserEmailid(), data[0]);
         }//else{
-            Log.w("Email", cauth.getUserEmailid()+data[0]);
+            if(BuildConfig.DEBUG) Log.i("Email", cauth.getUserEmailid()+data[0]);
             checkLocalDBExists(cauth.getUserEmailid(), data[0]);
         //}
     }
     private void checkLocalDBExists(String Email, String data){
         String emid[] = Email.replaceAll("\\."  ,  "_").split("@");
 
-Log.w("text", emid[0]+emid[1]);
+if(BuildConfig.DEBUG) Log.i("text", emid[0]+emid[1]);
         String sce = "CREATE TABLE IF NOT EXISTS " + emid[0] + "_" + emid[1] + "_" + data + " ( " +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "name VARCHAR(255)," +
@@ -125,7 +125,7 @@ Log.w("text", emid[0]+emid[1]);
 
         if (c.moveToFirst()) {
             while ( !c.isAfterLast() ) {
-                Log.w("Tablename:", c.getString(0));
+                if(BuildConfig.DEBUG) Log.i("Tablename:", c.getString(0));
                 //Toast.makeText(activityName.this, "Table Name=> "+c.getString(0), Toast.LENGTH_LONG).show();
                 c.moveToNext();
             }
@@ -138,7 +138,7 @@ Log.w("text", emid[0]+emid[1]);
             public void onClick(View v){
                 if(updateSurvey.ValidateData()){
                         updateSurvey.sendData(value, currTableName);
-                        Log.w("takesurvey", "success");
+                        if(BuildConfig.DEBUG) Log.i("takesurvey", "success");
 
                 }
             }

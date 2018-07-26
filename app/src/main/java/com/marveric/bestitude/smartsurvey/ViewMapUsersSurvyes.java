@@ -46,7 +46,7 @@ public class ViewMapUsersSurvyes extends AsyncTask<String, String, String> {
         //Do some task
         publishProgress ("Processing");
         String surveyid = arg[0];
-        Log.w("getud00", surveyid);
+        if(BuildConfig.DEBUG) Log.i("getud00", surveyid);
         sid = surveyid;
         try{
             Map<String,String> map=new HashMap<String,String>();
@@ -59,7 +59,7 @@ public class ViewMapUsersSurvyes extends AsyncTask<String, String, String> {
             if(Response != "false"){
                 return Response;
             }
-            Log.w("vmus fetchallsurveys", "as"+Response);
+            if(BuildConfig.DEBUG) Log.i("vmus fetchallsurveys", "as"+Response);
 
         } catch (Exception e) {
             liactivity.saveException(e);
@@ -76,7 +76,7 @@ public class ViewMapUsersSurvyes extends AsyncTask<String, String, String> {
     @Override
     protected void onPostExecute(String s) {
         //Show the result obtained from doInBackground
-        Log.w("vsonpostexecute", s);
+        if(BuildConfig.DEBUG) Log.i("vsonpostexecute", s);
         updateDataCheckbox(s);
     }
 
@@ -94,7 +94,7 @@ public class ViewMapUsersSurvyes extends AsyncTask<String, String, String> {
 
                     for (int i = 0; i < jsonArray.length(); i++) {
 
-                        Log.w("vmu surveys -response", "as" + jsonArray.getJSONObject(i));
+                        if(BuildConfig.DEBUG) Log.i("vmu surveys -response", "as" + jsonArray.getJSONObject(i));
                         JSONObject jb = new JSONObject(jsonArray.getJSONObject(i).toString());
 
 
@@ -105,7 +105,7 @@ public class ViewMapUsersSurvyes extends AsyncTask<String, String, String> {
 
 // add the inflated View to the layout
                         dynamicContent.addView(wizardView);
-                        //   Log.w("vusers layout id", Integer.toString(dynamicContent.getChildCount()));
+                        //   if(BuildConfig.DEBUG) Log.i("vusers layout id", Integer.toString(dynamicContent.getChildCount()));
                         CheckBox viewer = (CheckBox) liactivity.getactivityview(R.id.commoncheckbox);
                         viewer.setId(View.generateViewId());
                         viewer.setText(jb.getString("Email"));
@@ -128,7 +128,7 @@ public class ViewMapUsersSurvyes extends AsyncTask<String, String, String> {
                              //   vmus.getUsersDetails(tv.getText().toString());
                                 //takeSurvey.CheckDBExists(tv.getText().toString());
                                 //takeSurvey.configListener(tv.getText().toString());
-                                Log.w("click for id",tv.getText().toString());
+                                if(BuildConfig.DEBUG) Log.i("click for id",tv.getText().toString());
                             }
                         });
                    */ }

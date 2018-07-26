@@ -35,7 +35,7 @@ public class vmusMapSubmit extends AsyncTask<String, String, String> {
     public void submitUserstoSurvey(String surveyid, Vector<View> suid) {
 /*        LinearLayout dynamicContent = (LinearLayout) liactivity.getactivityview(R.id.viewmap_users_surveys_layout);
         int count = dynamicContent.getChildCount();
-        Log.w("surveyid",surveyid);
+        if(BuildConfig.DEBUG) Log.i("surveyid",surveyid);
         for (int i = 0; i < count; i++) {
             View v = dynamicContent.getChildAt(i);
             if (v instanceof CheckBox) {
@@ -93,7 +93,7 @@ public class vmusMapSubmit extends AsyncTask<String, String, String> {
             cwapi.doConnect(map, cauth.getCookiegotten());
             String Response = cwapi.getResponse();
 
-Log.w("test result", Response);
+if(BuildConfig.DEBUG) Log.i("test result", Response);
 
         } catch (Exception e) {
             liactivity.saveException(e);
@@ -110,7 +110,7 @@ Log.w("test result", Response);
     @Override
     protected void onPostExecute(String s) {
         //Show the result obtained from doInBackground
-        Log.w("vsonpostexecute", s);
+        if(BuildConfig.DEBUG) Log.i("vsonpostexecute", s);
         ocount--;
         if(ocount == 0){
             Toast.makeText(liactivity,

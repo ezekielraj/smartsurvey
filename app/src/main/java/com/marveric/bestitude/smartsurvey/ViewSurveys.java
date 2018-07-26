@@ -84,7 +84,7 @@ public class ViewSurveys extends AsyncTask<String, String, String> {
             mapc.put("password", "angelEAR2");
             cwapi.doConnect(mapc, cookiegotton);
             String Responsec = cwapi.getResponse();
-            Log.w("vs fetchallsurveys count", "as" + Responsec);
+            if(BuildConfig.DEBUG) Log.i("vs fetchallsurveys count", "as" + Responsec);
             publishProgress ("Getting Count!!!.Got Total Survey Count");
             return "initial,-_" + Responsec;
         }else {
@@ -97,7 +97,7 @@ public class ViewSurveys extends AsyncTask<String, String, String> {
                 map.put("userid", UserId);
 
             }
-            Log.w("viewsurvyes", UserId + IsAdmin);
+            if(BuildConfig.DEBUG) Log.i("viewsurvyes", UserId + IsAdmin);
             map.put("limit1",arg[4]);
             map.put("limit2", arg[5]);
             map.put("username", "admin");
@@ -106,7 +106,7 @@ public class ViewSurveys extends AsyncTask<String, String, String> {
             cwapi.doConnect(map, cookiegotton);
             String Response = cwapi.getResponse();
             publishProgress("Request Sent! From "+arg[4]+" to "+arg[5] + "... Got Response");
-            Log.w("vs fetchallsurveys", "as" + Response);
+            if(BuildConfig.DEBUG) Log.i("vs fetchallsurveys", "as" + Response);
             //publishProgress ("Completed");
             return "result,-_"+ Response;
         }
@@ -170,7 +170,7 @@ tv.setText(values[0]);
             }
 
         }else {
-            Log.w("vsonpostexecute", output[1]);
+            if(BuildConfig.DEBUG) Log.i("vsonpostexecute", output[1]);
             updateLayoutContent(output[1]);
             updateLocalSurvey(output[1]);
         }
@@ -195,13 +195,13 @@ tv.setText(values[0]);
 
         }else{
             liactivity.saveString("checker testing"+UserEmailId + cookiestring);
-            Log.w("checker testing",UserEmailId + cookiestring);
+            if(BuildConfig.DEBUG) Log.i("checker testing",UserEmailId + cookiestring);
             updateLayoutContentoffline();
         }
     }
 
     private void updateLayoutContentoffline(){
-        Log.w("uLCo","Started");
+        if(BuildConfig.DEBUG) Log.i("uLCo","Started");
         try{
             String[] projection = {
                     "slno",
@@ -223,7 +223,7 @@ tv.setText(values[0]);
                     null,                   // don't filter by row groups
                     null//sortOrder               // The sort order
             );
-            Log.w("vs rowCount", Integer.toString(cursor.getCount()));
+            if(BuildConfig.DEBUG) Log.i("vs rowCount", Integer.toString(cursor.getCount()));
 
             if(cursor.getCount() != 0){
                 String Response = "[";
@@ -241,7 +241,7 @@ tv.setText(values[0]);
                         "\"},";
                     //ValidUser = cursor.getInt(cursor.getColumnIndexOrThrow("IsValid"));
                     //AdminUser = cursor.getInt(cursor.getColumnIndexOrThrow("IsAdmin"));
-                    //Log.w("rowinvalid" ,Response);//cursor.getString(cursor.getColumnIndex("District")));
+                    //if(BuildConfig.DEBUG) Log.i("rowinvalid" ,Response);//cursor.getString(cursor.getColumnIndex("District")));
 
                 }
                 Response = Response.substring(0, Response.length() - 1);
@@ -256,7 +256,7 @@ tv.setText(values[0]);
     }
 
     private void updateLocalSurvey(String Response){
-        Log.w("uls","started");
+        if(BuildConfig.DEBUG) Log.i("uls","started");
         try {
            // ldb.execSQL("delete from "+ Surveytablename);
 
@@ -277,7 +277,7 @@ tv.setText(values[0]);
 
                 for (int i = 0; i < jsonArray.length(); i++) {
 
-                    Log.w("view surveys -response", "as" + jsonArray.getJSONObject(i));
+                    if(BuildConfig.DEBUG) Log.i("view surveys -response", "as" + jsonArray.getJSONObject(i));
                     JSONObject jb = new JSONObject(jsonArray.getJSONObject(i).toString());
                     String[] selectionArgs = { Integer.toString(jb.getInt("survey_id")) };
 
@@ -293,7 +293,7 @@ tv.setText(values[0]);
                             null,                   // don't filter by row groups
                             sortOrder               // The sort order
                     );
-                    Log.w("vs rowCount", Integer.toString(cursor.getCount()));
+                    if(BuildConfig.DEBUG) Log.i("vs rowCount", Integer.toString(cursor.getCount()));
 
                     if(cursor.getCount() == 0) {
                         ContentValues values = new ContentValues();
@@ -319,7 +319,7 @@ tv.setText(values[0]);
                                 selection,
                                 selectionArgs);
 
-                        Log.w("ulav","completed");
+                        if(BuildConfig.DEBUG) Log.i("ulav","completed");
 
 
 
@@ -351,7 +351,7 @@ tv.setText(values[0]);
 
                     for (int i = 0; i < jsonArray.length(); i++) {
 
-                        Log.w("view surveys -response", "as" + jsonArray.getJSONObject(i));
+                        if(BuildConfig.DEBUG) Log.i("view surveys -response", "as" + jsonArray.getJSONObject(i));
                         JSONObject jb = new JSONObject(jsonArray.getJSONObject(i).toString());
 
 
@@ -362,7 +362,7 @@ tv.setText(values[0]);
 
 // add the inflated View to the layout
                         dynamicContent.addView(wizardView);
-                        //   Log.w("vusers layout id", Integer.toString(dynamicContent.getChildCount()));
+                        //   if(BuildConfig.DEBUG) Log.i("vusers layout id", Integer.toString(dynamicContent.getChildCount()));
               //          TextView viewer = (TextView) liactivity.getactivityview(R.id.commontextview);
                         TextView viewer = (TextView) liactivity.getactivityview(R.id.surveyidtext);
                         TextView viewer1 = (TextView) liactivity.getactivityview(R.id.districtidtext);
@@ -412,7 +412,7 @@ tv.setText(values[0]);
                                 liactivity.setTitle("Rural Diabetes - Mass Survey");
                                 takeSurvey.CheckDBExists(completetext);
                                 takeSurvey.configListener(completetext);
-                                Log.w("click for id",completetext);
+                                if(BuildConfig.DEBUG) Log.i("click for id",completetext);
                                 ((EditText) liactivity.getactivityview(R.id.entryname)).requestFocus();//clearFocus();//setFocusedByDefault(true);//.scrollTo(0, 0);//.fullScroll(ScrollView.FOCUS_UP);
                                 ((ScrollView) liactivity.getactivityview(R.id.viewsurveyscrollview)).fullScroll(ScrollView.FOCUS_UP);
                             }

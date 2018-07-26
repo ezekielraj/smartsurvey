@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mDbHelper = new DatabaseHelper(this);
         cauth = new CheckAuthHandler(mDbHelper, this);
 
-Log.w("create ","completed");
+if(BuildConfig.DEBUG) Log.i("create ","completed");
     }
 
 
@@ -37,7 +37,7 @@ Log.w("create ","completed");
     protected void onStart(){
         super.onStart();
 
-Log.w("start","started");
+if(BuildConfig.DEBUG) Log.i("start","started");
         if(gsin.CheckSignedIn()){
 
             changeContentView();
@@ -53,7 +53,7 @@ Log.w("start","started");
     }
 
     public void changeContentView(){
-    Log.w("changeContentView","Started");
+    if(BuildConfig.DEBUG) Log.i("changeContentView","Started");
         cauth.CheckEmailExists(gsin.getEmail());
         int isfileexists = cauth.IsFileExists();
         if(isfileexists == 0) {
@@ -73,7 +73,7 @@ Log.w("start","started");
             if(cdt != null){
                 cdt.cancel();
             }
-            Log.w("timer stop","stop");
+            if(BuildConfig.DEBUG) Log.i("timer stop","stop");
                  Intent intent = new Intent(this, LoggedinActivity.class);
                 startActivity(intent);
 
@@ -101,7 +101,7 @@ Log.w("start","started");
                     }
                 }.start();
 
-                Log.w("timer start","start");
+                if(BuildConfig.DEBUG) Log.i("timer start","start");
                 startActivityForResult(gsin.googleSignIn(), RC_SIGN_IN);
                 break;
 

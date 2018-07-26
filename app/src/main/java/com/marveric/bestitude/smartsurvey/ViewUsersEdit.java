@@ -53,7 +53,7 @@ if(slno.equals("update")) {
                 mapua.put("password","angelEAR2");
     cwapi.doConnect(mapua, vu.getCookie());
     String Response = cwapi.getResponse();
-    Log.w("vuadd isadmin update", "as" + Response);
+    if(BuildConfig.DEBUG) Log.i("vuadd isadmin update", "as" + Response);
 
     Map<String, String> mapuv = new HashMap<String, String>();
     if (isvalid.equals("false")) {
@@ -66,7 +66,7 @@ if(slno.equals("update")) {
                 mapuv.put("password","angelEAR2");
     cwapi.doConnect(mapuv, vu.getCookie());
     Response = cwapi.getResponse();
-    Log.w("vuadd isvalid update", "as" + Response);
+    if(BuildConfig.DEBUG) Log.i("vuadd isvalid update", "as" + Response);
     return "Updated";
 }
 if(slno.equals("delete")){
@@ -75,7 +75,7 @@ if(slno.equals("delete")){
     mapd.put("emailid", userEmailid);
     cwapi.doConnect(mapd, vu.getCookie());
     String Response = cwapi.getResponse();
-    Log.w("vuadd delete", "as" + Response);
+    if(BuildConfig.DEBUG) Log.i("vuadd delete", "as" + Response);
     return "Deleted";
 }
             return "true";
@@ -97,7 +97,7 @@ if(slno.equals("delete")){
     protected void onPostExecute(String s) {
         //Show the result obtained from doInBackground
 
-        Log.w("onpostexecute edit", s);
+        if(BuildConfig.DEBUG) Log.i("onpostexecute edit", s);
         TextView tv = (TextView) liactivity.getactivityview(R.id.status_text_edit);
         tv.setText("Status: "+s);
         if(s.equals("Deleted")) {
@@ -109,7 +109,7 @@ if(slno.equals("delete")){
     }
 
     public void configListener(String s){
-        Log.w("view users edit", s);
+        if(BuildConfig.DEBUG) Log.i("view users edit", s);
         String data[] = s.split("-");
         TextView slnodbid = (TextView) liactivity.getactivityview(R.id.slnodbid);
         slnodbid.setText(data[0]);

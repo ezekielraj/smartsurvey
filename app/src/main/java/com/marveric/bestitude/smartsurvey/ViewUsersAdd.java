@@ -50,7 +50,7 @@ public class ViewUsersAdd extends AsyncTask<String, String, String> {
                 map.put("password","angelEAR2");
             cwapi.doConnect(map, vu.getCookie());
             String Response = cwapi.getResponse();
-            Log.w("vuadd ", "as"+Response);
+            if(BuildConfig.DEBUG) Log.i("vuadd ", "as"+Response);
             if(Response.equals("true")){
 
                 if(isadmin.equals("true")){
@@ -61,7 +61,7 @@ public class ViewUsersAdd extends AsyncTask<String, String, String> {
                 mapua.put("password","angelEAR2");
                     cwapi.doConnect(mapua, vu.getCookie());
                     Response = cwapi.getResponse();
-                    Log.w("vuadd isadmin update", "as"+Response);
+                    if(BuildConfig.DEBUG) Log.i("vuadd isadmin update", "as"+Response);
 
                 }
                 if(isvalid.equals("false")){
@@ -72,7 +72,7 @@ public class ViewUsersAdd extends AsyncTask<String, String, String> {
                 mapuv.put("password","angelEAR2");
                     cwapi.doConnect(mapuv, vu.getCookie());
                     Response = cwapi.getResponse();
-                    Log.w("vuadd isvalid update", "as"+Response);
+                    if(BuildConfig.DEBUG) Log.i("vuadd isvalid update", "as"+Response);
                 }
 
 
@@ -96,7 +96,7 @@ public class ViewUsersAdd extends AsyncTask<String, String, String> {
     @Override
     protected void onPostExecute(String s) {
         //Show the result obtained from doInBackground
-        Log.w("onpostexecute", s);
+        if(BuildConfig.DEBUG) Log.i("onpostexecute", s);
         TextView tv = (TextView) liactivity.getactivityview(R.id.status_text);
         if(s.equals("true")){
             tv.setText("Status: Created");

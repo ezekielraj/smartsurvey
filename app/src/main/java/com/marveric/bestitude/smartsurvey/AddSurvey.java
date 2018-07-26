@@ -100,7 +100,7 @@ public class AddSurvey extends AsyncTask<String, String, String> {
 		map.put("password","angelEAR2");
             cwapi.doConnect(map, cauth.getCookiegotten());
             String Response = cwapi.getResponse();
-            Log.w("vuadd ", "as"+Response);
+            if(BuildConfig.DEBUG) Log.i("vuadd ", "as"+Response);
             liactivity.saveString("vuadd: "+Response);
 
             if(Response.equals("true")) {
@@ -124,7 +124,7 @@ public class AddSurvey extends AsyncTask<String, String, String> {
     @Override
     protected void onPostExecute(String s) {
         //Show the result obtained from doInBackground
-        Log.w("onpostexecute", s);
+        if(BuildConfig.DEBUG) Log.i("onpostexecute", s);
         liactivity.saveString("onpostexecute"+ s);
         if(s.equals("true")){
             ClearData();

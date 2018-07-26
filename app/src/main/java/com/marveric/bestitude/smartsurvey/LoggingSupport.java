@@ -22,7 +22,7 @@ public class LoggingSupport {
 
 
         file = new File(liactivity.getFilesDir(),filename);//dirname+ filename);
-        Log.w("dirname", dirname.toString());
+        if(BuildConfig.DEBUG) Log.i("dirname", dirname.toString());
     }
 
     public void WriteExcepData(Exception txt){

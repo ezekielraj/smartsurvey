@@ -64,7 +64,7 @@ public class ViewUsers extends AsyncTask<String, String, String> {
                 map.put("password","angelEAR2");
             cwapi.doConnect(map, cookiegotton);
             String Response = cwapi.getResponse();
-            Log.w("vu fetchallusers", "as"+Response);
+            if(BuildConfig.DEBUG) Log.i("vu fetchallusers", "as"+Response);
 
             return Response;
 
@@ -85,7 +85,7 @@ public class ViewUsers extends AsyncTask<String, String, String> {
     protected void onPostExecute(String s) {
         //Show the result obtained from doInBackground
     if(s != null) {
-        Log.w("onpostexecute", s);
+        if(BuildConfig.DEBUG) Log.i("onpostexecute", s);
         updateLayoutContent(s);
     }
     }
@@ -112,7 +112,7 @@ public class ViewUsers extends AsyncTask<String, String, String> {
 
                     for (int i = 0; i < jsonArray.length(); i++) {
 
-                        Log.w("view users -response", "as" + jsonArray.getJSONObject(i));
+                        if(BuildConfig.DEBUG) Log.i("view users -response", "as" + jsonArray.getJSONObject(i));
                         JSONObject jb = new JSONObject(jsonArray.getJSONObject(i).toString());
 
 
@@ -123,7 +123,7 @@ public class ViewUsers extends AsyncTask<String, String, String> {
 
 // add the inflated View to the layout
                         dynamicContent.addView(wizardView);
-                     //   Log.w("vusers layout id", Integer.toString(dynamicContent.getChildCount()));
+                     //   if(BuildConfig.DEBUG) Log.i("vusers layout id", Integer.toString(dynamicContent.getChildCount()));
                         //TextView viewer = (TextView) liactivity.getactivityview(R.id.commontextview);
 
                         TextView viewer = (TextView) liactivity.getactivityview(R.id.useridtext);
@@ -169,7 +169,7 @@ public class ViewUsers extends AsyncTask<String, String, String> {
                                 vf.setDisplayedChild(vf.indexOfChild(liactivity.getactivityview(R.id.vuedit)));
                                 liactivity.keepScrollup();
                                 vue.configListener(completetext);
-                                Log.w("click for id",completetext);
+                                if(BuildConfig.DEBUG) Log.i("click for id",completetext);
                             }
                         });
                     }

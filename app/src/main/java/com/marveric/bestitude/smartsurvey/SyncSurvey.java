@@ -43,7 +43,7 @@ public class SyncSurvey extends AsyncTask<String, String, String> {
                 map.put("password","angelEAR2");
             cwapi.doConnect(map, cauth.getCookiegotten());
             String Response = cwapi.getResponse();
-            Log.w("vs fas takesurvey1", "as"+Response);
+            if(BuildConfig.DEBUG) Log.i("vs fas takesurvey1", "as"+Response);
 
 
             if(Response.equals("true")){
@@ -75,9 +75,9 @@ public class SyncSurvey extends AsyncTask<String, String, String> {
                         map1.put("otherdiseases", cursor.getString(cursor.getColumnIndex("other_diseases")));
                         cwapi.doConnect(map1, cauth.getCookiegotten());
                         Response = cwapi.getResponse();
-                        Log.w("vs fas ts updatesurvey", "as"+Response);
+                        if(BuildConfig.DEBUG) Log.i("vs fas ts updatesurvey", "as"+Response);
                         if(Response.equals("true")){
-                            Log.w("delete id", Integer.toString(cursor.getInt(cursor.getColumnIndex("id"))));
+                            if(BuildConfig.DEBUG) Log.i("delete id", Integer.toString(cursor.getInt(cursor.getColumnIndex("id"))));
                             ldber.delete(arg[0] + "_" + arg[1], "id=" + Integer.toString(cursor.getInt(cursor.getColumnIndex("id"))), null);
                         }
                         cursor.moveToNext();
@@ -104,7 +104,7 @@ public class SyncSurvey extends AsyncTask<String, String, String> {
     @Override
     protected void onPostExecute(String s) {
         //Show the result obtained from doInBackground
-        Log.w("vsonpostexecute", s);
+        if(BuildConfig.DEBUG) Log.i("vsonpostexecute", s);
         Toast.makeText(liactivity,
                 "Data Successfully Synced Online", Toast.LENGTH_SHORT).show();
     }
@@ -115,13 +115,13 @@ public class SyncSurvey extends AsyncTask<String, String, String> {
         if (c.moveToFirst()) {
             while ( !c.isAfterLast() ) {
                 if(c.getString(0).toLowerCase().contains(cauth.getUserEmailid().replaceAll("\\.","_").replaceAll("@","_").toLowerCase())){
-                    Log.w("Tablename:", c.getString(0) + Boolean.toString(c.getString(0).toLowerCase().contains(cauth.getUserEmailid().replaceAll("\\.","_").replaceAll("@","_").toLowerCase())));
+                    if(BuildConfig.DEBUG) Log.i("Tablename:", c.getString(0) + Boolean.toString(c.getString(0).toLowerCase().contains(cauth.getUserEmailid().replaceAll("\\.","_").replaceAll("@","_").toLowerCase())));
                     String Email[] = c.getString(0).split("_");
                     String Emailid = "";
                     for (int i=0;i < (Email.length-1); i++){
                         Emailid = Emailid + Email[i] + "_";
                     }
-                    Log.w("texttosend",Emailid.substring(0, Emailid.length()-1)+Email[Email.length - 1]);
+                    if(BuildConfig.DEBUG) Log.i("texttosend",Emailid.substring(0, Emailid.length()-1)+Email[Email.length - 1]);
 
                     new SyncSurvey().execute(Emailid.substring(0, Emailid.length()-1), Email[Email.length - 1]);
                 }

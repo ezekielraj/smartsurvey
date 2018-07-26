@@ -221,11 +221,11 @@ public class LoggedinActivity extends AppCompatActivity
 
         switch (v.getId()) {
             case R.id.fab:
-                Log.w("testing","testing");
+                if(BuildConfig.DEBUG) Log.i("testing","testing");
                 break;
 
         }
-        Log.w("onclick listener", Integer.toString(v.getId()));
+        if(BuildConfig.DEBUG) Log.i("onclick listener", Integer.toString(v.getId()));
         this.saveString("onclick listener"+Integer.toString(v.getId()));
     }
     public LayoutInflater getactivityinflator(){
