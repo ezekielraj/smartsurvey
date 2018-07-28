@@ -170,9 +170,11 @@ tv.setText(values[0]);
             }
 
         }else {
-            if(BuildConfig.DEBUG) Log.i("vsonpostexecute", output[1]);
+        if(output.length > 1) {
+            if (BuildConfig.DEBUG) Log.i("vsonpostexecute", output[1]);
             updateLayoutContent(output[1]);
             updateLocalSurvey(output[1]);
+        }
         }
     }
 

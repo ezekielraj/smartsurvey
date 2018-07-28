@@ -124,10 +124,13 @@ class CheckAuthHandler {
                                         maa.ChangeIntent(ValidUser);
                                     }
                                 }
+                            }else{
+                                if(firsttimecheck == 2){
+                                    maa.ChangeIntent(ValidUser);
+                                }
                             }
                         } else {
-                            if(BuildConfig.DEBUG) Log.i("getall-respons1e", "as" + Response);
-
+                            if(BuildConfig.DEBUG) Log.i("getall-respons1e2", "as" + Response);
                         }
 
                         CheckEmailExistsfnflag = 1;

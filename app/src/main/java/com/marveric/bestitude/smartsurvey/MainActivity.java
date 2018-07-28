@@ -128,6 +128,11 @@ if(BuildConfig.DEBUG) Log.i("start","started");
             Intent intent = new Intent(this, LoggedinActivity.class);
             startActivity(intent);
         }else{
+            MainActivity.this.runOnUiThread(new Runnable() {
+
+                @Override
+                public void run() {
+
             setContentView(R.layout.not_authorized);
             Button bt = (Button) findViewById(R.id.na_lo_button);
             bt.setOnClickListener(new View.OnClickListener(){
@@ -136,6 +141,9 @@ if(BuildConfig.DEBUG) Log.i("start","started");
                     setContentView(R.layout.activity_main);
                     configureClickListener();
                 }
+            });
+                }
+
             });
         }
     }
