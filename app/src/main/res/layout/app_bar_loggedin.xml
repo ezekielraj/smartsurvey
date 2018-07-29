@@ -47,6 +47,10 @@
             layout="@layout/day_count" />
 
         <include
+            android:id="@+id/otd"
+            layout="@layout/offline_table_details" />
+
+        <include
             android:id="@+id/vu"
             layout="@layout/view_users" />
 

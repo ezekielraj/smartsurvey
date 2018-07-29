@@ -34,6 +34,7 @@ public class LoggedinActivity extends AppCompatActivity
     private ViewUsers vusers;
     private ViewSurveys vsurveys;
     private static DayCount dc;
+    private static OfflineDetails od;
     private ViewMapSurveys vmsurveys;
     private static ScrollView mainScrollView;
     private static LoggingSupport ls;
@@ -49,6 +50,7 @@ public class LoggedinActivity extends AppCompatActivity
         vsurveys = new ViewSurveys(this);
         vmsurveys = new ViewMapSurveys(this);
         dc = new DayCount(this);
+        od = new OfflineDetails(this);
     //    syncSurvey = new SyncSurvey(this);
         ls = new LoggingSupport(this);
         setContentView(R.layout.activity_loggedin);
@@ -147,7 +149,10 @@ public class LoggedinActivity extends AppCompatActivity
             setTitle("Day Count");
             vf.setDisplayedChild(vf.indexOfChild(findViewById(R.id.dc)));
             dc.fillDayCount();
-
+        } else if (id == R.id.nav_tablecount) {
+            setTitle("Offline Table Details");
+            vf.setDisplayedChild(vf.indexOfChild(findViewById(R.id.otd)));
+            od.filDBDetails();
         } else if (id == R.id.nav_logout) {
 
             gsin.googleSignOut();

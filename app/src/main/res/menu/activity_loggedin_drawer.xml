@@ -22,6 +22,11 @@
             android:title="Day Count"
             />
         <item
+            android:id="@+id/nav_tablecount"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Offline Table \n Details"
+            />
+        <item
             android:id="@+id/nav_logout"
             android:icon="@drawable/ic_menu_manage"
             android:title="Logout" />
