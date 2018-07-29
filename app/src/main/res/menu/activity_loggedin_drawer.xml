@@ -17,6 +17,11 @@
             android:icon="@drawable/ic_menu_slideshow"
             android:title="Sync Online"/>
         <item
+            android:id="@+id/nav_daycount"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Day Count"
+            />
+        <item
             android:id="@+id/nav_logout"
             android:icon="@drawable/ic_menu_manage"
             android:title="Logout" />

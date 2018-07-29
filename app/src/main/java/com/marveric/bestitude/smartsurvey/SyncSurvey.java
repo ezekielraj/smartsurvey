@@ -53,6 +53,7 @@ public class SyncSurvey extends AsyncTask<String, String, String> {
                 //        String name = cursor.getString(cursor.getColumnIndex(countyname));
                         Map<String,String> map1=new HashMap<String,String>();
                         map1.put("request", "insertdata");
+                        map1.put("checker", "checkdata");
                         map1.put("emailid", arg[0]);
                         map1.put("surveyid", arg[1]);
                         map1.put("name", cursor.getString(cursor.getColumnIndex("name")));
@@ -78,7 +79,7 @@ public class SyncSurvey extends AsyncTask<String, String, String> {
                         if(BuildConfig.DEBUG) Log.i("vs fas ts updatesurvey", "as"+Response);
                         if(Response.equals("true")){
                             if(BuildConfig.DEBUG) Log.i("delete id", Integer.toString(cursor.getInt(cursor.getColumnIndex("id"))));
-                            ldber.delete(arg[0] + "_" + arg[1], "id=" + Integer.toString(cursor.getInt(cursor.getColumnIndex("id"))), null);
+                            //ldber.delete(arg[0] + "_" + arg[1], "id=" + Integer.toString(cursor.getInt(cursor.getColumnIndex("id"))), null);
                         }
                         cursor.moveToNext();
                     }
@@ -121,7 +122,7 @@ public class SyncSurvey extends AsyncTask<String, String, String> {
                     for (int i=0;i < (Email.length-1); i++){
                         Emailid = Emailid + Email[i] + "_";
                     }
-                    if(BuildConfig.DEBUG) Log.i("texttosend",Emailid.substring(0, Emailid.length()-1)+Email[Email.length - 1]);
+                    if(BuildConfig.DEBUG) Log.w("texttosend",Emailid.substring(0, Emailid.length()-1)+Email[Email.length - 1]);
 
                     new SyncSurvey().execute(Emailid.substring(0, Emailid.length()-1), Email[Email.length - 1]);
                 }

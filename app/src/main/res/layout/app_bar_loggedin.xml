@@ -42,6 +42,9 @@
             android:id="@+id/cl"
             layout="@layout/content_loggedin" />
 
+        <include
+            android:id="@+id/dc"
+            layout="@layout/day_count" />
 
         <include
             android:id="@+id/vu"

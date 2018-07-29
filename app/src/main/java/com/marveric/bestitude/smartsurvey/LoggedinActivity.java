@@ -33,6 +33,7 @@ public class LoggedinActivity extends AppCompatActivity
     private ViewFlipper vf;
     private ViewUsers vusers;
     private ViewSurveys vsurveys;
+    private static DayCount dc;
     private ViewMapSurveys vmsurveys;
     private static ScrollView mainScrollView;
     private static LoggingSupport ls;
@@ -47,6 +48,7 @@ public class LoggedinActivity extends AppCompatActivity
         vusers = new ViewUsers( this );
         vsurveys = new ViewSurveys(this);
         vmsurveys = new ViewMapSurveys(this);
+        dc = new DayCount(this);
     //    syncSurvey = new SyncSurvey(this);
         ls = new LoggingSupport(this);
         setContentView(R.layout.activity_loggedin);
@@ -134,13 +136,18 @@ public class LoggedinActivity extends AppCompatActivity
 //        } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_synconline) {
-            if(isOnline()) {
+            if (isOnline()) {
                 vsurveys.syncAll();
-            }else{
+            } else {
                 Toast.makeText(this,
                         "Phone is offline!!! Not Synced", Toast.LENGTH_SHORT).show();
 
             }
+        } else if (id == R.id.nav_daycount) {
+            setTitle("Day Count");
+            vf.setDisplayedChild(vf.indexOfChild(findViewById(R.id.dc)));
+            dc.fillDayCount();
+
         } else if (id == R.id.nav_logout) {
 
             gsin.googleSignOut();

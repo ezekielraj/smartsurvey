@@ -21,7 +21,7 @@ public class UpdateSurvey extends AsyncTask<String, String, String> {
 
     private static LoggedinActivity liactivity;
     private static CheckAuthHandler cauth;
-
+    private static DayCount dc;
     /*private static String Entryname;
     private static String Entrysex;
     private static String Entryage;
@@ -68,6 +68,7 @@ public class UpdateSurvey extends AsyncTask<String, String, String> {
     UpdateSurvey(LoggedinActivity lia, SQLiteDatabase ldb){
         liactivity = lia;
         ldber = ldb;
+        dc=new DayCount();
         cauth =  new CheckAuthHandler();
         cwapi = new ConnectwithAPI("http://www.tutorialspole.com/smartsurvey/takesurvey.php","POST");
     }
@@ -89,6 +90,7 @@ public class UpdateSurvey extends AsyncTask<String, String, String> {
         try{
             Map<String,String> map=new HashMap<String,String>();
             map.put("request", request);
+            map.put("checker", "nothing");
             map.put("emailid", edata[0] + "_" + edata[1]);
             map.put("surveyid", surveyid);
                     map.put("name", entrynamevalue);
@@ -115,7 +117,9 @@ public class UpdateSurvey extends AsyncTask<String, String, String> {
             cwapi.doConnect(map, cauth.getCookiegotten());
             String Response = cwapi.getResponse();
             if(BuildConfig.DEBUG) Log.i("vs fas ts updatesurvey", "as"+Response);
-
+            if(Response == "true"){
+                dc.incrementonlinecount();
+            }
             return "Updated";
         }catch(Exception e){
             liactivity.saveException(e);
@@ -201,7 +205,7 @@ public class UpdateSurvey extends AsyncTask<String, String, String> {
                 ClearData();
                 Toast.makeText(liactivity,
                         "Data Saved Locally! please Sync online Later", Toast.LENGTH_SHORT).show();
-
+                dc.incrementofflinecount();
                 Cursor cursor = ldber.query(
                         TableName,   // The table to query
                         null,             // The array of columns to return (pass null to get all)

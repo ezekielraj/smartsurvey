@@ -4,22 +4,23 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-public class DatabaseHelper extends SQLiteOpenHelper {
+
+public class DCDatabaseHelper extends SQLiteOpenHelper {
     // If you change the database schema, you must increment the database version.
     public static final int DATABASE_VERSION = 1;
-    public static final String DATABASE_NAME = "SmartSurvey.db";
+    public static final String DATABASE_NAME = "SmartSurvey2.db";
 
     private static final String SQL_CREATE_ENTRIES =
-            "CREATE TABLE IF NOT EXISTS AuthVerification ( " +
+            "CREATE TABLE IF NOT EXISTS DayCount ( " +
                     "id INTEGER PRIMARY KEY," +
-                    "Emailid VARCHAR(255)," +
-                    "IsValid INT(10)," +
-                    "IsAdmin INT(10))";
+                    "todaydate VARCHAR(30)," +
+                    "onlinecount INT(10)," +
+                    "offlinecount INT(10))";
 
     private static final String SQL_DELETE_ENTRIES =
-            "DROP TABLE IF EXISTS AuthVerification";
+            "DROP TABLE IF EXISTS DayCount";
 
-    public DatabaseHelper(Context context) {
+    public DCDatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
@@ -33,5 +34,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_DELETE_ENTRIES);
         onCreate(db);
     }
+
+
 
 }
