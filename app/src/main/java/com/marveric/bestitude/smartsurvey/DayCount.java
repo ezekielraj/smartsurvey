@@ -3,6 +3,7 @@ package com.marveric.bestitude.smartsurvey;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -32,7 +33,8 @@ public class DayCount {
                 "id",
                 "todaydate",
                 "onlinecount",
-                "offlinecount"
+                "offlinecount",
+                "synccount"
         };
         String selection = "todaydate = ?";
         String[] selectionArgs = { todaydate };
@@ -46,11 +48,13 @@ public class DayCount {
                 null,                   // don't filter by row groups
                 null               // The sort order
         );
+        //Log.w("count0",Integer.toString(cursor.getCount()));
         if(cursor.getCount() == 0) {
             ContentValues values = new ContentValues();
             values.put("todaydate", todaydate);
             values.put("onlinecount", 0);
             values.put("offlinecount", 0);
+            values.put("synccount", 0);
 
             todaydateid = db.insert(tablename, null, values);
 
@@ -134,14 +138,56 @@ public class DayCount {
         return false;
     }
 
+    public boolean incrementsynccount(){
+
+        int synccountNum = 0;
+        String[] projection = {
+                "synccount",
+        };
+        String selection = "id = ?";
+        String[] selectionArgs = { Long.toString(todaydateid) };
+
+        Cursor cursor = db.query(
+                tablename,   // The table to query
+                projection,             // The array of columns to return (pass null to get all)
+                selection,              // The columns for the WHERE clause
+                selectionArgs,          // The values for the WHERE clause
+                null,                   // don't group the rows
+                null,                   // don't filter by row groups
+                null               // The sort order
+        );
+        if(cursor.getCount() != 0) {
+            while(cursor.moveToNext()) {
+                synccountNum = cursor.getInt(cursor.getColumnIndexOrThrow("synccount"));
+            }
+            synccountNum++;
+            ContentValues values = new ContentValues();
+            values.put("synccount", synccountNum);
+
+            int count = db.update(
+                    tablename,
+                    values,
+                    selection,
+                    selectionArgs);
+            return true;
+        }
+        return false;
+    }
+
     public void fillDayCount(){
         LinearLayout dynamicContent = (LinearLayout) liactivity.getactivityview(R.id.day_count_layout);
+        dynamicContent.removeAllViews();
+        View wizardView = liactivity.getactivityinflator()
+                .inflate(R.layout.daycounthead_add, dynamicContent, false);
+
+        dynamicContent.addView(wizardView);
 
         String[] projection = {
                 "id",
                 "todaydate",
                 "onlinecount",
-                "offlinecount"
+                "offlinecount",
+                "synccount"
         };
 
         Cursor cursor = db.query(
@@ -158,7 +204,7 @@ public class DayCount {
             while(cursor.moveToNext()) {
 
 
-                View wizardView = liactivity.getactivityinflator()
+                wizardView = liactivity.getactivityinflator()
                         .inflate(R.layout.daycount_add, dynamicContent, false);
 
                 dynamicContent.addView(wizardView);
@@ -166,14 +212,17 @@ public class DayCount {
                 TextView viewer = (TextView) liactivity.getactivityview(R.id.datevalue);
                 TextView viewer1 = (TextView) liactivity.getactivityview(R.id.oncid);
                 TextView viewer2 = (TextView) liactivity.getactivityview(R.id.offcid);
+                TextView viewer3 = (TextView) liactivity.getactivityview(R.id.synccid);
 
                 viewer.setId(View.generateViewId());
                 viewer1.setId(View.generateViewId());
                 viewer2.setId(View.generateViewId());
 
+
                 viewer.setText(cursor.getString(cursor.getColumnIndexOrThrow("todaydate")));
                 viewer1.setText(Integer.toString(cursor.getInt(cursor.getColumnIndexOrThrow("onlinecount"))));
                 viewer2.setText(Integer.toString(cursor.getInt(cursor.getColumnIndexOrThrow("offlinecount"))));
+                viewer3.setText(Integer.toString(cursor.getInt(cursor.getColumnIndexOrThrow("synccount"))));
 
             }
 

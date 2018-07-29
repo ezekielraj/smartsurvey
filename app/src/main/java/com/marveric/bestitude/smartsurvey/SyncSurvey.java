@@ -15,14 +15,14 @@ public class SyncSurvey extends AsyncTask<String, String, String> {
     private static SQLiteDatabase ldber;
     private static CheckAuthHandler cauth;
     private static ConnectwithAPI cwapi;
-
+    private static DayCount dc;
     SyncSurvey(){ }
     SyncSurvey(LoggedinActivity lia, SQLiteDatabase ldb){
         liactivity = lia;
         ldber = ldb;
         cauth = new CheckAuthHandler();
         cwapi = new ConnectwithAPI("http://www.tutorialspole.com/smartsurvey/takesurvey.php","POST");
-
+        //dc.incrementonlinecount()
     }
 
     @Override
@@ -80,7 +80,9 @@ public class SyncSurvey extends AsyncTask<String, String, String> {
                         if(Response.equals("true")){
                             if(BuildConfig.DEBUG) Log.i("delete id", Integer.toString(cursor.getInt(cursor.getColumnIndex("id"))));
                             //ldber.delete(arg[0] + "_" + arg[1], "id=" + Integer.toString(cursor.getInt(cursor.getColumnIndex("id"))), null);
+                            dc.incrementsynccount();
                         }
+                        //Log.w("Syncstat", Response);
                         cursor.moveToNext();
                     }
                 }

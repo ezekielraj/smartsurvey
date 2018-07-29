@@ -15,7 +15,8 @@ public class DCDatabaseHelper extends SQLiteOpenHelper {
                     "id INTEGER PRIMARY KEY," +
                     "todaydate VARCHAR(30)," +
                     "onlinecount INT(10)," +
-                    "offlinecount INT(10))";
+                    "offlinecount INT(10)," +
+                    "synccount INT(10))";
 
     private static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS DayCount";

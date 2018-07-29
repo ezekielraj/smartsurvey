@@ -117,7 +117,7 @@ public class UpdateSurvey extends AsyncTask<String, String, String> {
             cwapi.doConnect(map, cauth.getCookiegotten());
             String Response = cwapi.getResponse();
             if(BuildConfig.DEBUG) Log.i("vs fas ts updatesurvey", "as"+Response);
-            if(Response == "true"){
+            if(Response.equals("true")){
                 dc.incrementonlinecount();
             }
             return "Updated";
