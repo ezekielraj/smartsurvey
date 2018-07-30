@@ -3,9 +3,13 @@ package com.marveric.bestitude.smartsurvey;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -119,8 +123,11 @@ public class UpdateSurvey extends AsyncTask<String, String, String> {
             if(BuildConfig.DEBUG) Log.i("vs fas ts updatesurvey", "as"+Response);
             if(Response.equals("true")){
                 dc.incrementonlinecount();
+                return "Updated";
+            }else{
+                return "Not Updated";
             }
-            return "Updated";
+
         }catch(Exception e){
             liactivity.saveException(e);
             e.printStackTrace();
@@ -140,8 +147,23 @@ public class UpdateSurvey extends AsyncTask<String, String, String> {
         if(BuildConfig.DEBUG) Log.i("vsonpostexecute", s);
         if(s == "Updated") {
             ClearData();
+            Toast toast = Toast.makeText(liactivity,
+                    "Data Updated Successfully", Toast.LENGTH_SHORT);
+            ViewGroup group = (ViewGroup) toast.getView();
+            TextView messageTextView = (TextView) group.getChildAt(0);
+            messageTextView.setTextSize(25);
+            toast.show();
+
+            try {
+                Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                Ringtone r = RingtoneManager.getRingtone(liactivity.getApplicationContext(), notification);
+                r.play();
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }else{
             Toast.makeText(liactivity,
-                    "Data Updated Successfully", Toast.LENGTH_SHORT).show();
+                    "Please check data again and submit.dont use unwanted special characters.", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -203,9 +225,22 @@ public class UpdateSurvey extends AsyncTask<String, String, String> {
                 ldber.insert(TableName, null, values);
 
                 ClearData();
-                Toast.makeText(liactivity,
-                        "Data Saved Locally! please Sync online Later", Toast.LENGTH_SHORT).show();
+                Toast toast = Toast.makeText(liactivity,
+                        "Data Saved Locally! please Sync online Later", Toast.LENGTH_SHORT);
+                ViewGroup group = (ViewGroup) toast.getView();
+                TextView messageTextView = (TextView) group.getChildAt(0);
+                messageTextView.setTextSize(25);
+                toast.show();
+
                 dc.incrementofflinecount();
+                try {
+                    Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                    Ringtone r = RingtoneManager.getRingtone(liactivity.getApplicationContext(), notification);
+                    r.play();
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+
                 Cursor cursor = ldber.query(
                         TableName,   // The table to query
                         null,             // The array of columns to return (pass null to get all)

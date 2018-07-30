@@ -3,8 +3,13 @@ package com.marveric.bestitude.smartsurvey;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.HashMap;
@@ -108,8 +113,20 @@ public class SyncSurvey extends AsyncTask<String, String, String> {
     protected void onPostExecute(String s) {
         //Show the result obtained from doInBackground
         if(BuildConfig.DEBUG) Log.i("vsonpostexecute", s);
-        Toast.makeText(liactivity,
-                "Data Successfully Synced Online", Toast.LENGTH_SHORT).show();
+        Toast toast = Toast.makeText(liactivity,
+                "Data Successfully Synced Online", Toast.LENGTH_SHORT);
+        ViewGroup group = (ViewGroup) toast.getView();
+        TextView messageTextView = (TextView) group.getChildAt(0);
+        messageTextView.setTextSize(25);
+        toast.show();
+        try {
+            Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+            Ringtone r = RingtoneManager.getRingtone(liactivity.getApplicationContext(), notification);
+            r.play();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
     }
 
     public void syncAll(){
