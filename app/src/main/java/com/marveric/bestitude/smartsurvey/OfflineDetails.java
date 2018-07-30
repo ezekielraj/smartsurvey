@@ -72,7 +72,7 @@ public class OfflineDetails {
                                 sharingIntent.setType("text/html");
 
                                 Cursor cursor = ldber.rawQuery("select * from " + tbname + " limit "+data[0]+" offset "+data[1], null);
-                                String values = "<html><table  width=\"600\" style=\"border:1px solid #333\">";
+                                String values = "<html><p>"+fulltxt[0]+" "+fulltxt[1]+"</p><br></br><table  width=\"600\" style=\"border:1px solid #333\">";
 
                                 values = values + "<tr>" +
                                         "<td>" + "name," + "</td>" +
