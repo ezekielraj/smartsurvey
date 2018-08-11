@@ -216,7 +216,7 @@ if(count > 0){
                     for (int i=0;i < (Email.length-1); i++){
                         Emailid = Emailid + Email[i] + "_";
                     }
-                    if(BuildConfig.DEBUG) Log.w("texttosend",Emailid.substring(0, Emailid.length()-1)+Email[Email.length - 1]);
+                    if(BuildConfig.DEBUG) Log.i("texttosend",Emailid.substring(0, Emailid.length()-1)+Email[Email.length - 1]);
                     stv.append("\n\nThread Started for Tablename: "+c.getString(0));
                     new SyncSurvey().execute(Emailid.substring(0, Emailid.length()-1), Email[Email.length - 1]);
                 }

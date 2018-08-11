@@ -37,7 +37,7 @@ public class OfflineDetails {
         Cursor c = ldber.rawQuery("SELECT name FROM sqlite_master WHERE type='table'", null);
         if (c.moveToFirst()) {
             while ( !c.isAfterLast() ) {
-                Log.w("DBname",c.getString(0));
+                if(BuildConfig.DEBUG) Log.i("DBname",c.getString(0));
                 if((!c.getString(0).equals("android_metadata")) &&
                         (!c.getString(0).equals("Survey")) &&
                         (!c.getString(0).equals("sqlite_sequence"))){
@@ -72,7 +72,7 @@ public class OfflineDetails {
                                 String data[] = fulltxt[1].split("-");
                                 Intent sharingIntent = new Intent(Intent.ACTION_SEND);
                                 sharingIntent.setType("text/html");
-                                Log.w("tablequery","select * from " + tbname + " limit "+data[0]+" offset "+data[1]);
+                                if(BuildConfig.DEBUG) Log.i("tablequery","select * from " + tbname + " limit "+data[0]+" offset "+data[1]);
 
                                 Cursor cursor = ldber.rawQuery("select * from " + tbname + " limit "+data[0]+" offset "+data[1], null);
                                 String values = "<html><p>"+fulltxt[0]+" "+fulltxt[1]+"</p><br></br><table  width=\"600\" style=\"border:1px solid #333\">";
