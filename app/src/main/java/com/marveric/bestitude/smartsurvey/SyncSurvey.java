@@ -7,6 +7,8 @@ import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Handler;
+import android.text.Html;
 import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -25,6 +27,7 @@ public class SyncSurvey extends AsyncTask<String, String, String> {
     SyncSurvey(LoggedinActivity lia, SQLiteDatabase ldb){
         liactivity = lia;
         ldber = ldb;
+        dc = new DayCount(liactivity);
         cauth = new CheckAuthHandler();
         cwapi = new ConnectwithAPI("http://www.tutorialspole.com/smartsurvey/takesurvey.php","POST");
         //dc.incrementonlinecount()
@@ -38,21 +41,53 @@ public class SyncSurvey extends AsyncTask<String, String, String> {
     @Override
     protected String doInBackground(String...arg) {
         //Do some task
-        publishProgress ("Processing");
-        try{
+//        publishProgress ("Processing");
+        //try{
+        int count = 0;
+        int maxentries = 3;
+//        TextView stv = (TextView) liactivity.getactivityview(R.id.syncalllayoutstatus);
+            publishProgress("<br><br> Checking whether "+ arg[0] + "_" + arg[1]+" table exists online ");
             Map<String,String> map=new HashMap<String,String>();
             map.put("request", "createtable");
             map.put("emailid", arg[0]);
             map.put("surveyid", arg[1]);
 		map.put("username","admin");
                 map.put("password","angelEAR2");
-            cwapi.doConnect(map, cauth.getCookiegotten());
-            String Response = cwapi.getResponse();
+                String Response = "";
+        count = 0;
+        while(true) {
+
+            try {
+
+                if(count > 0){
+                    publishProgress("<br><br><b>Waiting for 1 Minute!!Due to network traffic</b><br>");
+                    Thread.sleep(60000);
+                }
+                cwapi.doConnect(map, cauth.getCookiegotten());
+
+                        Response = cwapi.getResponse();
+                        break;
+                    } catch (Exception e) {
+                        //...
+                        e.printStackTrace();
+    //                    publishProgress("<br><br><b>Please Sync Again</b>");
+                        //new SyncSurvey().execute(arg[0],arg[1]);
+                        //          cwapi.doConnect(map, cauth.getCookiegotten());
+                        count++;
+                    }
+                }
             if(BuildConfig.DEBUG) Log.i("vs fas takesurvey1", "as"+Response);
 
+            if(Response.equals("true")){
+                publishProgress("<br>Table Exists online");
+            }
 
             if(Response.equals("true")){
-                Cursor  cursor = ldber.rawQuery("select * from " + arg[0] + "_" + arg[1],null);
+
+            publishProgress("<br><br>");
+                publishProgress("<b>Started to sync tablename: "+ arg[0] + "_" + arg[1]+"</b>");
+            Cursor  cursor = ldber.rawQuery("select * from " + arg[0] + "_" + arg[1],null);
+            publishProgress("<br> Selected All Entries<br>");
                 if (cursor.moveToFirst()) {
                     while (!cursor.isAfterLast()) {
                 //        String name = cursor.getString(cursor.getColumnIndex(countyname));
@@ -79,34 +114,71 @@ public class SyncSurvey extends AsyncTask<String, String, String> {
                         map1.put("diabetes", cursor.getString(cursor.getColumnIndex("diabetes")));
                         map1.put("hypertension", cursor.getString(cursor.getColumnIndex("hypertension")));
                         map1.put("otherdiseases", cursor.getString(cursor.getColumnIndex("other_diseases")));
-                        cwapi.doConnect(map1, cauth.getCookiegotten());
-                        Response = cwapi.getResponse();
+                        count = 0;
+                        while(true) {
+
+                            try {
+
+if(count > 0){
+    publishProgress("<br><br><b>Waiting for 1 Minute!!Due to network traffic</b><br>");
+    Thread.sleep(60000);
+}
+                                cwapi.doConnect(map1, cauth.getCookiegotten());
+
+                                Response = cwapi.getResponse();
+                                break;
+                            } catch (Exception e) {
+
+                                //if(count == maxentries){
+                                  //  Response = "false";
+                                   // break;
+
+                                //}
+                                e.printStackTrace();
+
+                                count++;
+
+                            }
+                       }
                         if(BuildConfig.DEBUG) Log.i("vs fas ts updatesurvey", "as"+Response);
                         if(Response.equals("true")){
                             if(BuildConfig.DEBUG) Log.i("delete id", Integer.toString(cursor.getInt(cursor.getColumnIndex("id"))));
                             //ldber.delete(arg[0] + "_" + arg[1], "id=" + Integer.toString(cursor.getInt(cursor.getColumnIndex("id"))), null);
                             dc.incrementsynccount();
+                            publishProgress("<br> Entry Inserted and sync count incremented");
+                            publishProgress("<br> For Reference Name: "+cursor.getString(cursor.getColumnIndex("name")));
+                        }else{
+                            publishProgress("<br> Entry Already Inserted");
+                            publishProgress("<br> For Reference Name: "+cursor.getString(cursor.getColumnIndex("name")));
                         }
                         //Log.w("Syncstat", Response);
                         cursor.moveToNext();
                     }
+                    publishProgress("<br><br>");
+                    publishProgress("<b> All Entries Synced for tablename: "+ arg[0] + "_" + arg[1]+"</b>");
+                    publishProgress("<br>");
                 }
 
 
             }
             return "true";
 
-        }catch(Exception e){
-            liactivity.saveException(e);
-            e.printStackTrace();
-        }
+//        }catch(Exception e){
+  //          liactivity.saveException(e);
+    //        e.printStackTrace();
+      //  }
 
-        return "";
+        //return "";
     }
 
     @Override
     protected void onProgressUpdate(String...values) {
         //Update the progress of current task
+        TextView stv = (TextView) liactivity.getactivityview(R.id.syncalllayoutstatus);
+
+        stv.append(Html.fromHtml(values[0]));
+       // stv = null;
+//        delete stv;
     }
 
     @Override
@@ -130,19 +202,22 @@ public class SyncSurvey extends AsyncTask<String, String, String> {
     }
 
     public void syncAll(){
+        TextView stv = (TextView) liactivity.getactivityview(R.id.syncalllayoutstatus);
         Cursor c = ldber.rawQuery("SELECT name FROM sqlite_master WHERE type='table'", null);
-
+        stv.setText("Status Text:");
+        stv.append("\nSelected All local TAbles");
         if (c.moveToFirst()) {
             while ( !c.isAfterLast() ) {
                 if(c.getString(0).toLowerCase().contains(cauth.getUserEmailid().replaceAll("\\.","_").replaceAll("@","_").toLowerCase())){
                     if(BuildConfig.DEBUG) Log.i("Tablename:", c.getString(0) + Boolean.toString(c.getString(0).toLowerCase().contains(cauth.getUserEmailid().replaceAll("\\.","_").replaceAll("@","_").toLowerCase())));
+                   // stv.append("\nStarting to Sync Tablename: "+c.getString(0));
                     String Email[] = c.getString(0).split("_");
                     String Emailid = "";
                     for (int i=0;i < (Email.length-1); i++){
                         Emailid = Emailid + Email[i] + "_";
                     }
                     if(BuildConfig.DEBUG) Log.w("texttosend",Emailid.substring(0, Emailid.length()-1)+Email[Email.length - 1]);
-
+                    stv.append("\n\nThread Started for Tablename: "+c.getString(0));
                     new SyncSurvey().execute(Emailid.substring(0, Emailid.length()-1), Email[Email.length - 1]);
                 }
 

@@ -106,7 +106,8 @@ public class ViewUsersAdd extends AsyncTask<String, String, String> {
         }else{
             tv.setText("Status: Not Created");
         }
-
+        Button bt = (Button) liactivity.getactivityview(R.id.vuadduser);
+        bt.setEnabled(true);
         //        updateLayoutContent(s);
 
     }
@@ -129,6 +130,7 @@ public class ViewUsersAdd extends AsyncTask<String, String, String> {
         bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                view.setEnabled(false);
                 CreateUser();
             }
         });

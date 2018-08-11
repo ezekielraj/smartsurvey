@@ -159,7 +159,8 @@ public class AddSurvey extends AsyncTask<String, String, String> {
         ((EditText)liactivity.getactivityview(R.id.industriesofotherenvironmentalissuesnearby)).setText("");
         ((EditText)liactivity.getactivityview(R.id.anyotherrelevantinformation)).setText("");
         ((EditText)liactivity.getactivityview(R.id.surveyenddate)).setText("");
-
+        Button bt = (Button) liactivity.getactivityview(R.id.submitsurvey);
+        bt.setEnabled(true);
     }
 
     private Boolean ValidateEntries(){
@@ -367,8 +368,11 @@ public class AddSurvey extends AsyncTask<String, String, String> {
         bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                view.setEnabled(false);
                 if(ValidateEntries()){
                     CreateSurvey();
+                }else{
+                    view.setEnabled(true);
                 }
             }
         });

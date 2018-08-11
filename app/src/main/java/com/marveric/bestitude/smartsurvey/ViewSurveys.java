@@ -121,8 +121,10 @@ public class ViewSurveys extends AsyncTask<String, String, String> {
     @Override
     protected void onProgressUpdate(String...values) {
         //Update the progress of current task
-TextView tv = (TextView) liactivity.getactivityview(R.id.viewsurveystatus);
-tv.setText(values[0]);
+        if(liactivity!=null) {
+            TextView tv = (TextView) liactivity.getactivityview(R.id.viewsurveystatus);
+            tv.setText(values[0]);
+        }
         /*
         Snackbar.make(liactivity.getactivityview(R.id.viewflippers), values[0], Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show();

@@ -104,6 +104,8 @@ if(slno.equals("delete")){
             TextView Emailid = (TextView) liactivity.getactivityview(R.id.emailaddredittext);
             Emailid.setText("");
         }
+        Button bt = (Button) liactivity.getactivityview(R.id.vuedituser);
+        bt.setEnabled(true);
 
 
     }
@@ -123,6 +125,7 @@ if(slno.equals("delete")){
         bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                view.setEnabled(false);
                 Updateuser("update");
             }
         });

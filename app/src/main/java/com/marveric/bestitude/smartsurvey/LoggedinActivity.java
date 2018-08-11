@@ -139,6 +139,8 @@ public class LoggedinActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_synconline) {
             if (isOnline()) {
+                setTitle("Syncing All");
+                vf.setDisplayedChild(vf.indexOfChild(findViewById(R.id.sa)));
                 vsurveys.syncAll();
             } else {
                 Toast.makeText(this,
@@ -148,6 +150,7 @@ public class LoggedinActivity extends AppCompatActivity
         } else if (id == R.id.nav_daycount) {
             setTitle("Day Count");
             vf.setDisplayedChild(vf.indexOfChild(findViewById(R.id.dc)));
+            dc.checkandupdatedate();
             dc.fillDayCount();
         } else if (id == R.id.nav_tablecount) {
             setTitle("Offline Table Details");

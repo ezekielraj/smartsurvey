@@ -66,6 +66,48 @@ public class DayCount {
 
     }
 
+    public void checkandupdatedate(){
+        Date dNow = new Date( );
+        SimpleDateFormat ft =
+                new SimpleDateFormat ("yyyy-MM-dd");
+        todaydate = ft.format(dNow);
+        String[] projection = {
+                "id",
+                "todaydate",
+                "onlinecount",
+                "offlinecount",
+                "synccount"
+        };
+        String selection = "todaydate = ?";
+        String[] selectionArgs = { todaydate };
+
+        Cursor cursor = db.query(
+                tablename,   // The table to query
+                projection,             // The array of columns to return (pass null to get all)
+                selection,              // The columns for the WHERE clause
+                selectionArgs,          // The values for the WHERE clause
+                null,                   // don't group the rows
+                null,                   // don't filter by row groups
+                null               // The sort order
+        );
+        //Log.w("count0",Integer.toString(cursor.getCount()));
+        if(cursor.getCount() == 0) {
+            ContentValues values = new ContentValues();
+            values.put("todaydate", todaydate);
+            values.put("onlinecount", 0);
+            values.put("offlinecount", 0);
+            values.put("synccount", 0);
+
+            todaydateid = db.insert(tablename, null, values);
+
+        }else{
+            while(cursor.moveToNext()) {
+                todaydateid = cursor.getLong(cursor.getColumnIndexOrThrow("id"));
+            }
+        }
+
+    }
+
     public boolean incrementonlinecount(){
 
         int onlinecountNum = 0;
@@ -101,6 +143,7 @@ public class DayCount {
         }
         return false;
     }
+
 
     public boolean incrementofflinecount(){
 
@@ -217,6 +260,7 @@ public class DayCount {
                 viewer.setId(View.generateViewId());
                 viewer1.setId(View.generateViewId());
                 viewer2.setId(View.generateViewId());
+                viewer3.setId(View.generateViewId());
 
 
                 viewer.setText(cursor.getString(cursor.getColumnIndexOrThrow("todaydate")));

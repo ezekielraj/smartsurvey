@@ -43,6 +43,10 @@
             layout="@layout/content_loggedin" />
 
         <include
+            android:id="@+id/sa"
+            layout="@layout/syncall_layout" />
+
+        <include
             android:id="@+id/dc"
             layout="@layout/day_count" />
 

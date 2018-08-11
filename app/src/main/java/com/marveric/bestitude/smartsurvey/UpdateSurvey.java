@@ -10,6 +10,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -191,7 +192,8 @@ public class UpdateSurvey extends AsyncTask<String, String, String> {
         ((RadioGroup) liactivity.getactivityview(R.id.hypertensionchoice)).clearCheck();
 
         ((EditText) liactivity.getactivityview(R.id.otherdiseases)).setText("");
-
+        Button btsaverepeat = (Button) liactivity.getactivityview(R.id.saverepeat);
+        btsaverepeat.setEnabled(true);
     }
 
 

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="60dp"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".LoggedinActivity"
+    tools:showIn="@layout/app_bar_loggedin">
+
+    <ScrollView
+        android:id="@+id/syncallscrollview"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/sync_all_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="5dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            tools:context=".LoggedinActivity"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="16dp"
+            tools:showIn="@layout/syncall_layout">
+
+            <TextView
+                android:id="@+id/syncalllayoutstatus"
+                android:layout_width="277dp"
+                android:layout_height="wrap_content"
+                android:text="Status Text:"
+                android:textSize="15sp"
+                android:background="@drawable/customborder" />
+
+
+
+
+        </LinearLayout>
+    </ScrollView>
+
+</android.support.constraint.ConstraintLayout>

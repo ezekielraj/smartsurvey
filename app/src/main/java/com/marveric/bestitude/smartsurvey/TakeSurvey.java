@@ -136,11 +136,15 @@ if(BuildConfig.DEBUG) Log.i("text", emid[0]+emid[1]);
         Button btsaverepeat = (Button) liactivity.getactivityview(R.id.saverepeat);
         btsaverepeat.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v){
+                v.setEnabled(false);
                 if(updateSurvey.ValidateData()){
                         updateSurvey.sendData(value, currTableName);
                         if(BuildConfig.DEBUG) Log.i("takesurvey", "success");
 
+                }else{
+                    v.setEnabled(true);
                 }
+                //v.setEnabled(true);
             }
         });
     }

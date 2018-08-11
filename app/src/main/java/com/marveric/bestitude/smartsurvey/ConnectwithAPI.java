@@ -72,6 +72,7 @@ public class ConnectwithAPI {
         URL url = new URL(this.url);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setRequestMethod(this.method);
+
         if(method.toLowerCase().equals("get")){
             con.setDoInput(true);
             if(cookie != null){

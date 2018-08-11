@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.text.Html;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -60,6 +61,7 @@ public class OfflineDetails {
                                 +Integer.toString(limit)
                                 +"-"
                                 +Integer.toString(offset));
+                        viewer1.setId(View.generateViewId());
                         viewer1.setText(Integer.toString(cursor.getCount()));
 
                         viewer.setOnClickListener(new View.OnClickListener() {
@@ -70,6 +72,7 @@ public class OfflineDetails {
                                 String data[] = fulltxt[1].split("-");
                                 Intent sharingIntent = new Intent(Intent.ACTION_SEND);
                                 sharingIntent.setType("text/html");
+                                Log.w("tablequery","select * from " + tbname + " limit "+data[0]+" offset "+data[1]);
 
                                 Cursor cursor = ldber.rawQuery("select * from " + tbname + " limit "+data[0]+" offset "+data[1], null);
                                 String values = "<html><p>"+fulltxt[0]+" "+fulltxt[1]+"</p><br></br><table  width=\"600\" style=\"border:1px solid #333\">";
@@ -95,32 +98,40 @@ public class OfflineDetails {
                                         "<td>" + "other_diseases," + "</td>" +
 
                                         "</tr><br></br>";
+try {
+    String od = "";
+    while (cursor.moveToNext()) {
+        od = "";
+        //for(int i=0;i<375;i++){
+        if(cursor.getString(cursor.getColumnIndex("other_diseases"))!=null) {
+            od = (new String(Base64.decode(cursor.getString(cursor.getColumnIndex("other_diseases")), Base64.DEFAULT), "UTF-8"));
+        }
+        values = values + "<tr>" +
+                "<td>" + cursor.getString(cursor.getColumnIndex("name")) + ",</td>" +
+                "<td>" + cursor.getString(cursor.getColumnIndex("sex")) + ",</td>" +
+                "<td>" + cursor.getString(cursor.getColumnIndex("age")) + ",</td>" +
+                "<td>" + cursor.getString(cursor.getColumnIndex("bodyphysique")) + ",</td>" +
+                "<td>" + cursor.getString(cursor.getColumnIndex("alcohol")) + ",</td>" +
+                "<td>" + cursor.getString(cursor.getColumnIndex("smooking")) + ",</td>" +
+                "<td>" + cursor.getString(cursor.getColumnIndex("tobacco_chewing")) + ",</td>" +
+                "<td>" + cursor.getString(cursor.getColumnIndex("occupation")) + ",</td>" +
+                "<td>" + cursor.getString(cursor.getColumnIndex("pesticide_applicator")) + ",</td>" +
+                "<td>" + cursor.getString(cursor.getColumnIndex("mixing_and_handlin_of_pesticide")) + ",</td>" +
+                "<td>" + cursor.getString(cursor.getColumnIndex("working_pesticide_sprayed_field")) + ",</td>" +
+                "<td>" + cursor.getString(cursor.getColumnIndex("working_in_pesticide_shop")) + ",</td>" +
+                "<td>" + cursor.getString(cursor.getColumnIndex("use_of_insect_repellents_at_home")) + ",</td>" +
+                "<td>" + cursor.getString(cursor.getColumnIndex("no_direct_exposure")) + ",</td>" +
+                "<td>" + cursor.getString(cursor.getColumnIndex("use_of_reverse_osmosis_water_for_drinking")) + ",</td>" +
+                "<td>" + cursor.getString(cursor.getColumnIndex("diabetes")) + ",</td>" +
+                "<td>" + cursor.getString(cursor.getColumnIndex("hypertension")) + ",</td>" +
+                "<td>" + od + ",</td>" +
 
-                                while (cursor.moveToNext()) {
-                                    //for(int i=0;i<375;i++){
-                                    values = values + "<tr>" +
-                                            "<td>" + cursor.getString(cursor.getColumnIndex("name")) + ",</td>" +
-                                            "<td>" + cursor.getString(cursor.getColumnIndex("sex")) + ",</td>" +
-                                            "<td>" + cursor.getString(cursor.getColumnIndex("age")) + ",</td>" +
-                                            "<td>" + cursor.getString(cursor.getColumnIndex("bodyphysique")) + ",</td>" +
-                                            "<td>" + cursor.getString(cursor.getColumnIndex("alcohol")) + ",</td>" +
-                                            "<td>" + cursor.getString(cursor.getColumnIndex("smooking")) + ",</td>" +
-                                            "<td>" + cursor.getString(cursor.getColumnIndex("tobacco_chewing")) + ",</td>" +
-                                            "<td>" + cursor.getString(cursor.getColumnIndex("occupation")) + ",</td>" +
-                                            "<td>" + cursor.getString(cursor.getColumnIndex("pesticide_applicator")) + ",</td>" +
-                                            "<td>" + cursor.getString(cursor.getColumnIndex("mixing_and_handlin_of_pesticide")) + ",</td>" +
-                                            "<td>" + cursor.getString(cursor.getColumnIndex("working_pesticide_sprayed_field")) + ",</td>" +
-                                            "<td>" + cursor.getString(cursor.getColumnIndex("working_in_pesticide_shop")) + ",</td>" +
-                                            "<td>" + cursor.getString(cursor.getColumnIndex("use_of_insect_repellents_at_home")) + ",</td>" +
-                                            "<td>" + cursor.getString(cursor.getColumnIndex("no_direct_exposure")) + ",</td>" +
-                                            "<td>" + cursor.getString(cursor.getColumnIndex("use_of_reverse_osmosis_water_for_drinking")) + ",</td>" +
-                                            "<td>" + cursor.getString(cursor.getColumnIndex("diabetes")) + ",</td>" +
-                                            "<td>" + cursor.getString(cursor.getColumnIndex("hypertension")) + ",</td>" +
-                                            "<td>" + cursor.getString(cursor.getColumnIndex("other_diseases")) + ",</td>" +
-
-                                            "</tr><br></br>";
-                                    //}
-                                }
+                "</tr><br></br>";
+        //}
+    }
+}catch(Exception e){
+    e.printStackTrace();
+}
                                 values = values + "</table></html>";
                                 sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, Html.fromHtml(
                                         values));
