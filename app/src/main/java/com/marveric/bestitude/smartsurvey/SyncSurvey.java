@@ -1,6 +1,7 @@
 package com.marveric.bestitude.smartsurvey;
 
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.media.Ringtone;
@@ -14,6 +15,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,6 +26,7 @@ public class SyncSurvey extends AsyncTask<String, String, String> {
     private static CheckAuthHandler cauth;
     private static ConnectwithAPI cwapi;
     private static DayCount dc;
+    private static ArrayList<AsyncTask> ss;
     SyncSurvey(){ }
     SyncSurvey(LoggedinActivity lia, SQLiteDatabase ldb){
         liactivity = lia;
@@ -31,6 +35,7 @@ public class SyncSurvey extends AsyncTask<String, String, String> {
         cauth = new CheckAuthHandler();
         cwapi = new ConnectwithAPI("http://www.tutorialspole.com/smartsurvey/takesurvey.php","POST");
         //dc.incrementonlinecount()
+        ss = new ArrayList<AsyncTask>();
     }
 
     @Override
@@ -40,12 +45,9 @@ public class SyncSurvey extends AsyncTask<String, String, String> {
 
     @Override
     protected String doInBackground(String...arg) {
-        //Do some task
-//        publishProgress ("Processing");
-        //try{
+        if(isCancelled()){ return "false"; }
         int count = 0;
         int maxentries = 3;
-//        TextView stv = (TextView) liactivity.getactivityview(R.id.syncalllayoutstatus);
             publishProgress("<br><br> Checking whether "+ arg[0] + "_" + arg[1]+" table exists online ");
             Map<String,String> map=new HashMap<String,String>();
             map.put("request", "createtable");
@@ -60,9 +62,11 @@ public class SyncSurvey extends AsyncTask<String, String, String> {
             try {
 
                 if(count > 0){
+                    if(isCancelled()){ return "false"; }
                     publishProgress("<br><br><b>Waiting for 1 Minute!!Due to network traffic</b><br>");
                     Thread.sleep(60000);
                 }
+                if(isCancelled()){ return "false"; }
                 cwapi.doConnect(map, cauth.getCookiegotten());
 
                         Response = cwapi.getResponse();
@@ -70,12 +74,10 @@ public class SyncSurvey extends AsyncTask<String, String, String> {
                     } catch (Exception e) {
                         //...
                         e.printStackTrace();
-    //                    publishProgress("<br><br><b>Please Sync Again</b>");
-                        //new SyncSurvey().execute(arg[0],arg[1]);
-                        //          cwapi.doConnect(map, cauth.getCookiegotten());
                         count++;
                     }
                 }
+        if(isCancelled()){ return "false"; }
             if(BuildConfig.DEBUG) Log.i("vs fas takesurvey1", "as"+Response);
 
             if(Response.equals("true")){
@@ -83,13 +85,14 @@ public class SyncSurvey extends AsyncTask<String, String, String> {
             }
 
             if(Response.equals("true")){
-
+                if(isCancelled()){ return "false"; }
             publishProgress("<br><br>");
                 publishProgress("<b>Started to sync tablename: "+ arg[0] + "_" + arg[1]+"</b>");
-            Cursor  cursor = ldber.rawQuery("select * from " + arg[0] + "_" + arg[1],null);
-            publishProgress("<br> Selected All Entries<br>");
+            Cursor  cursor = ldber.rawQuery("select * from " + arg[0] + "_" + arg[1] + " ORDER BY SYNC_STATUS ASC",null);
+            publishProgress("<br> Selected All Entries<br> Count:"+Integer.toString(cursor.getCount())+" <br>" );
                 if (cursor.moveToFirst()) {
                     while (!cursor.isAfterLast()) {
+                        if(isCancelled()){ return "false"; }
                 //        String name = cursor.getString(cursor.getColumnIndex(countyname));
                         Map<String,String> map1=new HashMap<String,String>();
                         map1.put("request", "insertdata");
@@ -116,28 +119,20 @@ public class SyncSurvey extends AsyncTask<String, String, String> {
                         map1.put("otherdiseases", cursor.getString(cursor.getColumnIndex("other_diseases")));
                         count = 0;
                         while(true) {
-
                             try {
 
 if(count > 0){
+    if(isCancelled()){ return "false"; }
     publishProgress("<br><br><b>Waiting for 1 Minute!!Due to network traffic</b><br>");
     Thread.sleep(60000);
 }
+                                if(isCancelled()){ return "false"; }
                                 cwapi.doConnect(map1, cauth.getCookiegotten());
-
                                 Response = cwapi.getResponse();
                                 break;
                             } catch (Exception e) {
-
-                                //if(count == maxentries){
-                                  //  Response = "false";
-                                   // break;
-
-                                //}
                                 e.printStackTrace();
-
                                 count++;
-
                             }
                        }
                         if(BuildConfig.DEBUG) Log.i("vs fas ts updatesurvey", "as"+Response);
@@ -151,9 +146,21 @@ if(count > 0){
                             publishProgress("<br> Entry Already Inserted");
                             publishProgress("<br> For Reference Name: "+cursor.getString(cursor.getColumnIndex("name")));
                         }
-                        //Log.w("Syncstat", Response);
+                        String selection1 = "id = ?";
+                        String[] selectionArgs1 = { cursor.getString(cursor.getColumnIndex("id")) };
+
+                        ContentValues values1 = new ContentValues();
+                        values1.put("SYNC_STATUS", "1");
+
+                        ldber.update(
+                                arg[0] + "_" + arg[1],
+                                values1,
+                                selection1,
+                                selectionArgs1);
                         cursor.moveToNext();
+                        if(isCancelled()){ return "false"; }
                     }
+
                     publishProgress("<br><br>");
                     publishProgress("<b> All Entries Synced for tablename: "+ arg[0] + "_" + arg[1]+"</b>");
                     publishProgress("<br>");
@@ -162,13 +169,6 @@ if(count > 0){
 
             }
             return "true";
-
-//        }catch(Exception e){
-  //          liactivity.saveException(e);
-    //        e.printStackTrace();
-      //  }
-
-        //return "";
     }
 
     @Override
@@ -190,39 +190,86 @@ if(count > 0){
         ViewGroup group = (ViewGroup) toast.getView();
         TextView messageTextView = (TextView) group.getChildAt(0);
         messageTextView.setTextSize(25);
-        toast.show();
-        try {
-            Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-            Ringtone r = RingtoneManager.getRingtone(liactivity.getApplicationContext(), notification);
-            r.play();
-        }catch(Exception e){
-            e.printStackTrace();
+        if(s.equals("true")) {
+            toast.show();
+            try {
+                Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                Ringtone r = RingtoneManager.getRingtone(liactivity.getApplicationContext(), notification);
+                r.play();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
-
     }
 
+
+
     public void syncAll(){
+        if(ss.size() > 0){
+            for (AsyncTask sss : ss) {
+                if(sss.getStatus() == Status.PENDING || sss.getStatus() == Status.RUNNING) {
+                    sss.cancel(true);
+                }
+//                sss.remove();//    ss = null;
+            }
+            ss.removeAll(ss);
+        }
+
+
         TextView stv = (TextView) liactivity.getactivityview(R.id.syncalllayoutstatus);
         Cursor c = ldber.rawQuery("SELECT name FROM sqlite_master WHERE type='table'", null);
         stv.setText("Status Text:");
         stv.append("\nSelected All local TAbles");
-        if (c.moveToFirst()) {
-            while ( !c.isAfterLast() ) {
-                if(c.getString(0).toLowerCase().contains(cauth.getUserEmailid().replaceAll("\\.","_").replaceAll("@","_").toLowerCase())){
-                    if(BuildConfig.DEBUG) Log.i("Tablename:", c.getString(0) + Boolean.toString(c.getString(0).toLowerCase().contains(cauth.getUserEmailid().replaceAll("\\.","_").replaceAll("@","_").toLowerCase())));
-                   // stv.append("\nStarting to Sync Tablename: "+c.getString(0));
-                    String Email[] = c.getString(0).split("_");
-                    String Emailid = "";
-                    for (int i=0;i < (Email.length-1); i++){
-                        Emailid = Emailid + Email[i] + "_";
-                    }
-                    if(BuildConfig.DEBUG) Log.i("texttosend",Emailid.substring(0, Emailid.length()-1)+Email[Email.length - 1]);
-                    stv.append("\n\nThread Started for Tablename: "+c.getString(0));
-                    new SyncSurvey().execute(Emailid.substring(0, Emailid.length()-1), Email[Email.length - 1]);
-                }
+        ArrayList<String> Tablename = new ArrayList<String>();
 
-                //Toast.makeText(activityName.this, "Table Name=> "+c.getString(0), Toast.LENGTH_LONG).show();
+        if (c.moveToFirst()) {
+            while (!c.isAfterLast()) {
+//                Log.w(Integer.toString(c.getCount()), Boolean.toString(c.isAfterLast()));
+                if(c.getString(0).toLowerCase().contains(cauth.getUserEmailid().replaceAll("\\.","_").replaceAll("@","_").toLowerCase())) {
+                    Cursor ac = ldber.rawQuery("select * from " + c.getString(0), null);
+                    int deleteStateColumnIndex = ac.getColumnIndex("SYNC_STATUS");
+                    if (deleteStateColumnIndex < 0) {
+                        // missing_column not there - add it
+                        ldber.execSQL("ALTER TABLE " + c.getString(0) + " ADD COLUMN SYNC_STATUS int default 0;");
+                    }
+                    ac = ldber.rawQuery("select * from " + c.getString(0) + " where SYNC_STATUS = ?", new String[]{"0"});
+                    if(ac.getCount() > 0){
+                        Tablename.add(0,c.getString(0));
+                    }else{
+                        Tablename.add(c.getString(0));
+                    }
+                }
                 c.moveToNext();
+            }
+        }
+
+        //if (c.moveToFirst()) {
+          //  while (!c.isAfterLast()) {
+        //        ldber.rawQuery();
+        //    }
+        //}
+       for (String s : Tablename) {
+            if (s.toLowerCase().contains(cauth.getUserEmailid().replaceAll("\\.", "_").replaceAll("@", "_").toLowerCase())) {
+                String Email[] = s.split("_");
+                String Emailid = "";
+                for (int i = 0; i < (Email.length - 1); i++) {
+                    Emailid = Emailid + Email[i] + "_";
+                }
+                stv.append("\n\nThread Started for Tablename: " + s);
+
+             /*   if(ss != null){
+                while(true){
+                    Log.w("status", ss.getStatus().toString()+s);
+                    if(ss.getStatus() == Status.FINISHED){
+                        ss = null;
+                        break;
+                    }
+                }}
+*/
+  //              if(ss == null) {
+                    //ss =
+                            ss.add(new SyncSurvey().execute(Emailid.substring(0, Emailid.length() - 1), Email[Email.length - 1]));
+    //            }
             }
         }
     }
