@@ -531,7 +531,7 @@
             android:text="" />
     </TableRow>
 
-        <TableRow
+        <!--TableRow
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -646,7 +646,162 @@
                 android:scrollbarStyle="insideInset"
                 android:scrollbars="vertical"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
+        </TableRow-->
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Diseases" />
         </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <CheckBox
+                android:id="@+id/disease_diabetes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Diabetes" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <CheckBox
+                android:id="@+id/disease_highbp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="High blood pressure" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <CheckBox
+                android:id="@+id/disease_lowbp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Low blood pressure" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <CheckBox
+                android:id="@+id/disease_highcholesterol"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="High cholesterol" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <CheckBox
+                android:id="@+id/disease_heartdisease"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Heart Disease" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <CheckBox
+                android:id="@+id/disease_kidneyfailure"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Kidney failure" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <CheckBox
+                android:id="@+id/disease_kidneystones"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Kidney Stones" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <CheckBox
+                android:id="@+id/disease_skindiseases"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Skin diseases" />
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <CheckBox
+                android:id="@+id/disease_jointpains"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Joint Pains" />
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <CheckBox
+                android:id="@+id/disease_thyroidproblem"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Thyroid problem" />
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <CheckBox
+                android:id="@+id/disease_ashtma"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ashtma" />
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <CheckBox
+                android:id="@+id/disease_ulcer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ulcer" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/disease_others"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="50"
+                android:hint="Other diseases"
+                android:inputType="text"
+                android:text="" />
+
+
+        </TableRow>
+
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="wrap_content">

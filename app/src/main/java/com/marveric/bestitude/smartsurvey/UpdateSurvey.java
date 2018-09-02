@@ -76,6 +76,8 @@ public class UpdateSurvey extends AsyncTask<String, String, String> {
         dc=new DayCount();
         cauth =  new CheckAuthHandler();
         cwapi = new ConnectwithAPI("http://www.tutorialspole.com/smartsurvey/takesurvey.php","POST");
+        diabeteschoicevalue = "";
+        hypertensionchoicevalue = "";
     }
 
     @Override
@@ -188,10 +190,23 @@ public class UpdateSurvey extends AsyncTask<String, String, String> {
         ((CheckBox) liactivity.getactivityview(R.id.nodirectexposure)).setChecked(false);
 
         ((RadioGroup) liactivity.getactivityview(R.id.usesreverseosmosiswaterfordrinking)).clearCheck();
-        ((RadioGroup) liactivity.getactivityview(R.id.diabeteschoice)).clearCheck();
-        ((RadioGroup) liactivity.getactivityview(R.id.hypertensionchoice)).clearCheck();
+        //((RadioGroup) liactivity.getactivityview(R.id.diabeteschoice)).clearCheck();
+        //((RadioGroup) liactivity.getactivityview(R.id.hypertensionchoice)).clearCheck();
 
-        ((EditText) liactivity.getactivityview(R.id.otherdiseases)).setText("");
+        ((CheckBox) liactivity.getactivityview(R.id.disease_diabetes)).setChecked(false);
+        ((CheckBox) liactivity.getactivityview(R.id.disease_highbp)).setChecked(false);
+        ((CheckBox) liactivity.getactivityview(R.id.disease_lowbp)).setChecked(false);
+        ((CheckBox) liactivity.getactivityview(R.id.disease_highcholesterol)).setChecked(false);
+        ((CheckBox) liactivity.getactivityview(R.id.disease_heartdisease)).setChecked(false);
+        ((CheckBox) liactivity.getactivityview(R.id.disease_kidneyfailure)).setChecked(false);
+        ((CheckBox) liactivity.getactivityview(R.id.disease_kidneystones)).setChecked(false);
+        ((CheckBox) liactivity.getactivityview(R.id.disease_skindiseases)).setChecked(false);
+        ((CheckBox) liactivity.getactivityview(R.id.disease_jointpains)).setChecked(false);
+        ((CheckBox) liactivity.getactivityview(R.id.disease_thyroidproblem)).setChecked(false);
+        ((CheckBox) liactivity.getactivityview(R.id.disease_ashtma)).setChecked(false);
+        ((CheckBox) liactivity.getactivityview(R.id.disease_ulcer)).setChecked(false);
+
+        ((EditText) liactivity.getactivityview(R.id.disease_others)).setText("");
         Button btsaverepeat = (Button) liactivity.getactivityview(R.id.saverepeat);
         btsaverepeat.setEnabled(true);
     }
@@ -414,7 +429,7 @@ public class UpdateSurvey extends AsyncTask<String, String, String> {
         }
 
 
-        RadioGroup diabeteschoice = (RadioGroup) liactivity.getactivityview(R.id.diabeteschoice);
+/*        RadioGroup diabeteschoice = (RadioGroup) liactivity.getactivityview(R.id.diabeteschoice);
         int selectedId5 = diabeteschoice.getCheckedRadioButtonId();
         RadioButton radioDiabetesChoice = (RadioButton) liactivity.getactivityview(selectedId5);
         TextView diaerr = (TextView) liactivity.getactivityview(R.id.diaerrmsg);
@@ -437,9 +452,33 @@ public class UpdateSurvey extends AsyncTask<String, String, String> {
             hypertensionchoicevalue = radioHTChoice.getText().toString();
             htenerr.setText("");
         }
+*/
+        String odiseases;
 
-        EditText otherdiseases = (EditText) liactivity.getactivityview(R.id.otherdiseases);
-        String odiseases = otherdiseases.getText().toString();
+        odiseases = (((CheckBox) liactivity.getactivityview(R.id.disease_diabetes)).isChecked()) ? ((CheckBox) liactivity.getactivityview(R.id.disease_diabetes)).getText().toString() + "," : "";
+        odiseases = odiseases + ((((CheckBox) liactivity.getactivityview(R.id.disease_highbp)).isChecked()) ? ((CheckBox) liactivity.getactivityview(R.id.disease_highbp)).getText().toString() + "," : "");
+        odiseases = odiseases + ((((CheckBox) liactivity.getactivityview(R.id.disease_lowbp)).isChecked()) ? ((CheckBox) liactivity.getactivityview(R.id.disease_lowbp)).getText().toString() + "," : "");
+        odiseases = odiseases + ((((CheckBox) liactivity.getactivityview(R.id.disease_highcholesterol)).isChecked()) ? ((CheckBox) liactivity.getactivityview(R.id.disease_highcholesterol)).getText().toString() + "," : "");
+        odiseases = odiseases + ((((CheckBox) liactivity.getactivityview(R.id.disease_heartdisease)).isChecked()) ? ((CheckBox) liactivity.getactivityview(R.id.disease_heartdisease)).getText().toString() + "," : "");
+        odiseases = odiseases + ((((CheckBox) liactivity.getactivityview(R.id.disease_kidneyfailure)).isChecked()) ? ((CheckBox) liactivity.getactivityview(R.id.disease_kidneyfailure)).getText().toString() + "," : "");
+        odiseases = odiseases + ((((CheckBox) liactivity.getactivityview(R.id.disease_kidneystones)).isChecked()) ? ((CheckBox) liactivity.getactivityview(R.id.disease_kidneystones)).getText().toString() + "," : "");
+        odiseases = odiseases + ((((CheckBox) liactivity.getactivityview(R.id.disease_skindiseases)).isChecked()) ? ((CheckBox) liactivity.getactivityview(R.id.disease_skindiseases)).getText().toString() + "," : "");
+        odiseases = odiseases + ((((CheckBox) liactivity.getactivityview(R.id.disease_jointpains)).isChecked()) ? ((CheckBox) liactivity.getactivityview(R.id.disease_jointpains)).getText().toString() + "," : "");
+        odiseases = odiseases + ((((CheckBox) liactivity.getactivityview(R.id.disease_thyroidproblem)).isChecked()) ? ((CheckBox) liactivity.getactivityview(R.id.disease_thyroidproblem)).getText().toString() + "," : "");
+        odiseases = odiseases + ((((CheckBox) liactivity.getactivityview(R.id.disease_ashtma)).isChecked()) ? ((CheckBox) liactivity.getactivityview(R.id.disease_ashtma)).getText().toString() + "," : "");
+        odiseases = odiseases + ((((CheckBox) liactivity.getactivityview(R.id.disease_ulcer)).isChecked()) ? ((CheckBox) liactivity.getactivityview(R.id.disease_ulcer)).getText().toString() + "," : "");
+
+        EditText otherdiseases = (EditText) liactivity.getactivityview(R.id.disease_others);
+
+        if(otherdiseases.getText().toString().equals("")){
+            if(odiseases.charAt(odiseases.length() - 1) == ','){
+                odiseases = odiseases.substring(0, odiseases.length() - 1);
+            }
+        }else {
+            odiseases = odiseases + otherdiseases.getText().toString();
+        }
+//        EditText otherdiseases = (EditText) liactivity.getactivityview(R.id.otherdiseases);
+//        String odiseases = otherdiseases.getText().toString();
         if(odiseases.equals("")){
     //        sformstatus.append("Please update Other Diseases\n");
   //          i++;

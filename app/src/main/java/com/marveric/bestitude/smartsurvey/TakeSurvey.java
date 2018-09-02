@@ -115,7 +115,7 @@ if(BuildConfig.DEBUG) Log.i("text", emid[0]+emid[1]);
                 "use_of_reverse_osmosis_water_for_drinking VARCHAR(255)," +
                 "diabetes VARCHAR(255)," +
                 "hypertension VARCHAR(255)," +
-                "other_diseases VARCHAR(255)," +
+                "other_diseases VARCHAR(1024)," +
                 "user_remarks VARCHAR(1024)," +
                 "SYNC_STATUS int default 0)";
 
