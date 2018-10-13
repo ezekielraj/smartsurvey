@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Rural Diabetes Survey</string>
     <string name="app_frontname">Rural Diabetes Survey</string>
-    <string name="versionnumber">v 3.8</string>
+    <string name="versionnumber">v 3.9</string>
     <string name="importt">import</string>
     <string name="title_activity_loggedin">View Surveys</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>

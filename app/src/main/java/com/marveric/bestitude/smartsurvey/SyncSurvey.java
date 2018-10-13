@@ -27,6 +27,8 @@ public class SyncSurvey extends AsyncTask<String, String, String> {
     private static ConnectwithAPI cwapi;
     private static DayCount dc;
     private static ArrayList<AsyncTask> ss;
+    private static int tablecount = 1;
+
     SyncSurvey(){ }
     SyncSurvey(LoggedinActivity lia, SQLiteDatabase ldb){
         liactivity = lia;
@@ -117,6 +119,10 @@ public class SyncSurvey extends AsyncTask<String, String, String> {
                         map1.put("diabetes", cursor.getString(cursor.getColumnIndex("diabetes")));
                         map1.put("hypertension", cursor.getString(cursor.getColumnIndex("hypertension")));
                         map1.put("otherdiseases", cursor.getString(cursor.getColumnIndex("other_diseases")));
+                        map1.put("username","admin");
+                        map1.put("password","angelEAR2");
+
+                        if(BuildConfig.DEBUG) Log.e("data123"+Integer.toString(tablecount), map1.toString());
                         count = 0;
                         while(true) {
                             try {
@@ -160,7 +166,7 @@ if(count > 0){
                         cursor.moveToNext();
                         if(isCancelled()){ return "false"; }
                     }
-
+                    tablecount++;
                     publishProgress("<br><br>");
                     publishProgress("<b> All Entries Synced for tablename: "+ arg[0] + "_" + arg[1]+"</b>");
                     publishProgress("<br>");
@@ -205,6 +211,7 @@ if(count > 0){
 
 
     public void syncAll(){
+        tablecount = 1;
         if(ss.size() > 0){
             for (AsyncTask sss : ss) {
                 if(sss.getStatus() == Status.PENDING || sss.getStatus() == Status.RUNNING) {
