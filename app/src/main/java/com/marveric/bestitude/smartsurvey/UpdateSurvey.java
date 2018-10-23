@@ -470,12 +470,20 @@ public class UpdateSurvey extends AsyncTask<String, String, String> {
 
         EditText otherdiseases = (EditText) liactivity.getactivityview(R.id.disease_others);
 
+        if(otherdiseases!=null && otherdiseases.length()>0){
+            odiseases = odiseases + otherdiseases.getText().toString();
+        }else{
+            if(odiseases.charAt(odiseases.length() - 1) == ','){
+                odiseases = odiseases.substring(0, odiseases.length() - 1);
+            }
+
+        /*}
         if(otherdiseases.getText().toString().equals("")){
             if(odiseases.charAt(odiseases.length() - 1) == ','){
                 odiseases = odiseases.substring(0, odiseases.length() - 1);
             }
-        }else {
-            odiseases = odiseases + otherdiseases.getText().toString();
+        }else {*/
+
         }
 //        EditText otherdiseases = (EditText) liactivity.getactivityview(R.id.otherdiseases);
 //        String odiseases = otherdiseases.getText().toString();
