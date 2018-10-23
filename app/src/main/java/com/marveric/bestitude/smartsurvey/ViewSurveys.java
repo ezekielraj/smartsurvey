@@ -37,6 +37,9 @@ public class ViewSurveys extends AsyncTask<String, String, String> {
     private static SQLiteDatabase ldb;
     private final static String Surveytablename = "Survey";
     private static SyncSurvey syncSurvey;
+    private static BSyncSurvey bsyncSurvey;
+    private static OSyncSurvey osyncSurvey;
+
 
     //(Boolean.toString(IsAdmin), UserEmailId, cookie, "initial");
     private static Boolean adminstatus;
@@ -55,6 +58,8 @@ public class ViewSurveys extends AsyncTask<String, String, String> {
         ldb = mlDbHelper.getWritableDatabase();
         takeSurvey = new TakeSurvey(liactivity, ldb);
         syncSurvey = new SyncSurvey(liactivity, ldb);
+        bsyncSurvey = new BSyncSurvey(liactivity, ldb);
+        osyncSurvey = new OSyncSurvey(liactivity, ldb);
     }
 
     @Override
@@ -450,5 +455,11 @@ public class ViewSurveys extends AsyncTask<String, String, String> {
 
     public void syncAll(){
         syncSurvey.syncAll();
+    }
+
+    public void syncAllone(){ osyncSurvey.syncAllone(); }
+
+    public void BulkSync(){
+        bsyncSurvey.bulkSyncAll();
     }
 }

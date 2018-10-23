@@ -130,11 +130,11 @@ public class LoggedinActivity extends AppCompatActivity
             setTitle("View Surveys");
             vf.setDisplayedChild(vf.indexOfChild(findViewById(R.id.cl)));
             keepScrollup();
-            if(cauth.getIsAdmin()) {
+            if (cauth.getIsAdmin()) {
                 findViewById(R.id.fab).setVisibility(View.VISIBLE);
                 vsurveys.updateFloatingbutton();
             }
-            vsurveys.fetchAllSurveys(cauth.getIsAdmin(), cauth.getUserEmailid() , cauth.getCookiegotten());
+            vsurveys.fetchAllSurveys(cauth.getIsAdmin(), cauth.getUserEmailid(), cauth.getCookiegotten());
 //        } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_synconline) {
@@ -145,6 +145,27 @@ public class LoggedinActivity extends AppCompatActivity
             } else {
                 Toast.makeText(this,
                         "Phone is offline!!! Not Synced", Toast.LENGTH_SHORT).show();
+
+            }
+        } else if (id == R.id.nav_synconlineone) {
+            if (isOnline()) {
+                setTitle("Syncing All 1");
+                vf.setDisplayedChild(vf.indexOfChild(findViewById(R.id.sa)));
+                vsurveys.syncAllone();
+            } else {
+                Toast.makeText(this,
+                        "Phone is offline!!! Not Synced", Toast.LENGTH_SHORT).show();
+
+            }
+        } else if (id == R.id.nav_bulksync) {
+            if (isOnline()) {
+                setTitle("Bulk Sync");
+                vf.setDisplayedChild(vf.indexOfChild(findViewById(R.id.sa)));
+                vsurveys.BulkSync();
+
+            } else {
+            Toast.makeText(this,
+                    "Phone is offline!!! Not Synced", Toast.LENGTH_SHORT).show();
 
             }
         } else if (id == R.id.nav_daycount) {
